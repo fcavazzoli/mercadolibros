@@ -1,0 +1,31 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend service for MercadoLibros application",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "start:dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fcavazzoli/mercadolibros.git"
+  },
+  "keywords": [
+    "MercadoLibros"
+  ],
+  "author": "fcavazzoli",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fcavazzoli/mercadolibros/issues"
+  },
+  "homepage": "https://github.com/fcavazzoli/mercadolibros#readme",
+  "dependencies": {
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
