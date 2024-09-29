@@ -1,0 +1,44 @@
+services:
+  postgres:
+    image: postgres:10.3
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: mercadolibros
+      POSTGRES_PASSWORD: mercadolibros
+      POSTGRES_DB: mercadolibros
+      POSTGRES_HOST: postgres
+    volumes:
+      - ./scripts/:/docker-entrypoint-initdb.d/
+
+  prisma:
+    image: prismagraphql/prisma:1.34.10
+    restart: always
+    ports:
+      - '4466:4466'
+    environment:
+      PRISMA_CONFIG: |
+        managementApiSecret: thisIsMySecret
+        port: 4466
+        databases:
+          default:
+            connector: postgres
+            host: host.docker.internal
+            port: 5432
+            user: mercadolibros
+            password: mercadolibros
+            connectionLimit: 10
+    depends_on:
+      - postgres
+
+  server:
+    build: 
+      context: ./backend
+    restart: always
+    ports:
+      - '3000:3000'
+    environment:
+      DATABASE_URL: postgresql://mercadolibros:mercadolibros@host.docker.internal:5432/postgres
+    depends_on:
+      - prisma
