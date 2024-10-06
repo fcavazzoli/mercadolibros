@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 export const getUser = async (req, res) => {
     const { userId } = req.params;
 
-    const user = await getUserById(userId);
+    const user = await getUserById(Number(userId));
 
     if (!user) {
         return res.status(404).json({ message: "User not found" });
