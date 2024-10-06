@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node app.js",
     "start:dev": "nodemon app.js",
+    "prisma:migrate": "npx prisma migrate dev --name dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,9 +24,13 @@
   },
   "homepage": "https://github.com/fcavazzoli/mercadolibros#readme",
   "dependencies": {
-    "express": "^4.21.0"
+    "@prisma/client": "^5.20.0",
+    "bcrypt": "^5.1.1",
+    "express": "^4.21.0",
+    "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "prisma": "^5.20.0"
   }
 }
