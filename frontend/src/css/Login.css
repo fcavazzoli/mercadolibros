@@ -1,0 +1,26 @@
+.login-container {
+  width: 270px;
+  margin: 0 auto;
+  padding: 30px 30px 30px 30px;
+  border-radius: 8px;
+  background-color: #3f3f4f;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  text-align: center;
+  align-items: center;
+  align-self: center;
+  display: block;
+}
+
+.form-group {
+  background-color: #3f3f4f;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  color: white;
+  margin-bottom: 8px;
+}
+
