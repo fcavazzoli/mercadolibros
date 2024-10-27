@@ -32,7 +32,7 @@ const LoginForm: React.FC = () => {
             setLoginToken(token);
             navigate("/home");
         } catch (err) {
-            setError("Login failed. Please check your credentials.");
+            setError("Login failed. Please check your credentials. >> " + err);
         } finally {
             setLoading(false);
         }

@@ -8,8 +8,12 @@ Este proyecto consta de dos aplicaciones, una API REST y una aplicación web.  L
 
 ### API REST
 
+Antes de correr la base de datos hay que configurar el .env del backend
+
 ```bash
 docker-compose up -d postgres prisma
+cd backend 
+npm run prisma:migrate
 ```
 
 Luego de que los contenedores estén corriendo, se procede a levantar el servidor de la API REST.
