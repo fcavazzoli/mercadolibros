@@ -8,6 +8,10 @@ COPY package-lock.json .
 
 RUN npm install
 
+COPY prisma ./prisma
+
+RUN npm run prisma:generate 
+
 COPY . .
 
 CMD ["npm", "run", "start"]
