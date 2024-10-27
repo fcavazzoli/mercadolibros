@@ -8,7 +8,7 @@ import Singup from './components/Singup';
 
 function App() {
   const [currentPage, setCurrentPage] = useState("login");
-  setServerSource("localhost:3000/api/");
+  setServerSource("http://localhost:3000/api/");
 
   const handlePageChange = function(page) {
     setCurrentPage(page);
@@ -37,11 +37,12 @@ function App() {
         <button onClick={() => handlePageChange("singup")}>Sing up</button>
         <button onClick={() => handlePageChange("login")}>Login</button>
         <button onClick={() => handlePageChange("index")}>Index</button>
-        <button onClick={() => handlePageChange("other")}>???</button>
       </nav>
       {renderPage()}
     </div>
   );
+  
+  //<button onClick={() => handlePageChange("other")}>???</button>
 }
 
 export default App;

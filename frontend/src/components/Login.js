@@ -13,7 +13,7 @@ function Login() {
 
         try {
             const data = await server.post(
-                "localhost:3000/api/users/login", 
+                "users/login", 
                 { email, password }
             );
         } catch (err) {
