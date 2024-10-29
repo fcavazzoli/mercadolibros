@@ -26,8 +26,9 @@ export async function getBookById(id) {
     });
 }
 
-export async function getAllBooks() {
+export async function getAllBooks(filters) {
     return await prisma.book.findMany({
+        ...filters,
         include: {
             UserBook: {
                 select: {
