@@ -1,12 +1,11 @@
 import bcrypt from "bcrypt";
-import { dbCreateUser, getUserByEmail, getUserById } from "../services/prisma/users.js";
 import jwt from "jsonwebtoken";
 
-
+import { dbCreateUser, getUserByEmail, getUserById } from "../services/prisma/users.js";
 
 export const getUser = async (req, res) => {
     const { userId } = req.params;
-    console.log("getUser request: "+userId);
+    console.log("getUser request: " + userId);
 
     const user = await getUserById(Number(userId));
 
@@ -54,7 +53,7 @@ export const createUser = async (req, res) => {
 
 export const login = async (req, res) => {
     const { email, password } = req.body;
-    console.log("Login request: email(" + email + ") password("+password+")");
+    console.log("Login request: email(" + email + ") password(" + password + ")");
 
     try {
         const user = await getUserByEmail(email);

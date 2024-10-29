@@ -14,10 +14,55 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  password  String
-  name      String?
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  password String
+  name     String?
+
+  UserBook UserBook[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Book {
+  id     Int    @id @default(autoincrement())
+  title  String
+  author String
+
+  BookCategory BookCategory[]
+  UserBook     UserBook[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model UserBook {
+  userId Int
+  bookId Int
+
+  user User @relation(fields: [userId], references: [id])
+  book Book @relation(fields: [bookId], references: [id])
+
+  @@id([userId, bookId])
+}
+
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  BookCategory BookCategory[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BookCategory {
+  bookId     Int
+  categoryId Int
+
+  book     Book     @relation(fields: [bookId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id])
+
+  @@id([bookId, categoryId])
 }
