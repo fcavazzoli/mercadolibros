@@ -10,13 +10,13 @@ function App() {
   const [currentPage, setCurrentPage] = useState("login");
   setServerSource("http://localhost:3000/api/");
 
-  const handlePageChange = function(page) {
+  const handlePageChange = function (page) {
     setCurrentPage(page);
   }
-  const renderPage = function() {
-    switch(currentPage) {
+  const renderPage = function () {
+    switch (currentPage) {
       case "login":
-        return <Login />;
+        return <Login onLoginSuccess={() => handlePageChange("index")} />;
       case "index":
         return <Index />;
       case "singup":
@@ -41,7 +41,7 @@ function App() {
       {renderPage()}
     </div>
   );
-  
+
   //<button onClick={() => handlePageChange("other")}>???</button>
 }
 
