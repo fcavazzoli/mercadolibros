@@ -20,9 +20,7 @@ function Login() {
         }
 
         try {
-            const data = await server.get("users/", {});
-
-            //const data = await server.post( "users/",  { email });
+            const data = await server.post( "users/",  { name, email, password });
         } catch (err) {
             setError("*Invalid email or password. Please try again. Error: "+err);
         }
