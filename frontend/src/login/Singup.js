@@ -1,8 +1,9 @@
 import React, { useState } from "react"
 import * as server from '../helpers/HttpProtocol'
 import '../css/Login.css';
+import { login } from "../services/userService";
 
-function Login() {
+function Singup({ onSuccess }) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -20,7 +21,12 @@ function Login() {
         }
 
         try {
-            const data = await server.post( "users/",  { name, email, password });
+            const data = await server.post("users/",  { name, email, password });
+
+            const token = await login({ email, password });
+            localStorage.setItem('sessionToken', token);
+            
+            onSuccess();
         } catch (err) {
             setError("*Invalid email or password. Please try again. Error: "+err);
         }
@@ -59,4 +65,4 @@ function Login() {
     );
 };
 
-export default Login;
+export default Singup;
