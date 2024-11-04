@@ -19,12 +19,6 @@ function Index() {
     
     identifyMe();
   }, []); // Empty dependency array ensures this runs only once
-
-
-  const identifyMe = async (e) => {
-    const data = await server.get("users/me", {});
-    setName(data.user.name ?? "Anon");
-  };
   
   return (
     <div className="App max-height-possible">
