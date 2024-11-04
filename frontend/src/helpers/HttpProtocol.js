@@ -21,8 +21,6 @@ export async function get(url, body) {
     return await makeCall(url, call);
 };
 
-
-
 function newCall(values) {
     return {
         ...values,
