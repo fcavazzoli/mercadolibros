@@ -3,22 +3,10 @@ import logo from '../css/logo.svg';
 import '../css/App.css';
 import * as server from '../helpers/HttpProtocol'
 
-function Index() {
+function Render() {
   const [name, setName] = useState("...");
 
-   // Use useEffect to run identifyMe only once on component mount
-   useEffect(() => {
-    const identifyMe = async () => {
-      try {
-        const data = await server.get("users/me", {});
-        setName(data.user?.name ?? "Guest");
-      } catch (error) {
-        console.error("Error fetching user:", error);
-      }
-    };
-    
-    identifyMe();
-  }, []); // Empty dependency array ensures this runs only once
+   useEffect(() => { identifyMe(setName); }, []);
   
   return (
     <div className="App max-height-possible">
@@ -33,9 +21,22 @@ function Index() {
         </a>
 
         <p>Hello { name }</p>
+
+        <button >Libro nuevo</button>
       </header>
     </div>
   );
 }
 
-export default Index;
+async function identifyMe(setName) {
+  try {
+    const data = await server.get("users/me", {});
+    
+    setName(data.user?.name ?? "Guest");
+
+  } catch (error) {
+    console.error("Error fetching user:", error);
+  }
+};
+
+export default Render;

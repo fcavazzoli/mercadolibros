@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../css/Header.css';
 
 import Index from './Index';
+import ListadoLibros from './libros/List';
 
 function Render() {
   const [currentPage, setCurrentPage] = useState("index");
@@ -19,6 +20,8 @@ function Render() {
     switch (currentPage) {
       case "index":
         return <Index />;
+      case "libros":
+        return <ListadoLibros />;
     };
 
     return (
@@ -32,7 +35,8 @@ function Render() {
   return (
     <div>
       <nav>
-        <button onClick={() => handlePageChange("index")}>Index</button>
+        <button onClick={() => handlePageChange("index")}>Home</button>
+        <button onClick={() => handlePageChange("libros")}>Libros</button>
         <button onClick={() => signOut()}>SignOut</button>
       </nav>
       {renderPage()}
