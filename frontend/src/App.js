@@ -13,8 +13,7 @@ function App() {
       return <PageGlobal />;
     return <LoginGlobal />;
   }
-
-
+  
   return (
     <div>
       {renderPage()}

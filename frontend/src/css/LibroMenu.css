@@ -1,0 +1,43 @@
+.libro-menu-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #54546c; 
+}
+
+.libro-menu-box {
+    width: 270px; 
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 8px;
+    background-color: #3f3f4f; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    text-align: center;
+    display: block;
+}
+
+.libro-menu-box h2 {
+    color: white; 
+    margin-bottom: 20px;
+}
+
+.libro-menu-box button {
+    display: block;
+    width: 100%; 
+    margin: 10px 0; 
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff; 
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.libro-menu-box button:hover {
+    background-color: #0056b3; 
+}
+
