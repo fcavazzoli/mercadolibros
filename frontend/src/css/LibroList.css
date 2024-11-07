@@ -1,0 +1,64 @@
+/* LibroList.css */
+.libro-list-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.libro-list-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.libro-list-container input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.libro-list-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.libro-list-container li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.libro-list-container li span {
+    color: #333;
+    font-weight: bold;
+}
+
+.libro-list-container button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.libro-list-container button:hover {
+    background-color: #0056b3;
+}
+
+.libro-list-container .delete-button {
+    background-color: #dc3545;
+}
+
+.libro-list-container .delete-button:hover {
+    background-color: #c82333;
+}

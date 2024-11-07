@@ -1,23 +1,51 @@
 import React from 'react';
-import { setServerSource } from './helpers/HttpProtocol'
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { setServerSource } from './helpers/HttpProtocol';
 
 import LoginGlobal from './login/Global';
 import PageGlobal from './components/Global';
+import AddBook from './components/libros/AddBook';
+import LibroMenu from './components/libros/Menu';
+import EditBook from './components/libros/EditBook';
+import LibroList from './components/libros/LibroList';
 
 function App() {
+  // Configurar la fuente del servidor
   setServerSource("http://localhost:3000/api/");
 
-  const renderPage = function () {
-    const token = localStorage.getItem('sessionToken');
-    if (token) 
-      return <PageGlobal />;
-    return <LoginGlobal />;
-  }
-  
+  // Verificar si el usuario está autenticado
+  const isAuthenticated = Boolean(localStorage.getItem('sessionToken'));
+
   return (
-    <div>
-      {renderPage()}
-    </div>
+    <Router>
+      <div>
+        <Routes>
+          {/* Ruta principal (Home) */}
+          <Route path="/" element={isAuthenticated ? <PageGlobal /> : <LoginGlobal />} />
+
+          {/* Rutas exclusivas para funcionalidades adicionales */}
+          <Route
+            path="/add-book"
+            element={isAuthenticated ? <AddBook /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/menu"
+            element={isAuthenticated ? <LibroMenu /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/edit-book/:bookId"
+            element={isAuthenticated ? <EditBook /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/books"
+            element={isAuthenticated ? <LibroList /> : <Navigate to="/" />}
+          />
+
+          {/* Redirigir cualquier ruta desconocida a la ruta de inicio */}
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
