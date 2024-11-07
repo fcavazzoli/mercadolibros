@@ -17,4 +17,11 @@ const getBookById = async (id) => {
     return response;
 };
 
-export { createBook, deleteBook, getBookById };
+const getAllBooks = async (filters = {}) => { 
+    const query = new URLSearchParams(filters).toString(); 
+    const response = await backend.get(`/libros?${query}`); 
+return response; 
+};
+
+
+export { createBook, deleteBook, getBookById, getAllBooks};
