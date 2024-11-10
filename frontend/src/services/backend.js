@@ -13,10 +13,23 @@ export class Backend {
     }
 
     async get(endpoint) {
-        return this.#fetchRequest(endpoint);
+        var headers = {};
+        const token = localStorage.getItem('sessionToken');
+        if (token) headers.authorization = "token " + token;
+
+        return this.#fetchRequest(endpoint, {
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json',
+                ...headers
+            }
+        });
     }
 
     async post(endpoint, body = {}, headers = {}) {
+        const token = localStorage.getItem('sessionToken');
+        if (token) headers.authorization = "token " + token;
+
         return this.#fetchRequest(endpoint, {
             method: 'POST',
             headers: {
@@ -28,6 +41,9 @@ export class Backend {
     }
 
     async patch(endpoint, body = {}, headers = {}) {
+        const token = localStorage.getItem('sessionToken');
+        if (token) headers.authorization = "token " + token;
+
         return this.#fetchRequest(endpoint, {
             method: 'PATCH',
             headers: {

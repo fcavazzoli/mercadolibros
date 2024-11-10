@@ -1,49 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../css/Header.css';
+import { useNavigate } from 'react-router-dom';
 
-import Index from './Index';
-import LibrosMenu from './libros/Menu';
 
-function Render() {
-  const [currentPage, setCurrentPage] = useState("index");
-
-  const handlePageChange = function (page) {
-    setCurrentPage(page);
-  };
+function Render({ children }) {
+  const navigate = useNavigate();
 
   const signOut = function () {
     localStorage.removeItem('sessionToken');
     window.location.replace('');
   };
 
-  const renderPage = function () {
-    switch (currentPage) {
-      case "index":
-        return <Index />;
-      case "libros":
-        return <LibrosMenu />;
-    };
-
-    return (
-      <div class="max-height-possible">
-        <label>This page is not valid</label>
-      </div>
-    );
-  };
-
-
   return (
-    <div>
+    <div className="general">
       <nav>
-        <button onClick={() => handlePageChange("index")}>Home</button>
-        <button onClick={() => handlePageChange("libros")}>Libros</button>
-        <button onClick={() => signOut()}>SignOut</button>
+          <button onClick={() => navigate('/')}>Home</button>
+          <button onClick={() => navigate('/menu')}>Libros</button>
+          <button onClick={() => signOut()}>SignOut</button>
       </nav>
-      {renderPage()}
+      {children}
     </div>
   );
-
-  //<button onClick={() => handlePageChange("other")}>???</button>
 }
 
 export default Render;

@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react"
 import logo from '../css/logo.svg';
 import '../css/App.css';
-import * as server from '../helpers/HttpProtocol'
+import Global from './Global'
+import { Backend } from '../services/backend'; // Importar la instancia de Backend directamente
 
 function Render() {
   const [name, setName] = useState("...");
+  const server = new Backend(); // Instanciar Backend para realizar la solicitud
 
-   useEffect(() => { identifyMe(setName); }, []);
+   useEffect(() => { identifyMe(server, setName); }, []);
   
   return (
-    <div className="App max-height-possible">
+    <Global>
+      <div className="App max-height-possible">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -24,13 +27,14 @@ function Render() {
 
         <button >Libro nuevo</button>
       </header>
-    </div>
+      </div>
+    </Global>
   );
 }
 
-async function identifyMe(setName) {
+async function identifyMe(server, setName) {
   try {
-    const data = await server.get("users/me", {});
+    const data = await server.get("/users/me", {});
     
     setName(data.user?.name ?? "Guest");
 

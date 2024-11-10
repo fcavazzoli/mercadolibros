@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteBook } from '../../services/LibroService';
 import { Backend } from '../../services/backend';
+import Global from '../Global';
 
 const LibroList = () => {
     const [books, setBooks] = useState([]);
@@ -45,7 +46,7 @@ const LibroList = () => {
         book.author.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    return (
+    return (<Global>
         <div className="libro-list-container">
             <h2>Lista de Libros</h2>
             <input
@@ -64,7 +65,7 @@ const LibroList = () => {
                 ))}
             </ul>
         </div>
-    );
+    </Global>);
 };
 
 export default LibroList;

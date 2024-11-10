@@ -1,18 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { setServerSource } from './helpers/HttpProtocol';
 
-import LoginGlobal from './login/Global';
-import PageGlobal from './components/Global';
 import AddBook from './components/libros/AddBook';
 import LibroMenu from './components/libros/Menu';
 import EditBook from './components/libros/EditBook';
 import LibroList from './components/libros/LibroList';
+import LoginGlobal from './login/Global';
+import PageGlobal from './components/Index';
 
 function App() {
-  // Configurar la fuente del servidor
-  setServerSource("http://localhost:3000/api/");
-
   // Verificar si el usuario está autenticado
   const isAuthenticated = Boolean(localStorage.getItem('sessionToken'));
 

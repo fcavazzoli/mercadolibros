@@ -1,20 +1,29 @@
 // AddBook.js
 import React, { useState } from 'react';
-import '../../css/AddBook.css';
+import '../../css/LibroMenu.css';
+import Global from '../Global';
+import { Backend } from '../../services/backend';
 
 const AddBook = () => {
+    const server = new Backend();
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [category, setCategory] = useState('Ficción');
 
-    const handleAddBook = (e) => {
+    const handleAddBook = async (e) => {
         e.preventDefault();
-        console.log('Libro agregado:', { title, author, category });
-        alert('Libro agregado correctamente');
+
+        try {
+            const data = await server.post('/books/', { title, author, category });
+            alert('Libro agregado correctamente. ' + data);
+        } catch (err) {
+            alert('Fallo: ' + err);
+        }
     };
 
-    return (
-        <div className="add-book-container">
+    return (<Global>
+        <div className="libro-menu-container">
+        <div className='libro-menu-box'>
             <h2>Agregar Nuevo Libro</h2>
             <form onSubmit={handleAddBook}>
                 <label>Título:</label>
@@ -45,7 +54,8 @@ const AddBook = () => {
                 <button type="submit">Agregar Libro</button>
             </form>
         </div>
-    );
+        </div>
+    </Global>);
 };
 
 export default AddBook;

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import '../css/Header.css';
-import { setServerSource } from '../helpers/HttpProtocol'
 
 import Login from './Login';
 import Singup from './Singup';
@@ -8,7 +7,6 @@ import SingupSucess from './SingInSuccess';
 
 function Render() {
   const [currentPage, setCurrentPage] = useState("login");
-  setServerSource("http://localhost:3000/api/");
 
   const handlePageChange = function (page) {
     setCurrentPage(page);
@@ -32,7 +30,7 @@ function Render() {
   };
 
   return (
-    <div>
+    <div className="dark">
       <nav>
         <button onClick={() => handlePageChange("singup")}>Sing up</button>
         <button onClick={() => handlePageChange("login")}>Login</button>
