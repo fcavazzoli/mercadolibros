@@ -1,62 +1,102 @@
-/* AddBook.css */
-.max-height-possible {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f5f5f5;
-}
+/* App.css */
 
-.add-book-container {
-    background-color: #fff;
-    padding: 20px;
+/* Definición de la paleta de colores */
+:root {
+    --color-caribbean-current: #336B6F;
+    --color-raisin-black: #30252E;
+    --color-space-cadet: #131632;
+    --color-tangerine: #F28D30;
+    --color-dun: #D3C5AA;
+    --color-fire-engine-red: #D51F1B;
+  
+    --font-family: 'Arial', sans-serif; /* Cambiar si prefieres otra fuente */
+  }
+  
+  /* Estilos globales */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family);
+    background-color: var(--color-space-cadet); /* Fondo principal oscuro */
+    color: var(--color-dun); /* Color de texto general */
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-tangerine); /* Encabezados destacados */
+    margin: 0;
+    padding: 0;
+  }
+  
+  p {
+    margin: 0;
+    padding: 0;
+    color: var(--color-dun); /* Color general del texto */
+  }
+  
+  /* Enlaces */
+  a {
+    text-decoration: none;
+    color: var(--color-caribbean-current); /* Color del enlace */
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    color: var(--color-tangerine); /* Cambio de color al pasar el mouse */
+  }
+  
+  /* Botones */
+  button {
+    font-family: var(--font-family);
+    font-weight: bold;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
-    width: 90%;
-}
-
-.add-book-container h2 {
-    text-align: center;
-    color: #333;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    font-weight: bold;
-    color: #333;
-}
-
-.form-group input, .form-group select {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-}
-
-button[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
     border: none;
-    border-radius: 4px;
+    padding: 10px 20px;
+    background-color: var(--color-fire-engine-red);
+    color: white;
     cursor: pointer;
-    font-weight: bold;
-}
-
-button[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
-.error-message {
-    color: red;
-    font-size: 0.9em;
-    margin-top: -10px;
-    margin-bottom: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  button:hover {
+    background-color: var(--color-tangerine);
+    transform: scale(1.05); /* Efecto de ampliación */
+  }
+  
+  /* Encabezado principal */
+  .App-header {
+    background-color: var(--color-raisin-black); /* Fondo del encabezado */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: var(--color-dun);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra */
+  }
+  
+  .App-header h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .App-header p {
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+  
+  /* Contenedor principal */
+  .App {
     text-align: center;
-}
+  }
+  
+  /* Diseño responsivo */
+  @media (max-width: 768px) {
+    body {
+      font-size: 90%;
+    }
+  
+    .App-header h1 {
+      font-size: 1.5rem;
+    }
+  }
+  

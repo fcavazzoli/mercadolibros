@@ -1,15 +1,17 @@
 // AddBook.js
 import React, { useState } from 'react';
 import '../../css/AddBook.css';
+import { createBook } from '../../services/LibroService';
 
 const AddBook = () => {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [category, setCategory] = useState('Ficción');
 
-    const handleAddBook = (e) => {
+    const handleAddBook = async(e) => {
         e.preventDefault();
-        console.log('Libro agregado:', { title, author, category });
+        const book = await createBook ({ title, author, categories : [category] });
+        console.log('Libro agregado:', book);
         alert('Libro agregado correctamente');
     };
 

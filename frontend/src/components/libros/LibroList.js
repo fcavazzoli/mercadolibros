@@ -1,7 +1,7 @@
 // LibroList.js
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { deleteBook } from '../../services/LibroService';
+import { deleteBook ,getBooks } from '../../services/LibroService';
 import { Backend } from '../../services/backend';
 
 const LibroList = () => {
@@ -13,8 +13,9 @@ const LibroList = () => {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await backend.get('/books');
-                setBooks(response.data || []);
+                const response = await getBooks();
+                console.log(response);
+                setBooks(response || []);
             } catch (error) {
                 console.error('Error al cargar libros:', error);
                 setBooks([]);
