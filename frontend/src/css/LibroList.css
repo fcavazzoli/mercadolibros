@@ -1,64 +1,77 @@
-/* LibroList.css */
 .libro-list-container {
     padding: 20px;
-    max-width: 800px;
+    background-color: #3f3f4f;
+    border-radius: 8px;
+    color: #f0f0f0;
+    max-width: 800px; /* Aumentado para más espacio */
     margin: 0 auto;
 }
 
-.libro-list-container h2 {
+.libro-list-title {
+    font-size: 28px; /* Aumentado para mayor visibilidad */
+    color: #f39c12;
     text-align: center;
-    color: #333;
     margin-bottom: 20px;
 }
 
-.libro-list-container input[type="text"] {
+.search-bar {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 20px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
+    padding: 12px; /* Aumentado para hacer más grande */
+    font-size: 16px; /* Más legible */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 30px; /* Más espacio debajo */
 }
 
-.libro-list-container ul {
-    list-style-type: none;
+.libro-list {
+    list-style: none;
     padding: 0;
+    margin: 0;
 }
 
-.libro-list-container li {
+.libro-item {
+    background-color: #54546c;
+    padding: 20px; /* Más relleno interno */
+    border-radius: 10px;
+    margin-bottom: 15px; /* Más espacio entre los elementos */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px;
-    background-color: #f9f9f9;
-    margin-bottom: 10px;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 18px; /* Aumentado para mejor visibilidad */
 }
 
-.libro-list-container li span {
-    color: #333;
-    font-weight: bold;
+.libro-info {
+    flex: 1;
+    margin-right: 20px;
+    line-height: 1.8; /* Más espacio entre líneas */
 }
 
-.libro-list-container button {
-    background-color: #007bff;
-    color: white;
-    padding: 8px 12px;
+.buttons-container {
+    display: flex;
+    gap: 15px; /* Más separación entre botones */
+}
+
+.modify-btn, .delete-btn {
+    padding: 12px 20px; /* Botones más grandes */
+    font-size: 16px; /* Más grande */
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
-    margin-left: 10px;
+    color: #fff;
 }
 
-.libro-list-container button:hover {
-    background-color: #0056b3;
+.modify-btn {
+    background-color: #3498db;
 }
 
-.libro-list-container .delete-button {
-    background-color: #dc3545;
+.modify-btn:hover {
+    background-color: #2980b9;
 }
 
-.libro-list-container .delete-button:hover {
-    background-color: #c82333;
+.delete-btn {
+    background-color: #e74c3c;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
 }

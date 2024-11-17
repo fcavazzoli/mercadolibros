@@ -1,14 +1,12 @@
-// LibroList.js
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { deleteBook ,getBooks } from '../../services/LibroService';
-import { Backend } from '../../services/backend';
+import { deleteBook, getBooks } from '../../services/LibroService';
+import '../../css/LibroList.css';
 
 const LibroList = () => {
     const [books, setBooks] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
-    const backend = new Backend();
 
     useEffect(() => {
         const fetchBooks = async () => {
@@ -42,25 +40,45 @@ const LibroList = () => {
     };
 
     const filteredBooks = books.filter(book =>
-        book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        book.author.toLowerCase().includes(searchTerm.toLowerCase())
+        (book.title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (book.author || '').toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
         <div className="libro-list-container">
-            <h2>Lista de Libros</h2>
+            <h2 className="libro-list-title">Lista de Libros</h2>
             <input
                 type="text"
                 placeholder="Buscar por título o autor"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-bar"
             />
-            <ul>
+            <ul className="libro-list">
                 {filteredBooks.map(book => (
-                    <li key={book.id}>
-                        <span>{book.title} - {book.author}</span>
-                        <button onClick={() => handleEdit(book.id)}>Modificar</button>
-                        <button onClick={() => handleDelete(book.id)}>Eliminar</button>
+                    <li key={book.id} className="libro-item">
+                        <div className="libro-info">
+                            <p><strong>Libro:</strong> {book.title || 'Sin título'}</p>
+                            <p><strong>Autor:</strong> {book.author || 'Sin autor'}</p>
+                            <p>
+                                <strong>Categoría:</strong>{' '}
+                                {Array.isArray(book.categories) ? book.categories.join(', ') : 'Sin categoría'}
+                            </p>
+                        </div>
+                        <div className="buttons-container">
+                            <button
+                                className="modify-btn"
+                                onClick={() => handleEdit(book.id)}
+                            >
+                                Modificar
+                            </button>
+                            <button
+                                className="delete-btn"
+                                onClick={() => handleDelete(book.id)}
+                            >
+                                Eliminar
+                            </button>
+                        </div>
                     </li>
                 ))}
             </ul>

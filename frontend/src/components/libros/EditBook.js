@@ -1,65 +1,91 @@
-// EditBook.js
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getBookById } from '../../services/LibroService';
-import { Backend } from '../../services/backend'; // Importar la instancia de Backend directamente
+import { getBookById, updateBook } from '../../services/LibroService';
 import '../../css/EditBook.css';
 
 const EditBook = () => {
     const { bookId } = useParams();
     const navigate = useNavigate();
-    const [bookData, setBookData] = useState({ title: '', author: '', categories: '' });
-    const backend = new Backend(); // Instanciar Backend para realizar la solicitud
+    const [title, setTitle] = useState('');
+    const [author, setAuthor] = useState('');
+    const [category, setCategory] = useState('Ficción');
 
     useEffect(() => {
         const fetchBook = async () => {
             try {
-                const response = await getBookById(bookId);
-                setBookData(response.data);
+                const book = await getBookById(bookId);
+                setTitle(book.title || '');
+                setAuthor(book.author || '');
+                setCategory(book.categories[0] || 'Ficción');
             } catch (error) {
                 console.error('Error al cargar el libro:', error);
+                alert('No se pudo cargar la información del libro.');
             }
         };
         fetchBook();
     }, [bookId]);
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setBookData({ ...bookData, [name]: value });
-    };
-
-    const handleSubmit = async (e) => {
+    const handleUpdateBook = async (e) => {
         e.preventDefault();
         try {
-            // Llamada directa para actualizar el libro usando Backend
-            await backend.patch(`/books/${bookId}`, bookData);
-            alert('Libro actualizado exitosamente');
-            navigate('/menu');
+            await updateBook(bookId, { title, author, categories: [category] });
+            alert('Libro actualizado correctamente');
+            navigate('/menu'); // Redirige a la página de gestión de libros
         } catch (error) {
             console.error('Error al actualizar el libro:', error);
             alert('Error al actualizar el libro. Intente nuevamente más tarde.');
         }
     };
 
+    const handleCancel = () => {
+        navigate('/menu'); // Redirige a la página de gestión de libros
+    };
+
     return (
         <div className="edit-book-container">
             <h2>Modificar Libro</h2>
-            <form onSubmit={handleSubmit}>
-                <label>Título del libro:</label>
-                <input type="text" name="title" value={bookData.title} onChange={handleInputChange} required />
+            <form onSubmit={handleUpdateBook}>
+                <label>Título:</label>
+                <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    required
+                />
 
-                <label>Autor del libro:</label>
-                <input type="text" name="author" value={bookData.author} onChange={handleInputChange} required />
+                <label>Autor:</label>
+                <input
+                    type="text"
+                    value={author}
+                    onChange={(e) => setAuthor(e.target.value)}
+                    required
+                />
 
                 <label>Categoría:</label>
-                <select name="categories" value={bookData.categories} onChange={handleInputChange} required>
+                <select
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    required
+                >
                     <option value="Ficción">Ficción</option>
                     <option value="No Ficción">No Ficción</option>
-                    {/* otras opciones */}
+                    <option value="Ciencia Ficción">Ciencia Ficción</option>
+                    <option value="Fantasía">Fantasía</option>
+                    <option value="Historia">Historia</option>
                 </select>
 
-                <button type="submit">Guardar Cambios</button>
-                <button type="button" onClick={() => navigate('/menu')}>Cancelar</button>
+                <div className="form-buttons">
+                    <button type="submit" className="save-btn">
+                        Guardar Cambios
+                    </button>
+                    <button
+                        type="button"
+                        className="cancel-btn"
+                        onClick={handleCancel}
+                    >
+                        Cancelar
+                    </button>
+                </div>
             </form>
         </div>
     );

@@ -1,79 +1,64 @@
-/* AddBook.css y EditBook.css */
-.add-book-fullscreen,
-.edit-book-fullscreen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f5f5f5;
-}
-
-.add-book-container,
 .edit-book-container {
-    background-color: #fff;
+    background-color: #30252E; /* Fondo oscuro */
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 90%;
-    max-width: 400px;
+    border-radius: 10px;
+    width: 400px;
+    margin: 50px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: #FFFFFF;
 }
 
-.add-book-container h2,
 .edit-book-container h2 {
+    color: #F28D30; /* Naranja */
     text-align: center;
-    color: #333;
     margin-bottom: 20px;
 }
 
-.add-book-form label,
-.edit-book-form label {
+.edit-book-container form label {
+    display: block;
+    margin: 10px 0 5px;
     font-weight: bold;
-    color: #333;
+    color: #D3C5AA; /* Beige */
 }
 
-.add-book-form input,
-.edit-book-form input,
-.add-book-form select,
-.edit-book-form select {
+.edit-book-container form input,
+.edit-book-container form select {
     width: 100%;
     padding: 8px;
-    margin: 8px 0;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #D3C5AA; /* Beige */
+    background-color: #131632; /* Fondo oscuro del input */
+    color: #FFFFFF; /* Texto blanco */
+    margin-bottom: 15px;
 }
 
-.form-buttons {
+.edit-book-container .form-buttons {
     display: flex;
     justify-content: space-between;
 }
 
-.add-book-button,
-.edit-book-button {
-    background-color: #28a745;
+.edit-book-container .form-buttons .save-btn {
+    background-color: #336B6F; /* Verde */
     color: white;
-    padding: 10px 20px;
     border: none;
-    border-radius: 4px;
+    padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
-    font-weight: bold;
 }
 
-.cancel-button {
-    background-color: #dc3545;
+.edit-book-container .form-buttons .cancel-btn {
+    background-color: #D51F1B; /* Rojo */
     color: white;
-    padding: 10px 20px;
     border: none;
-    border-radius: 4px;
+    padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
-    font-weight: bold;
 }
 
-.add-book-button:hover,
-.edit-book-button:hover {
-    background-color: #218838;
+.edit-book-container .form-buttons .save-btn:hover {
+    background-color: #28595C; /* Verde oscuro */
 }
 
-.cancel-button:hover {
-    background-color: #c82333;
+.edit-book-container .form-buttons .cancel-btn:hover {
+    background-color: #B01713; /* Rojo oscuro */
 }
