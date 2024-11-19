@@ -48,6 +48,7 @@ const LibroList = () => {
     return (<Header>
         <div className="libro-list-container">
             <h2 className="libro-list-title">Lista de Libros</h2>
+            <button onClick={() => navigate('/add-book')}>Agregar libro</button>
             <input
                 type="text"
                 placeholder="Buscar por título o autor"

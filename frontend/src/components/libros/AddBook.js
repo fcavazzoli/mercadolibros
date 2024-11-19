@@ -15,10 +15,11 @@ const AddBook = () => {
         const book = await createBook({ title, author, categories: [category] });
         console.log('Libro agregado:', book);
         alert('Libro agregado correctamente');
+        navigate('/books');
     };
 
     const handleCancel = () => {
-        navigate('/menu'); // Redirige a la página de gestión de libros
+        navigate('/books'); // Redirige a la página de gestión de libros
     };
 
     return (<Header>
