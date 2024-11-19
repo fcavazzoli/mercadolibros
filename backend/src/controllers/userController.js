@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-import { dbCreateUser, getUserByEmail, getUserById } from "../services/prisma/users.js";
+import { dbCreateUser, getUserByEmail, getUserById, updateUser } from "../services/prisma/users.js";
 
 export const getUser = async (req, res) => {
     const { userId } = req.params;
@@ -115,3 +115,12 @@ export const getMe = async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 };
+
+export const updateUserInfo = async (req, res) => {
+    const { user } = req;
+    const { userInfo } = req.body;
+
+    const { password, ...updatedInfo } = await updateUser(user.id, userInfo)
+
+    return res.status(200).json({ message: updatedInfo })
+}
