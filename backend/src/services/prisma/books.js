@@ -49,3 +49,12 @@ export async function deleteBook(id) {
         where: { id },
     });
 }
+
+export async function getUserBook(userId, bookId) {
+    return await prisma.userBook.findFirst({
+        where: {
+            userId,
+            bookId
+        }
+    })
+}

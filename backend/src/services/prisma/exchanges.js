@@ -52,3 +52,29 @@ export const rejectProposal = async (exchangeProposalId) => {
         }
     })
 }
+
+
+export const updateProposal = async (userId, oldBookId, newBookId) => {
+    return await prisma.exchangeProposal.updateMany({
+        where: {
+            AND: {
+                proposerUserId: userId,
+                proposedBookId: oldBookId
+            }
+        },
+        data: {
+            proposedBookId: newBookId
+        }
+    });
+
+}
+
+export const userIsBeingAsked = async (bookId) => {
+    const asks = await prisma.exchangeProposal.findMany({
+        where: {
+            askedBookId: bookId
+        }
+    })
+
+    return asks.length !== 0
+}
