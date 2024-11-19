@@ -33,6 +33,8 @@ export const updateUser = async (userId, userInfo) => {
 
     const email = userInfo.email || user.email
     const name = userInfo.name || user.name
+    const address = userInfo.address || user.address
+    const phoneNumber = userInfo.phoneNumber || user.phoneNumber
 
     const update = await db.user.update({
         where: {
@@ -40,7 +42,9 @@ export const updateUser = async (userId, userInfo) => {
         },
         data: {
             email: email,
-            name: name
+            name: name,
+            address: address,
+            phoneNumber: phoneNumber
         }
     })
 

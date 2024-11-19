@@ -22,7 +22,7 @@ export const getUser = async (req, res) => {
 };
 
 export const createUser = async (req, res) => {
-    const { email, password, name } = req.body;
+    const { email, password, name, address, phoneNumber } = req.body;
 
     if (!email || !password) {
         return res.status(400).send({
@@ -34,7 +34,7 @@ export const createUser = async (req, res) => {
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-        const user = await dbCreateUser({ email, password: hashedPassword, name });
+        const user = await dbCreateUser({ email, password: hashedPassword, name, address, phoneNumber });
 
         const { password: _, ...userWithoutPassword } = user;
 
