@@ -7,3 +7,12 @@ export const createUserBook = async (data) => {
         data,
     });
 };
+
+export const getUserBook = async (userId, bookId) => {
+    return await prisma.userBook.findFirst({
+        where: {
+            userId,
+            bookId
+        }
+    })
+}
