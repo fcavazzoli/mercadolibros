@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import '../../css/AddBook.css';
 import { createBook } from '../../services/LibroService';
+import Header from '../Header'
+import { useNavigate } from 'react-router-dom';
 
 const AddBook = () => {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [category, setCategory] = useState('Ficción');
+    const navigate = useNavigate();
 
     const handleAddBook = async (e) => {
         e.preventDefault();
@@ -15,10 +18,10 @@ const AddBook = () => {
     };
 
     const handleCancel = () => {
-        window.location.href = '/menu'; // Redirige a la página de gestión de libros
+        navigate('/menu'); // Redirige a la página de gestión de libros
     };
 
-    return (
+    return (<Header>
         <div className="add-book-container">
             <h2>Agregar Nuevo Libro</h2>
             <form onSubmit={handleAddBook}>
@@ -65,7 +68,7 @@ const AddBook = () => {
                 </div>
             </form>
         </div>
-    );
+    </Header>);
 };
 
 export default AddBook;

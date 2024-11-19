@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import { setServerSource } from './helpers/HttpProtocol';
 
 import LoginGlobal from './login/Global';
-import PageGlobal from './components/Global';
+import PageGlobal from './components/Index';
 import AddBook from './components/libros/AddBook';
 import LibroMenu from './components/libros/Menu';
 import EditBook from './components/libros/EditBook';
