@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getBookById, updateBook } from '../../services/LibroService';
 import '../../css/EditBook.css';
+import Header from '../Header'
 
 const EditBook = () => {
     const { bookId } = useParams();
@@ -41,7 +42,7 @@ const EditBook = () => {
         navigate('/menu'); // Redirige a la página de gestión de libros
     };
 
-    return (
+    return (<Header>
         <div className="edit-book-container">
             <h2>Modificar Libro</h2>
             <form onSubmit={handleUpdateBook}>
@@ -88,7 +89,7 @@ const EditBook = () => {
                 </div>
             </form>
         </div>
-    );
+    </Header>);
 };
 
 export default EditBook;

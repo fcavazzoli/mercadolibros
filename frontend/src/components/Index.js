@@ -2,13 +2,14 @@ import { useState, useEffect } from "react"
 import logo from '../css/logo.svg';
 import '../css/App.css';
 import * as server from '../helpers/HttpProtocol'
+import Header from './Header'
 
 function Render() {
   const [name, setName] = useState("...");
 
    useEffect(() => { identifyMe(setName); }, []);
   
-  return (
+  return (<Header>
     <div className="App max-height-possible">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
@@ -25,7 +26,7 @@ function Render() {
         <button >Libro nuevo</button>
       </header>
     </div>
-  );
+  </Header>);
 }
 
 async function identifyMe(setName) {

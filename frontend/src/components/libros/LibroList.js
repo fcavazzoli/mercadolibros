@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteBook, getBooks } from '../../services/LibroService';
 import '../../css/LibroList.css';
+import Header from '../Header'
 
 const LibroList = () => {
     const [books, setBooks] = useState([]);
@@ -44,7 +45,7 @@ const LibroList = () => {
         (book.author || '').toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    return (
+    return (<Header>
         <div className="libro-list-container">
             <h2 className="libro-list-title">Lista de Libros</h2>
             <input
@@ -83,7 +84,7 @@ const LibroList = () => {
                 ))}
             </ul>
         </div>
-    );
+    </Header>);
 };
 
 export default LibroList;
