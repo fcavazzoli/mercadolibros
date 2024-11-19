@@ -12,9 +12,9 @@ export class Backend {
         return response.json();
     }
 
-    async get(endpoint) {
+    async get(endpoint, headers = {}) {
         headers['authorization'] = localStorage.getItem('sessionToken')
-        return this.#fetchRequest(endpoint);
+        return this.#fetchRequest(endpoint, { headers });
     }
 
     async post(endpoint, body = {}, headers = {}) {
