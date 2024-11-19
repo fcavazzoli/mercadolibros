@@ -1,0 +1,64 @@
+.edit-book-container {
+    background-color: #30252E; /* Fondo oscuro */
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    margin: 50px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: #FFFFFF;
+}
+
+.edit-book-container h2 {
+    color: #F28D30; /* Naranja */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.edit-book-container form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+    color: #D3C5AA; /* Beige */
+}
+
+.edit-book-container form input,
+.edit-book-container form select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #D3C5AA; /* Beige */
+    background-color: #131632; /* Fondo oscuro del input */
+    color: #FFFFFF; /* Texto blanco */
+    margin-bottom: 15px;
+}
+
+.edit-book-container .form-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-book-container .form-buttons .save-btn {
+    background-color: #336B6F; /* Verde */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-book-container .form-buttons .cancel-btn {
+    background-color: #D51F1B; /* Rojo */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-book-container .form-buttons .save-btn:hover {
+    background-color: #28595C; /* Verde oscuro */
+}
+
+.edit-book-container .form-buttons .cancel-btn:hover {
+    background-color: #B01713; /* Rojo oscuro */
+}

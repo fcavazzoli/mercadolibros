@@ -34,6 +34,9 @@ docker-compose up -d server
 
 ```bash
 cd frontend
-npm install 
+npm install
+
+npm install react-router-dom
+ 
 npm run start
 ```

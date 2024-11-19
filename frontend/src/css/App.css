@@ -1,37 +1,101 @@
-.App {
-  text-align: center;
+/* App.css */
+
+/* Definición de la paleta de colores */
+:root {
+  --color-caribbean-current: #336B6F;
+  --color-raisin-black: #30252E;
+  --color-space-cadet: #131632;
+  --color-tangerine: #F28D30;
+  --color-dun: #D3C5AA;
+  --color-fire-engine-red: #D51F1B;
+
+  --font-family: 'Arial', sans-serif; /* Cambiar si prefieres otra fuente */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Estilos globales */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  background-color: var(--color-space-cadet); /* Fondo principal oscuro */
+  color: var(--color-dun); /* Color de texto general */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-tangerine); /* Encabezados destacados */
+  margin: 0;
+  padding: 0;
 }
 
+p {
+  margin: 0;
+  padding: 0;
+  color: var(--color-dun); /* Color general del texto */
+}
+
+/* Enlaces */
+a {
+  text-decoration: none;
+  color: var(--color-caribbean-current); /* Color del enlace */
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--color-tangerine); /* Cambio de color al pasar el mouse */
+}
+
+/* Botones */
+button {
+  font-family: var(--font-family);
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  padding: 10px 20px;
+  background-color: var(--color-fire-engine-red);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: var(--color-tangerine);
+  transform: scale(1.05); /* Efecto de ampliación */
+}
+
+/* Encabezado principal */
 .App-header {
-  background-color: #282c34;
+  background-color: var(--color-raisin-black); /* Fondo del encabezado */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 20px;
+  color: var(--color-dun);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra */
 }
 
-.App-link {
-  color: #61dafb;
+.App-header h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.App-header p {
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+/* Contenedor principal */
+.App {
+  text-align: center;
+}
+
+/* Diseño responsivo */
+@media (max-width: 768px) {
+  body {
+    font-size: 90%;
   }
-  to {
-    transform: rotate(360deg);
+
+  .App-header h1 {
+    font-size: 1.5rem;
   }
 }

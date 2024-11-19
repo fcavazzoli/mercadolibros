@@ -1,0 +1,108 @@
+/* Fondo general de la página */
+.add-book-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #131632; /* Azul oscuro */
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal del formulario */
+.add-book-container form {
+    background-color: #30252E; /* Fondo oscuro */
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5); /* Sombra */
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Título del formulario */
+.add-book-container h2 {
+    font-size: 2rem;
+    color: #F28D30; /* Naranja */
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center; /* Centrado */
+}
+
+/* Etiquetas */
+.add-book-container label {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #D3C5AA; /* Beige */
+    text-align: left;
+}
+
+/* Inputs y select */
+.add-book-container input,
+.add-book-container select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: 1px solid #336B6F; /* Azul Caribe */
+    background-color: #1E1E2A; /* Fondo oscuro */
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+/* Placeholder */
+.add-book-container input::placeholder {
+    color: #A0A0A0; /* Gris claro */
+}
+
+/* Efecto al enfocar */
+.add-book-container input:focus,
+.add-book-container select:focus {
+    border-color: #F28D30; /* Naranja */
+    background-color: #2A2A3C; /* Fondo más claro */
+}
+
+/* Botones alineados */
+.add-book-container .form-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Botones generales */
+.add-book-container button {
+    flex: 1;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Botón Agregar Libro */
+.add-book-container .add-btn {
+    background-color: #336B6F; /* Azul Caribe */
+    color: white;
+}
+
+.add-book-container .add-btn:hover {
+    background-color: #285A5E; /* Azul Caribe más oscuro */
+}
+
+/* Botón Cancelar */
+.add-book-container .cancel-btn {
+    background-color: #D51F1B; /* Rojo */
+    color: white;
+}
+
+.add-book-container .cancel-btn:hover {
+    background-color: #A81715; /* Rojo más oscuro */
+}

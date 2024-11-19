@@ -1,0 +1,42 @@
+.libro-menu-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #131632; /* Azul espacial */
+}
+
+.libro-menu-box {
+    width: 270px; 
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 8px;
+    background-color: #30252E; /* Fondo oscuro */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra un poco más fuerte */
+    font-family: Arial, sans-serif;
+    text-align: center;
+    display: block;
+}
+
+.libro-menu-box h2 {
+    color: #F28D30; /* Naranja */
+    margin-bottom: 20px;
+}
+
+.libro-menu-box button {
+    display: block;
+    width: 100%; 
+    margin: 10px 0; 
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #336B6F; /* Azul Caribe */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.libro-menu-box button:hover {
+    background-color: #285A5E; /* Azul Caribe más oscuro */
+}

@@ -12,11 +12,18 @@ export class Backend {
         return response.json();
     }
 
-    async get(endpoint) {
-        return this.#fetchRequest(endpoint);
+    async get(endpoint, headers = {}) {
+        return this.#fetchRequest(endpoint, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                ...headers
+            }
+        });
     }
 
     async post(endpoint, body = {}, headers = {}) {
+        console.log(headers);
         return this.#fetchRequest(endpoint, {
             method: 'POST',
             headers: {

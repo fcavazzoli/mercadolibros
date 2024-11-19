@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../css/Header.css';
 
 import Index from './Index';
-import ListadoLibros from './libros/List';
+import LibrosMenu from './libros/Menu';
 
 function Render() {
   const [currentPage, setCurrentPage] = useState("index");
@@ -21,7 +21,7 @@ function Render() {
       case "index":
         return <Index />;
       case "libros":
-        return <ListadoLibros />;
+        return <LibrosMenu />;
     };
 
     return (
