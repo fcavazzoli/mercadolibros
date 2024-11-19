@@ -1,5 +1,7 @@
 import { findOrCreateByNames } from "../services/prisma/categories.js";
-import { createBook, getBookById, getAllBooks } from "../services/prisma/books.js";
+import { createBook, getBookById, getAllBooks, getUserBook } from "../services/prisma/books.js";
+import { deleteUserBook, userBookCountByBookId } from "../services/prisma/userBooks.js";
+import { updateProposal, userIsBeingAsked } from "../services/prisma/exchanges.js";
 
 export const create = async (req, res) => {
     const { user } = req;
@@ -127,3 +129,53 @@ export const getAll = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+export const updateBook = async (req, res) => {
+    const { user } = req;
+
+    const { id } = req.params;
+    const bookId = parseInt(id)
+
+    const userBook = await getUserBook(user.id, bookId);
+    if (!userBook) {
+        return res.status(404).json({ message: `User does not have book with id: ${bookId}` })
+    }
+
+    const { bookInfo } = req.body;
+
+
+    const book = await getBookById(bookId)
+    let categories;
+    if (bookInfo.categories) {
+        categories = await findOrCreateByNames(bookInfo.categories);
+    }
+    const allCategories = categories || book.BookCategory.map((c) => c.category)
+
+    const newBook = await createBook({
+        title: bookInfo.title || book.title,
+        author: bookInfo.author || book.author,
+        UserBook: {
+            create: {
+                user: {
+                    connect: { id: req.user.id },
+                },
+            },
+        },
+        BookCategory: {
+            create: allCategories.map((category) => ({
+                category: {
+                    connect: { id: category.id },
+                },
+            })),
+        },
+    })
+
+    const migrateUserProposals = await updateProposal(user.id, bookId, newBook.id)
+
+    const bookIsAsked = await userIsBeingAsked(bookId)
+    if (!bookIsAsked) {
+        const deleteOldUserBook = await deleteUserBook(user.id, bookId)
+    }
+    const { id: newBookId, ...sanitizedBook } = newBook;
+    return res.status(200).json({ message: { userBookId: newBookId, ...sanitizedBook } })
+}
