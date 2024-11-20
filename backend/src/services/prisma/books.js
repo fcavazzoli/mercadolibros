@@ -27,7 +27,7 @@ export async function getBookById(id) {
 }
 
 export async function getAllBooks(filters) {
-    return await prisma.book.findMany({
+    const books = await prisma.book.findMany({
         ...filters,
         include: {
             UserBook: {
@@ -42,8 +42,13 @@ export async function getAllBooks(filters) {
             },
         },
     });
-}
 
+    
+    return books.map((book) => ({
+        ...book,
+        categories: book.BookCategory.map((bc) => bc.category.name), 
+    }));
+}
 export async function deleteBook(id) {
     return await prisma.book.delete({
         where: { id },
