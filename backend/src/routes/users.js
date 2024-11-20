@@ -10,7 +10,7 @@ router.post("/login", login);
 
 router.patch('/', authenticateUser, updateUserInfo)
 
-router.get("/me", updateUserInfo, getMe);
+router.get("/me", authenticateUser, getMe);
 router.get("/:userId", getUser);
 
 export default router;
