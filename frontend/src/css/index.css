@@ -72,3 +72,41 @@ code {
   align-items: center;
   justify-content: center;
 }
+
+.App-logo-centered {
+  height: 500px; 
+  width: auto;
+  display: block;
+  margin-bottom: 20px; 
+  transition: all 0.3s ease-in-out; 
+}
+
+@media (max-width: 600px) {
+  .App-logo-centered {
+    height: 300px; 
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 1.5rem; 
+    margin: 12px 0;
+  }
+
+  p {
+    font-size: 1rem; 
+    padding: 0 10px; 
+  }
+}
+@media (min-width: 601px) and (max-width: 1024px) {
+  .App-logo-centered {
+    height: 120px; /* Tamaño intermedio para tabletas */
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 1.8rem;
+  }
+
+  p {
+    font-size: 1.1rem;
+  }
+}
+
