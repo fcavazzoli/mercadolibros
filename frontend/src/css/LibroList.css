@@ -5,6 +5,9 @@
     color: #f0f0f0;
     max-width: 800px; /* Aumentado para más espacio */
     margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
 }
 
 .libro-list-title {
@@ -15,18 +18,21 @@
 }
 
 .search-bar {
-    width: 100%;
-    padding: 12px; /* Aumentado para hacer más grande */
-    font-size: 16px; /* Más legible */
+    padding: 12px;
+    font-size: 16px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    margin-bottom: 30px; /* Más espacio debajo */
+    margin-top: 10px; /* Add space below the search bar */
+    margin-bottom: 20px; /* Add space below the search bar */
+    width: 100%; /* Make it span the full width */
+    box-sizing: border-box; /* Prevent overflowing due to padding */
 }
 
 .libro-list {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: contents;
 }
 
 .libro-item {
@@ -37,6 +43,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     font-size: 18px; /* Aumentado para mejor visibilidad */
 }
 
@@ -48,6 +55,7 @@
 
 .buttons-container {
     display: flex;
+    flex-direction: column;
     gap: 15px; /* Más separación entre botones */
 }
 
@@ -74,4 +82,21 @@
 
 .delete-btn:hover {
     background-color: #c0392b;
+}
+
+
+
+.trueque-container {
+    display: flex;
+    gap: 20px; /* Add spacing between the two lists */
+    justify-content: space-between; /* Distribute items evenly */
+}
+
+.trueque-list {
+    flex: 1; /* Let both lists take equal space */
+    min-width: 85%; /* Ensure each list has a minimum width */
+    max-width: 88%; /* Prevent lists from growing too large */
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
