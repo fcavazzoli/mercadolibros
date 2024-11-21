@@ -143,7 +143,6 @@ export const updateBook = async (req, res) => {
 
     const bookInfo = req.body;
 
-
     const book = await getBookById(bookId)
     let categories;
     if (bookInfo.categories) {

@@ -23,7 +23,6 @@ const getBookById = async (id) => {
     return response;
 };
 const getBooks = async () => {
-    
     const token = localStorage.getItem('sessionToken');
     const headers = {authorization:`beaer ${token}`};
 
