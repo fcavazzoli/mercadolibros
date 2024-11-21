@@ -38,7 +38,7 @@ const updateBook = async (id, data) => {
         'Content-Type': 'application/json',
     };
     try {
-        const response = await backend.patch(`/books/${id}`, JSON.stringify(data), headers);
+        const response = await backend.patch(`/books/${id}`, data, headers);
         return response;
     } catch (error) {
         console.error('Error al actualizar el libro:', error);

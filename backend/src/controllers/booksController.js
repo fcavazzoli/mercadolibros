@@ -141,7 +141,7 @@ export const updateBook = async (req, res) => {
         return res.status(404).json({ message: `User does not have book with id: ${bookId}` })
     }
 
-    const { bookInfo } = req.body;
+    const bookInfo = req.body;
 
 
     const book = await getBookById(bookId)
