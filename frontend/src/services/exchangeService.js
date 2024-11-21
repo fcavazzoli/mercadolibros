@@ -20,15 +20,15 @@ export const getMyProposals = async () => {
 
     const myProposals = await backend.get('/exchanges/myProposals')
     console.log("My Proposals: ", myProposals);
-    return myProposals;
+    return myProposals.message;
 }
 
 export const getMyAsks = async () => {
     console.log('Getting My Exchanges Asks...')
 
-    const myAsks = await backend.get('/exchanges/myProposals')
+    const myAsks = await backend.get('/exchanges/askedToMe')
     console.log("My Asks: ", myAsks);
-    return myProposals;
+    return myAsks.message;
 }
 
 export const acceptProposal = async (exchangeProposalId) => {
