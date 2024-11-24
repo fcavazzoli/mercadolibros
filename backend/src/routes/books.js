@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get("/", authenticateUser, getAll)
 router.get("/:id", authenticateUser, getBook)
-router.get('/myBooks', authenticateUser, getBooksBySession)
+router.get('/user/myBooks', authenticateUser, getBooksBySession)
 
 
 router.patch('/:id', authenticateUser, updateBook)
