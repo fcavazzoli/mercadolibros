@@ -76,7 +76,7 @@ const Render = () => {
     };
 
     return (<Header>
-        <h2 className="libro-list-title">Lista de Trueques</h2>
+        <h2 className="libro-list-title">Mis intercambios</h2>
         <button 
             className="add-btn"
             onClick={() => navigate('/libros-disponibles')}

@@ -30,7 +30,10 @@ const OtherBooksList = () => {
 
     const filteredBooks = books.filter(book =>
         book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        book.author.toLowerCase().includes(searchTerm.toLowerCase())
+        book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (book.categories || []).some(category => 
+            category.toLowerCase().includes(searchTerm.toLowerCase())
+        )
     );
 
     return (
@@ -47,7 +50,7 @@ const OtherBooksList = () => {
                 </div>
                 <input
                     type="text"
-                    placeholder="Buscar por título o autor"
+                    placeholder="Buscar por título, autor o categoría"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="search-bar"

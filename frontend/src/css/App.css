@@ -2,14 +2,15 @@
 
 /* Definición de la paleta de colores */
 :root {
-  --color-caribbean-current: #336B6F;
-  --color-raisin-black: #30252E;
-  --color-space-cadet: #131632;
-  --color-tangerine: #F28D30;
-  --color-dun: #D3C5AA;
-  --color-fire-engine-red: #D51F1B;
+  /* Colores principales */
+  --primary: #336B6F;    /* Caribbean Current - Para elementos principales y navegación */
+  --secondary: #30252E;  /* Raisin Black - Para elementos secundarios y fondos alternos */
+  --background: #131632; /* Space Cadet - Fondo principal */
+  --accent: #F28D30;    /* Tangerine - Para elementos destacados y hover */
+  --text: #D3C5AA;      /* Dun - Color de texto principal */
+  --highlight: #D51F1B; /* Fire Engine Red - Para botones y alertas */
 
-  --font-family: 'Arial', sans-serif; /* Cambiar si prefieres otra fuente */
+  --font-family: 'Arial', sans-serif;
 }
 
 /* Estilos globales */
@@ -17,12 +18,12 @@ body {
   margin: 0;
   padding: 0;
   font-family: var(--font-family);
-  background-color: var(--color-space-cadet); /* Fondo principal oscuro */
-  color: var(--color-dun); /* Color de texto general */
+  background-color: var(--background);
+  color: var(--text);
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: var(--color-tangerine); /* Encabezados destacados */
+  color: var(--accent);
   margin: 0;
   padding: 0;
 }
@@ -30,18 +31,18 @@ h1, h2, h3, h4, h5, h6 {
 p {
   margin: 0;
   padding: 0;
-  color: var(--color-dun); /* Color general del texto */
+  color: var(--text);
 }
 
 /* Enlaces */
 a {
   text-decoration: none;
-  color: var(--color-caribbean-current); /* Color del enlace */
+  color: var(--primary);
   transition: color 0.3s ease;
 }
 
 a:hover {
-  color: var(--color-tangerine); /* Cambio de color al pasar el mouse */
+  color: var(--accent);
 }
 
 /* Botones */
@@ -51,27 +52,37 @@ button {
   border-radius: 8px;
   border: none;
   padding: 10px 20px;
-  background-color: var(--color-fire-engine-red);
-  color: white;
+  background-color: var(--primary);
+  color: var(--text);
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
-  background-color: var(--color-tangerine);
-  transform: scale(1.05); /* Efecto de ampliación */
+  background-color: var(--accent);
+  transform: scale(1.05);
+}
+
+/* Podemos añadir una clase para botones secundarios */
+button.secondary {
+  background-color: var(--secondary);
+}
+
+/* Y mantener --highlight solo para botones de alerta o peligro */
+button.danger {
+  background-color: var(--highlight);
 }
 
 /* Encabezado principal */
 .App-header {
-  background-color: var(--color-raisin-black); /* Fondo del encabezado */
+  background-color: var(--secondary);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px;
-  color: var(--color-dun);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra */
+  color: var(--text);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .App-header h1 {
