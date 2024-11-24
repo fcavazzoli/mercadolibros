@@ -54,5 +54,14 @@ const getMyBooks = async () => {
     }
 };
 
+export const getNotMyBooks = async () => {
+    try {
+        const response = await backend.get('/api/books/not-my-books');
+        return response.data;
+    } catch (error) {
+        console.error('Error al obtener libros disponibles:', error);
+        throw error;
+    }
+};
 
-export { createBook, deleteBook, getBookById ,getBooks, updateBook, getMyBooks };
+export { createBook, deleteBook, getBookById ,getBooks, updateBook, getMyBooks};

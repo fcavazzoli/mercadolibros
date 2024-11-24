@@ -13,9 +13,11 @@ const LibroList = () => {
         const fetchBooks = async () => {
             try {
                 const response = await getMyBooks();
-                console.log(response);
-                if (Array.isArray(response))
-                    setBooks(response.map(it => it.book) || []);
+                
+                if (Array.isArray(response)) {
+                    const processedBooks = response.map(userBook => userBook.book);
+                    setBooks(processedBooks);
+                }
             } catch (error) {
                 console.error('Error al cargar libros:', error);
                 setBooks([]);
@@ -65,7 +67,9 @@ const LibroList = () => {
                             <p><strong>Autor:</strong> {book.author || 'Sin autor'}</p>
                             <p>
                                 <strong>Categoría:</strong>{' '}
-                                {Array.isArray(book.categories) ? book.categories.join(', ') : 'Sin categoría'}
+                                {book.categories && book.categories.length > 0 
+                                    ? book.categories.join(', ') 
+                                    : 'Sin categoría'}
                             </p>
                         </div>
                         <div className="buttons-container">
