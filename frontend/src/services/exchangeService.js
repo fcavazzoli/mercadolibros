@@ -3,7 +3,7 @@ import { Backend } from "./backend"
 const backend = new Backend()
 
 export const proposeExchange = async (myBookId, requestedBookId, requestedUserId) => {
-    console.log('Requesting ...', { myBookId, requestedBookId, requestedUserId })
+    console.log('Requesting ...', { myBookId, requestedBookId, requestedUserId });
 
     const body = {
         proposerBookId: myBookId,
@@ -11,72 +11,38 @@ export const proposeExchange = async (myBookId, requestedBookId, requestedUserId
         requestedUserId: requestedUserId
     };
 
-    const requestedResponse = await backend.post('/exchanges', body)
-    console.log("Create Exchange Request: ", requestedResponse)
+    const requestedResponse = await backend.post('/exchanges', body);
+    console.log("Create Exchange Request: ", requestedResponse);
 }
 
 export const getMyProposals = async () => {
-    console.log('Getting My Exchanges Proposals...')
+    console.log('Getting My Exchanges Proposals...');
 
-    return [{
-        id: 1,
-        proposerUserId: 1,
-        askedUserId: 4,
-        proposedBookId: 1,
-        askedBookId: 2,
-        status: "pending",
-    }];
-
-    const myProposals = await backend.get('/exchanges/myProposals')
+    const myProposals = await backend.get('/exchanges/myProposals');
     console.log("My Proposals: ", myProposals);
     return myProposals.message;
 }
 
-
-
 export const getMyAsks = async () => {
-    console.log('Getting My Exchanges Asks...')
+    console.log('Getting My Exchanges Asks...');
 
-    return [{
-        id: 2,
-        proposerUserId: 1,
-        askedUserId: 4,
-        proposedBookId: 1,
-        askedBookId: 3,
-        status: "pending",
-    },{
-        id: 3,
-        proposerUserId: 1,
-        askedUserId: 4,
-        proposedBookId: 2,
-        askedBookId: 3,
-        status: "pending",
-    },{
-        id: 4,
-        proposerUserId: 1,
-        askedUserId: 4,
-        proposedBookId: 4,
-        askedBookId: 3,
-        status: "pending",
-    }];
-
-    const myAsks = await backend.get('/exchanges/askedToMe')
+    const myAsks = await backend.get('/exchanges/askedToMe');
     console.log("My Asks: ", myAsks);
     return myAsks.message;
 }
 
 export const acceptProposal = async (exchangeProposalId) => {
-    console.log("Accepting Exchange Proposal... ", exchangeProposalId)
+    console.log("Accepting Exchange Proposal... ", exchangeProposalId);
 
-    const acceptedResponse = await backend.patch(`/exchanges/${exchangeProposalId}/accept`)
-    console.log("Accepted Exchage proposal: ", acceptedResponse)
-    return acceptedResponse
+    const acceptedResponse = await backend.patch(`/exchanges/${exchangeProposalId}/accept`);
+    console.log("Accepted Exchage proposal: ", acceptedResponse);
+    return acceptedResponse;
 }
 
 export const rejectProposal = async (exchangeProposalId) => {
-    console.log("Rejecting Exchange Proposal... ", exchangeProposalId)
+    console.log("Rejecting Exchange Proposal... ", exchangeProposalId);
 
-    const rejectedResponse = await backend.patch(`/exchanges/${exchangeProposalId}/decline`)
-    console.log("Rejected Exchange proposal: ", rejectedResponse)
+    const rejectedResponse = await backend.patch(`/exchanges/${exchangeProposalId}/decline`);
+    console.log("Rejected Exchange proposal: ", rejectedResponse);
     return rejectedResponse;
 }
