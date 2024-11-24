@@ -15,20 +15,24 @@ const Render = () => {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                setIncomming(await getMyAsks() || [{}]);
-                setPending(await getMyProposals() || [{}]);
-                
+                let newBooks = {};
+                let newIncomming = await getMyAsks() || [];
+                let newPending = await getMyProposals() || [];
+
                 const tempBooks = await getBooks();
-                var newBooks = {};
                 for (var i = 0, count = tempBooks.length; i < count; i++) {
                     var book = tempBooks[i];
-                    newBooks[book.id] = tempBooks[i];
+                    newBooks[book.id] = book;
                 }
+                
                 setBooks(newBooks);
+                setPending(newPending);//.filter(item => newBooks[item.proposedBookId] != undefined));
+                setIncomming(newIncomming);//.filter(item => newBooks[item.proposedBookId] != undefined));
             } catch (error) {
                 console.error('Error al cargar trueques:', error);
-                setIncomming([]);
+                setBooks({});
                 setPending([]);
+                setIncomming([]);
             }
         };
         fetchBooks();
@@ -38,7 +42,7 @@ const Render = () => {
         if (window.confirm('¿Estás seguro de que deseas eliminar este libro?')) {
             try {
                 //await deleteBook(bookId);
-                setBooks(books.filter(book => book.id !== bookId));
+                //setBooks(books.filter(book => book.id !== bookId));
                 alert('Libro eliminado exitosamente');
             } catch (error) {
                 console.error('Error al eliminar el libro:', error);
@@ -60,19 +64,13 @@ const Render = () => {
                 {incomming.map(item => (
                     <li key={item.id} className="libro-item">
                         <div className="libro-info">
-                            <p><strong>Libro:</strong> {books[item.bookId].title || 'Sin título'}</p>
-                            <p><strong>Autor:</strong> {books[item.bookId].author || 'Sin autor'}</p>
-                            <p>
-                                <strong>Categoría:</strong>{' '} {
-                                    Array.isArray(books[item.bookId].categories) ? 
-                                    books[item.bookId].categories.join(', ') 
-                                    : 'Sin categoría'
-                                }
-                            </p>
+                            <p><strong>Quiere:</strong> {books[item.askedBookId   ]?.title || 'No encontrado'}</p>
+                            <p><strong>Ofrece:</strong> {books[item.proposedBookId]?.title || 'No encontrado'}</p>
+                            <p><strong>Estado:</strong> {item.status || 'No encontrado'}</p>
                         </div>
                         <div className="buttons-container">
-                            <button className="modify-btn" onClick={() => handleEdit(item.id)}>Modificar</button>
-                            <button className="delete-btn" onClick={() => handleDelete(item.id)}>Eliminar</button>
+                            <button className="modify-btn" onClick={() => handleEdit(item.id)}>Aceptar</button>
+                            <button className="delete-btn" onClick={() => handleDelete(item.id)}>Rechazar</button>
                         </div>
                     </li>
                 ))}
@@ -83,11 +81,12 @@ const Render = () => {
                 {pending.map(item => (
                     <li key={item.id} className="libro-item">
                         <div className="libro-info">
-                            <p><strong>Libro:</strong> {item.title || 'Sin título'}</p>
+                            <p><strong>Pediste:</strong> {books[item.askedBookId   ]?.title || 'No encontrado'}</p>
+                            <p><strong>Ofreciste:</strong> {books[item.proposedBookId]?.title || 'No encontrado'}</p>
+                            <p><strong>Estado:</strong> {item.status || 'No encontrado'}</p>
                         </div>
                         <div className="buttons-container">
-                            <button className="modify-btn" onClick={() => handleEdit(item.id)}>Modificar</button>
-                            <button className="delete-btn" onClick={() => handleDelete(item.id)}>Eliminar</button>
+                            <button className="delete-btn" onClick={() => handleDelete(item.id)}>Cancelar</button>
                         </div>
                     </li>
                 ))}
