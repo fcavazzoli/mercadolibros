@@ -53,6 +53,16 @@ const getMyBooks = async () => {
         throw error;
     }
 };
+const getOtherBooks = async () => {
+    try {
+        const token = localStorage.getItem('sessionToken');
+        const headers = {authorization: `Bearer ${token}`};
+        const response = await backend.get('/books/user/not-my-books', headers); 
+        return response;
+    } catch (error) {
+        console.error('Error al obtener los libros:', error);
+        throw error;
+    }
+};
 
-
-export { createBook, deleteBook, getBookById ,getBooks, updateBook, getMyBooks };
+export { createBook, deleteBook, getBookById ,getBooks, updateBook, getMyBooks,getOtherBooks};

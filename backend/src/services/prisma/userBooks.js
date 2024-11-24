@@ -42,12 +42,54 @@ export const deleteUserBook = async (userId, bookId) => {
 }
 
 export const getBooksForUser = async (userId) => {
-    return await prisma.userBook.findMany({
+    const userBooks = await prisma.userBook.findMany({
         where: {
-            userId: userId
+            userId
         },
         include: {
-            book: true
+            book: {
+                include: {
+                    BookCategory: {
+                        include: {
+                            category: true
+                        }
+                    }
+                }
+            }
         }
-    })
+    });
+
+    return userBooks.map(userBook => ({
+        ...userBook,
+        book: {
+            ...userBook.book,
+            categories: userBook.book.BookCategory.map(bc => bc.category.name)
+        }
+    }));
+}
+
+export const getOtherBooksForUser = async (userId) => {
+    const books = await prisma.book.findMany({
+        where: {
+            NOT: {
+                UserBook: {
+                    some: {
+                        userId: userId
+                    }
+                }
+            }
+        },
+        include: {
+            BookCategory: {
+                include: {
+                    category: true
+                }
+            }
+        }
+    });
+
+    return books.map(book => ({
+        ...book,
+        categories: book.BookCategory.map(bc => bc.category.name)
+    }));
 }

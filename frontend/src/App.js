@@ -9,6 +9,7 @@ import LibroMenu from './components/libros/Menu';
 import EditBook from './components/libros/EditBook';
 import LibroList from './components/libros/LibroList';
 import TruequeList from './components/trueques/TruequeList';
+import OtherBooksList from './components/libros/OtherBooksList';
 
 function App() {
   // Configurar la fuente del servidor
@@ -45,6 +46,7 @@ function App() {
             path="/exchanges"
             element={isAuthenticated ? <TruequeList /> : <Navigate to="/" />}
           />
+          <Route path="/libros-disponibles" element={<OtherBooksList />} />
 
           {/* Redirigir cualquier ruta desconocida a la ruta de inicio */}
           <Route path="*" element={<Navigate to="/" />} />

@@ -13,9 +13,11 @@ const LibroList = () => {
         const fetchBooks = async () => {
             try {
                 const response = await getMyBooks();
-                console.log(response);
-                if (Array.isArray(response))
-                    setBooks(response.map(it => it.book) || []);
+                
+                if (Array.isArray(response)) {
+                    const processedBooks = response.map(userBook => userBook.book);
+                    setBooks(processedBooks);
+                }
             } catch (error) {
                 console.error('Error al cargar libros:', error);
                 setBooks([]);
@@ -43,20 +45,30 @@ const LibroList = () => {
 
     const filteredBooks = books.filter(book =>
         (book.title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (book.author || '').toLowerCase().includes(searchTerm.toLowerCase())
+        (book.author || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (book.categories || []).some(category => 
+            category.toLowerCase().includes(searchTerm.toLowerCase())
+        )
     );
 
     return (<Header>
         <div className="libro-list-container">
-            <h2 className="libro-list-title">Lista de Libros</h2>
-            <button onClick={() => navigate('/add-book')}>Agregar libro</button>
-            <input
-                type="text"
-                placeholder="Buscar por título o autor"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="search-bar"
-            />
+            <h2 className="libro-list-title">Mis Libros</h2>
+            <div className="controls-container">
+                <button 
+                    className="agregar-btn"
+                    onClick={() => navigate('/add-book')}
+                >
+                    Agregar libro
+                </button>
+                <input
+                    type="text"
+                    placeholder="Buscar por título, autor o categoría"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="search-bar"
+                />
+            </div>
             <ul className="libro-list">
                 {filteredBooks.map(book => (
                     <li key={book.id} className="libro-item">
@@ -65,7 +77,9 @@ const LibroList = () => {
                             <p><strong>Autor:</strong> {book.author || 'Sin autor'}</p>
                             <p>
                                 <strong>Categoría:</strong>{' '}
-                                {Array.isArray(book.categories) ? book.categories.join(', ') : 'Sin categoría'}
+                                {book.categories && book.categories.length > 0 
+                                    ? book.categories.join(', ') 
+                                    : 'Sin categoría'}
                             </p>
                         </div>
                         <div className="buttons-container">

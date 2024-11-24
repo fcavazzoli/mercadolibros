@@ -76,7 +76,13 @@ const Render = () => {
     };
 
     return (<Header>
-        <p><h2 className="libro-list-title">Lista de Trueques</h2></p>
+        <h2 className="libro-list-title">Mis intercambios</h2>
+        <button 
+            className="add-btn"
+            onClick={() => navigate('/libros-disponibles')}
+        >
+            Ver Libros Disponibles
+        </button>
         <div className="libro-list-container">
             <div className="trueque-container"> <div>
             <h3 className="libro-list-title">Trueques entrantes</h3>

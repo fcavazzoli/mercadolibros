@@ -15,7 +15,7 @@ function Render() {
         <header className="App-header">
           <img src={"/logo192.png"} className="App-logo-centered" alt="logo" />
           <h1>¡Bienvenido a Mercado Libros!</h1>
-          <p>¡Explora, agrega y gestiona tus libros favoritos!</p>
+          <p>El mercado para amantes de los libros.</p>
         </header>
       </div>
     </Header>
