@@ -1,6 +1,6 @@
 import { findOrCreateByNames } from "../services/prisma/categories.js";
 import { createBook, getBookById, getAllBooks, getUserBook } from "../services/prisma/books.js";
-import { deleteUserBook, userBookCountByBookId } from "../services/prisma/userBooks.js";
+import { deleteUserBook, getBooksForUser } from "../services/prisma/userBooks.js";
 import { updateProposal, userIsBeingAsked } from "../services/prisma/exchanges.js";
 
 export const create = async (req, res) => {
@@ -178,3 +178,17 @@ export const updateBook = async (req, res) => {
     const { id: newBookId, ...sanitizedBook } = newBook;
     return res.status(200).json({ message: { userBookId: newBookId, ...sanitizedBook } })
 }
+
+export const getBooksBySession = async (req, res) => {
+    const { user } = req;
+
+    try {
+        const userBook = await getBooksForUser(user.id)
+
+        return res.status(200).json({ message: { userBooks: userBook } })
+
+    } catch (error) {
+        console.error("Error fetching books by session token:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
