@@ -192,3 +192,18 @@ export const getBooksBySession = async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 };
+
+export const deleteUserBook = async (req, res) => {
+    const { user } = req;
+
+    const { id } = req.params;
+
+    const userBook = await getUserBook(user.id, id)
+    if (!userBook) {
+        return req.status(404).json({ message: `user does not have book with Id: ${id}` })
+    }
+
+    const deleted = await deleteBook(userId, id)
+
+    return res.status(200).json({ message: deleted })
+}

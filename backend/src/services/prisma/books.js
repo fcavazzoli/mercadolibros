@@ -43,10 +43,10 @@ export async function getAllBooks(filters) {
         },
     });
 
-    
+
     return books.map((book) => ({
         ...book,
-        categories: book.BookCategory.map((bc) => bc.category.name), 
+        categories: book.BookCategory.map((bc) => bc.category.name),
     }));
 }
 export async function deleteBook(id) {
@@ -57,6 +57,15 @@ export async function deleteBook(id) {
 
 export async function getUserBook(userId, bookId) {
     return await prisma.userBook.findFirst({
+        where: {
+            userId,
+            bookId
+        }
+    })
+}
+
+export async function deleteBook(userId, bookId) {
+    return await prisma.userBook.deleteMany({
         where: {
             userId,
             bookId
