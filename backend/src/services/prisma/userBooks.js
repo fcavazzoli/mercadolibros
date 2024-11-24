@@ -40,3 +40,14 @@ export const deleteUserBook = async (userId, bookId) => {
         }
     })
 }
+
+export const getBooksForUser = async (userId) => {
+    return await prisma.userBook.findMany({
+        where: {
+            userId: userId
+        },
+        include: {
+            book
+        }
+    })
+}
