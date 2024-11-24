@@ -44,6 +44,15 @@ const updateBook = async (id, data) => {
         throw error;
     }
 };
+const getMyBooks = async () => {
+    try {
+        const response = await backend.get('/books/user/myBooks'); 
+        return response.message.userBooks;
+    } catch (error) {
+        console.error('Error al actualizar el libro:', error);
+        throw error;
+    }
+};
 
 
-export { createBook, deleteBook, getBookById ,getBooks,updateBook};
+export { createBook, deleteBook, getBookById ,getBooks, updateBook, getMyBooks };

@@ -47,7 +47,7 @@ export const getBooksForUser = async (userId) => {
             userId: userId
         },
         include: {
-            book
+            book: true
         }
     })
 }

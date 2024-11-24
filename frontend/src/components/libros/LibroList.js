@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { deleteBook, getBooks } from '../../services/LibroService';
+import { deleteBook, getBooks, getMyBooks } from '../../services/LibroService';
 import '../../css/LibroList.css';
 import Header from '../Header'
 
@@ -12,9 +12,10 @@ const LibroList = () => {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await getBooks();
+                const response = await getMyBooks();
                 console.log(response);
-                setBooks(response || []);
+                if (Array.isArray(response))
+                    setBooks(response.map(it => it.book) || []);
             } catch (error) {
                 console.error('Error al cargar libros:', error);
                 setBooks([]);
