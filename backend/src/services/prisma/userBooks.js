@@ -67,3 +67,29 @@ export const getBooksForUser = async (userId) => {
         }
     }));
 }
+
+export const getOtherBooksForUser = async (userId) => {
+    const books = await prisma.book.findMany({
+        where: {
+            NOT: {
+                UserBook: {
+                    some: {
+                        userId: userId
+                    }
+                }
+            }
+        },
+        include: {
+            BookCategory: {
+                include: {
+                    category: true
+                }
+            }
+        }
+    });
+
+    return books.map(book => ({
+        ...book,
+        categories: book.BookCategory.map(bc => bc.category.name)
+    }));
+}

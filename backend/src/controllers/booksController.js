@@ -1,6 +1,6 @@
 import { findOrCreateByNames } from "../services/prisma/categories.js";
 import { createBook, getBookById, getAllBooks, getUserBook, getNotMyBooks as getNotMyBooksService } from "../services/prisma/books.js";
-import { deleteUserBook, getBooksForUser } from "../services/prisma/userBooks.js";
+import { deleteUserBook, getBooksForUser, getOtherBooksForUser } from "../services/prisma/userBooks.js";
 import { updateProposal, userIsBeingAsked } from "../services/prisma/exchanges.js";
 
 export const create = async (req, res) => {
@@ -193,14 +193,17 @@ export const getBooksBySession = async (req, res) => {
     }
 };
 
-export const getNotMyBooks = async (req, res) => {
+export const getOtherBooksBySession = async (req, res) => {
     const { user } = req;
 
     try {
-        const books = await getNotMyBooksService(user.id);
-        return res.status(200).json({ message: { books } });
+        const otherBooks = await getOtherBooksForUser(user.id);
+
+        return res.status(200).json({ message: { otherBooks } });
+
     } catch (error) {
-        console.error("Error fetching not my books:", error);
+        console.error("Error fetching other books by session token:", error);
         res.status(500).json({ error: "Internal server error" });
     }
 };
+
