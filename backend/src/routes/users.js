@@ -7,7 +7,7 @@ const router = Router();
 
 router.post("/", createUser);
 router.post("/login", login);
-
+router.get('/myBooks', authenticateUser, getMybBooks)
 router.patch('/', authenticateUser, updateUserInfo)
 
 router.get("/me", authenticateUser, getMe);
