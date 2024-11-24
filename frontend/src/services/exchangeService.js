@@ -18,13 +18,47 @@ export const proposeExchange = async (myBookId, requestedBookId, requestedUserId
 export const getMyProposals = async () => {
     console.log('Getting My Exchanges Proposals...')
 
+    return [{
+        id: 1,
+        proposerUserId: 1,
+        askedUserId: 4,
+        proposedBookId: 1,
+        askedBookId: 2,
+        status: "pending",
+    }];
+
     const myProposals = await backend.get('/exchanges/myProposals')
     console.log("My Proposals: ", myProposals);
     return myProposals.message;
 }
 
+
+
 export const getMyAsks = async () => {
     console.log('Getting My Exchanges Asks...')
+
+    return [{
+        id: 2,
+        proposerUserId: 1,
+        askedUserId: 4,
+        proposedBookId: 1,
+        askedBookId: 3,
+        status: "pending",
+    },{
+        id: 3,
+        proposerUserId: 1,
+        askedUserId: 4,
+        proposedBookId: 2,
+        askedBookId: 3,
+        status: "pending",
+    },{
+        id: 4,
+        proposerUserId: 1,
+        askedUserId: 4,
+        proposedBookId: 4,
+        askedBookId: 3,
+        status: "pending",
+    }];
 
     const myAsks = await backend.get('/exchanges/askedToMe')
     console.log("My Asks: ", myAsks);
