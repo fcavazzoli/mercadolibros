@@ -16,6 +16,7 @@ function Render({ children }) {
           <button onClick={() => navigate('/')}>Home</button>
           <button onClick={() => navigate('/books')}>Libros</button>
           <button onClick={() => navigate('/exchanges')}>Trueques</button>
+          <button onClick={() => navigate('/perfil')}>Perfil</button>
           <button onClick={() => signOut()}>SignOut</button>
       </nav>
       {children}
