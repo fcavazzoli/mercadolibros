@@ -18,17 +18,19 @@ const getUser = async () => {
 };
 
 
-const updateInfo = async (id, data) => {
+const updateInfo = async (data) => {
     const token = localStorage.getItem('sessionToken');
     const headers = {
         authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
     };
     try {
-        const response = await backend.patch(`/users/${id}`, data, headers);
+        console.log('LA DATA ES:',data);
+        console.log('EL HEADER ES:',headers);
+        const response = await backend.patch(`/users/`, data, headers);
         return response;
     } catch (error) {
-        console.error('Error al actualizar el libro:', error);
+        console.error('Error al actualizar la informacion del perfil:', error);
         throw error;
     }
 };

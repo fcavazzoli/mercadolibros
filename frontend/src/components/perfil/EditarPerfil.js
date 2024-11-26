@@ -7,16 +7,46 @@ import Header from '../Header';
 const EditarPerfil = () => {
 
     const navigate = useNavigate();
-     const [name, setName] = useState('');
+    const [userInfo, setUserInfo] = useState(null); 
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [adress, setAdress] = useState('');
-    const [number, setNumber] = useState('');
-    const userId=1;
+    const [address, setAddress] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    
+
+    // useEffect(() => {
+    //     const fetchUser = async () => {
+    //         try {
+    //             const response = await getUser();  // Obtener la info del usuario
+    //             if (response && response.user) { // Verificar que la propiedad user exista
+    //                 setUserInfo(response.user);  // Guardar la info del usuario en el estado
+    //             }
+    //         } catch (error) {
+    //             console.error('Error al cargar la info del usuario:', error);
+    //             alert('No se pudo cargar la información del usuario.');
+    //         }
+    //     };
+    //     fetchUser();
+    // }, []);  // El array vacío significa que el efecto solo se ejecutará una vez al montar el componente
+
+    // // Si userInfo no está disponible aún (por ejemplo, mientras se carga), puedes mostrar un loading o un mensaje
+    // if (!userInfo) {
+    //     return <div>Cargando...</div>;
+    // };
+
+    // // Desestructurar los datos del usuario
+    // const userId  = userInfo.id;
+    // console.log("IDUSUARIO:", userId); 
+    
+    
+    
+    
     const handleUpdateInfo = async (e) => {
         e.preventDefault();
         try {
-            await updateInfo(userId, { name, email, adress,number});
-            alert('Libro actualizado correctamente');
+            //const data={ name, email, adress,number};
+            await updateInfo({ email, name, address,phoneNumber});
+            alert('Perfil actualizado correctamente');
             //navigate('/books'); // Redirige al listado de libros
         } catch (error) {
             console.error('Error al actualizar ela informacion del perfil:', error);
@@ -52,16 +82,16 @@ const EditarPerfil = () => {
                     <label>Adress:</label>
                     <input
                         type="text"
-                        value={adress}
-                        onChange={(e) => setAdress(e.target.value)}
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
                         required
-                    />
+                    />  
 
                     <label>PhoneNumber:</label>
                     <input
                         type="text"
-                        value={number}
-                        onChange={(e) => setNumber(e.target.value)}
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
                         required
                     />
 
