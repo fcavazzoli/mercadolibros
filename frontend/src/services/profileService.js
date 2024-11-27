@@ -18,16 +18,18 @@ const getUser = async () => {
 };
 
 
-const updateInfo = async (data) => {
+const updateInfo = async (userInfo) => {
     const token = localStorage.getItem('sessionToken');
     const headers = {
         authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
     };
     try {
-        console.log('LA DATA ES:',data);
+        
+        console.log('LA DATA ES:',userInfo);
+        console.log('LA DATA ES:',userInfo.email);
         console.log('EL HEADER ES:',headers);
-        const response = await backend.patch(`/users/`, data, headers);
+        const response = await backend.patch(`/users`, userInfo, headers);
         return response;
     } catch (error) {
         console.error('Error al actualizar la informacion del perfil:', error);
