@@ -118,8 +118,7 @@ export const getMe = async (req, res) => {
 
 export const updateUserInfo = async (req, res) => {
     const { user } = req;
-    const { userInfo } = req.body;
-
+    const  userInfo  = req.body;
     const { password, ...updatedInfo } = await updateUser(user.id, userInfo)
 
     return res.status(200).json({ message: updatedInfo })

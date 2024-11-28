@@ -8,6 +8,7 @@ export class Backend {
     }
 
     async #fetchRequest(endpoint, options = {}) {
+        
         const response = await fetch(`${this.backendUrl}${endpoint}`, options);
         return response.json();
     }
