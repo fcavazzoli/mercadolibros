@@ -1,0 +1,70 @@
+.perfil-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #30252E; /* Raisin black */
+  min-height: calc(100vh - 4rem);
+}
+
+.perfil-box {
+  background: #131632; /* Space cadet */
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+}
+
+.perfil-header {
+  border-bottom: 2px solid #336B6F; /* Caribbean Current */
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+}
+
+.perfil-header h2 {
+  color: #F28D30; /* Tangerine */
+  font-size: 2rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.perfil-info {
+  display: grid;
+  gap: 1.2rem;
+  color: #D3C5AA; /* Dun */
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(51, 107, 111, 0.1); /* Caribbean Current con transparencia */
+  border-radius: 8px;
+}
+
+.info-label {
+  font-weight: 600;
+  min-width: 120px;
+  color: #F28D30; /* Tangerine */
+}
+
+.info-value {
+  color: #D3C5AA; /* Dun */
+}
+
+.perfil-button {
+  background-color: #336B6F; /* Caribbean Current */
+  color: #D3C5AA; /* Dun */
+  border: none;
+  border-radius: 6px;
+  padding: 1rem 2rem;
+  margin-top: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  width: 100%;
+}
+
+.perfil-button:hover {
+  background-color: #F28D30; /* Tangerine */
+  color: #131632; /* Space cadet */
+  transform: translateY(-2px);
+} 
