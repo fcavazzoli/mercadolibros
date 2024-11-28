@@ -32,9 +32,7 @@ const PerfilMenu = () => {
     }
 
     // Desestructurar los datos del usuario
-    const { email, name, address, phoneNumber } = userInfo;
-    console.log("Datos del usuario:", userInfo); 
-    console.log("email:", userInfo.email);
+    const { email, name, address, phoneNumber } = userInfo
 
     return (
         <Header>

@@ -30,8 +30,8 @@ export const updateUser = async (userId, userInfo) => {
     if (!user) {
         throw Error("User not found")
     }
-
-    const email = userInfo.email || user.email
+    
+    const email = userInfo.email || user.email;
     const name = userInfo.name || user.name
     const address = userInfo.address || user.address
     const phoneNumber = userInfo.phoneNumber || user.phoneNumber

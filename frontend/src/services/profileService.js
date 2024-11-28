@@ -25,10 +25,6 @@ const updateInfo = async (userInfo) => {
         'Content-Type': 'application/json',
     };
     try {
-        
-        console.log('LA DATA ES:',userInfo);
-        console.log('LA DATA ES:',userInfo.email);
-        console.log('EL HEADER ES:',headers);
         const response = await backend.patch(`/users`, userInfo, headers);
         return response;
     } catch (error) {
