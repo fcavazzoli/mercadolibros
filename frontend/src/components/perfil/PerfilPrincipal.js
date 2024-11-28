@@ -1,10 +1,10 @@
-
 import '../../css/LibroMenu.css';
 import Header from '../Header'
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getUser} from '../../services/profileService';
 import '../../css/EditBook.css';
+import '../../css/Perfil.css';
 
 
 const PerfilMenu = () => {
@@ -36,14 +36,35 @@ const PerfilMenu = () => {
 
     return (
         <Header>
-            <div className="libro-menu-container">
-                <div className="libro-menu-box">
-                    <h2>Información Personal</h2>
-                    <p>Nombre: {name}</p>
-                    <p>Email: {email}</p>
-                    <p>Dirección: {address || "No disponible"}</p> {/* Si address es null, mostramos "No disponible" */}
-                    <p>Teléfono: {phoneNumber || "No disponible"}</p> {/* Si phoneNumber es null, mostramos "No disponible" */}
-                    <button onClick={() => navigate('/EditarPerfil')}>Modificar Información</button>
+            <div className="perfil-container">
+                <div className="perfil-box">
+                    <div className="perfil-header">
+                        <h2>Información Personal</h2>
+                    </div>
+                    <div className="perfil-info">
+                        <div className="info-item">
+                            <span className="info-label">Nombre:</span>
+                            <span className="info-value">{name}</span>
+                        </div>
+                        <div className="info-item">
+                            <span className="info-label">Email:</span>
+                            <span className="info-value">{email}</span>
+                        </div>
+                        <div className="info-item">
+                            <span className="info-label">Dirección:</span>
+                            <span className="info-value">{address || "No disponible"}</span>
+                        </div>
+                        <div className="info-item">
+                            <span className="info-label">Teléfono:</span>
+                            <span className="info-value">{phoneNumber || "No disponible"}</span>
+                        </div>
+                    </div>
+                    <button 
+                        className="perfil-button"
+                        onClick={() => navigate('/EditarPerfil')}
+                    >
+                        Modificar Información
+                    </button>
                 </div>
             </div>
         </Header>
