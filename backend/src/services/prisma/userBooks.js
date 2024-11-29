@@ -15,8 +15,8 @@ export const getUserBook = async (userId, bookId) => {
             bookId: { equals: bookId }
         },
         include: {
-            user,
-            book
+            user: true,
+            book: true
         }
     })
 }

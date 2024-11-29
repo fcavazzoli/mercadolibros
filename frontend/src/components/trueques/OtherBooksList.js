@@ -67,6 +67,12 @@ const OtherBooksList = () => {
                                         ? book.categories.join(', ') 
                                         : 'Sin categoría'}
                                 </p>
+
+                            </div>
+                            <div className="buttons-container">
+                                <button className="modify-btn" onClick={() => navigate(`/ask-trade/${book.id}`)}>
+                                    Solicitar
+                                </button>
                             </div>
                         </div>
                     ))}
