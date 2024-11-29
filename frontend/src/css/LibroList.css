@@ -79,6 +79,12 @@
     margin: 0.3rem 0;
 }
 
+.trueque-list, .buttons-container {
+    flex-direction: column;
+    display: flex;
+    gap: 1rem;
+}
+
 .buttons-container {
     display: flex;
     gap: 1rem;

@@ -9,7 +9,8 @@ import LibroMenu from './components/libros/Menu';
 import EditBook from './components/libros/EditBook';
 import LibroList from './components/libros/LibroList';
 import TruequeList from './components/trueques/TruequeList';
-import OtherBooksList from './components/libros/OtherBooksList';
+import OtherBooksList from './components/trueques/OtherBooksList.js';
+import OfferBook from './components/trueques/OfferBook.js';
 import PerfilMenu from './components/perfil/PerfilPrincipal';
 import EditarPerfil from './components/perfil/EditarPerfil.js';
 
@@ -60,6 +61,10 @@ function App() {
             element={isAuthenticated ? <EditarPerfil /> : <Navigate to="/" />}
           /> 
 
+          <Route
+            path="/ask-trade/:bookId"
+            element={isAuthenticated ? <OfferBook /> : <Navigate to="/" />}
+          />
 
           {/* Redirigir cualquier ruta desconocida a la ruta de inicio */}
           <Route path="*" element={<Navigate to="/" />} />

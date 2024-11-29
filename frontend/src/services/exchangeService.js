@@ -13,6 +13,8 @@ export const proposeExchange = async (myBookId, requestedBookId, requestedUserId
 
     const requestedResponse = await backend.post('/exchanges', body);
     console.log("Create Exchange Request: ", requestedResponse);
+
+    return requestedResponse.message;
 }
 
 export const getMyProposals = async () => {
