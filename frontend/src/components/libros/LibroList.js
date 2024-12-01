@@ -38,6 +38,11 @@ const LibroList = () => {
         navigate(`/edit-book/${bookId}`);
     };
 
+    const handleImageError = (e) => {
+        e.target.onerror = null; // Prevents infinite loop if default image also fails
+        e.target.src = '/default-book.png'; // Agregar una foto Default para cuando no hay imagen
+    };
+
     const filteredBooks = books.filter(book =>
         (book.title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
         (book.author || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -67,15 +72,33 @@ const LibroList = () => {
             <ul className="libro-list">
                 {filteredBooks.map(book => (
                     <li key={book.id} className="libro-item">
-                        <div className="libro-info">
-                            <p><strong>Libro:</strong> {book.title || 'Sin título'}</p>
-                            <p><strong>Autor:</strong> {book.author || 'Sin autor'}</p>
-                            <p>
-                                <strong>Categoría:</strong>{' '}
-                                {book.categories && book.categories.length > 0 
-                                    ? book.categories.join(', ') 
-                                    : 'Sin categoría'}
-                            </p>
+                        <div className="libro-content">
+                            <div className="libro-info">
+                                <p><strong>Libro:</strong> {book.title || 'Sin título'}</p>
+                                <p><strong>Autor:</strong> {book.author || 'Sin autor'}</p>
+                                <p>
+                                    <strong>Categoría:</strong>{' '}
+                                    {book.categories && book.categories.length > 0 
+                                        ? book.categories.join(', ') 
+                                        : 'Sin categoría'}
+                                </p>
+                            </div>
+                            <div className="libro-photo">
+                                {book.photo ? (
+                                    <img 
+                                        src={book.photo} 
+                                        alt={book.title} 
+                                        onError={handleImageError}
+                                    />
+                                ) : (
+                                    <div className="no-photo">
+                                        <img 
+                                            src="/default-book.png" 
+                                            alt="Default book cover"
+                                        />
+                                    </div>
+                                )}
+                            </div>
                         </div>
                         <div className="buttons-container">
                             <button

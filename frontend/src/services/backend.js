@@ -52,4 +52,8 @@ export class Backend {
             body: JSON.stringify(body)
         });
     }
+
+    get url() {
+        return this.backendUrl;
+    }
 }
