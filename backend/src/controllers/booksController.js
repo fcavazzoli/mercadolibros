@@ -207,3 +207,28 @@ export const getOtherBooksBySession = async (req, res) => {
     }
 };
 
+export const deleteBook = async(req, res) => {
+    const { id } = req.params; // Book ID from request parameters
+    const { user } = req; // Authenticated user
+
+    try {
+        // Check if the book exists and belongs to the user
+        const userBook = await getUserBook(user.id, parseInt(id));
+        if (!userBook) {
+            return res.status(404).json({ message: `Book with id ${id} not found for this user.` });
+        }
+
+        // Delete the book-user relationship
+        await deleteUserBook(user.id, parseInt(id));
+
+        return res.status(200).json({ message: `Book with id ${id} successfully deleted.` });
+    } catch (error) {
+        if (error.code === 'P2003') {
+            return res.status(200).json({
+                message: "Cannot delete book. It is referenced in another table (e.g., ExchangeProposal).",
+            });
+        }
+        console.error("Error deleting book:", error);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+};

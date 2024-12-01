@@ -1,7 +1,7 @@
 import express from "express";
 
 import { authenticateUser } from "../middleware/auth.js";
-import { create, getAll, getBook, assingBook, updateBook, getBooksBySession, getOtherBooksBySession } from "../controllers/booksController.js";
+import { create, getAll, getBook, assingBook, updateBook, getBooksBySession, getOtherBooksBySession, deleteBook } from "../controllers/booksController.js";
 
 const router = express.Router();
 
@@ -16,4 +16,5 @@ router.patch('/:id', authenticateUser, updateBook)
 router.post("/", authenticateUser, create)
 router.post("/:id/assign", authenticateUser, assingBook)
 
+router.delete("/:id", authenticateUser, deleteBook)
 export default router;

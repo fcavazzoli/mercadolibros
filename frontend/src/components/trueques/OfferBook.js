@@ -15,14 +15,8 @@ const OtherBooksList = () => {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await getBookById(bookId);
-                setAskedBook(response);
-
-                const response2 = await getMyBooks();
-                if (Array.isArray(response2)) {
-                    const processedBooks = response2.map(userBook => userBook.book);
-                    setMyBooks(processedBooks);
-                }
+                setAskedBook(await getBookById(bookId) || {});
+                setMyBooks(await getMyBooks() || []);
             } catch (error) {
                 console.error('Error al generar tradeo de libros:', error);
                 setError('Error al generar tradeo de libros');

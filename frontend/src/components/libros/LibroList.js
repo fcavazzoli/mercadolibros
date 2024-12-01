@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { deleteBook, getBooks, getMyBooks } from '../../services/LibroService';
+import { deleteBook, getMyBooks } from '../../services/LibroService';
 import '../../css/LibroList.css';
 import Header from '../Header'
 
@@ -12,12 +12,7 @@ const LibroList = () => {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await getMyBooks();
-                
-                if (Array.isArray(response)) {
-                    const processedBooks = response.map(userBook => userBook.book);
-                    setBooks(processedBooks);
-                }
+                setBooks(await getMyBooks() || []);
             } catch (error) {
                 console.error('Error al cargar libros:', error);
                 setBooks([]);
@@ -29,9 +24,9 @@ const LibroList = () => {
     const handleDelete = async (bookId) => {
         if (window.confirm('¿Estás seguro de que deseas eliminar este libro?')) {
             try {
-                await deleteBook(bookId);
-                setBooks(books.filter(book => book.id !== bookId));
-                alert('Libro eliminado exitosamente');
+                let response = await deleteBook(bookId);
+                setBooks(await getMyBooks() || []);
+                alert(response.message);
             } catch (error) {
                 console.error('Error al eliminar el libro:', error);
                 alert('Error al eliminar el libro. Intente nuevamente más tarde.');
