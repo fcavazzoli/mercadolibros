@@ -10,9 +10,7 @@ const createBook = async (data) => {
 };
 
 const deleteBook = async (id) => {
-    const token = localStorage.getItem('sessionToken');
-    const headers = {authorization:`beaer ${token}`};
-    const response = await backend.post(`/books/${id}`, { method: 'DELETE' },headers);
+    const response = await backend.delete(`/books/${id}`);
     return response;
 };
 
@@ -47,7 +45,10 @@ const updateBook = async (id, data) => {
 const getMyBooks = async () => {
     try {
         const response = await backend.get('/books/user/myBooks'); 
-        return response.message.userBooks;
+
+        if (Array.isArray(response.message.userBooks))
+            return response.message.userBooks.map(item => item.book);
+        return [];
     } catch (error) {
         console.error('Error al actualizar el libro:', error);
         throw error;
