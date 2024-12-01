@@ -8,11 +8,12 @@ const AddBook = () => {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [category, setCategory] = useState('Ficción');
+    const [photo, setPhoto] = useState(null);
     const navigate = useNavigate();
 
     const handleAddBook = async (e) => {
-        e.preventDefault();
-        const book = await createBook({ title, author, categories: [category] });
+        e.preventDefault();        
+        const book = await createBook({ title, author, categories: [category], photo })
         console.log('Libro agregado:', book);
         alert('Libro agregado correctamente');
         navigate('/books');
@@ -20,6 +21,12 @@ const AddBook = () => {
 
     const handleCancel = () => {
         navigate('/books'); // Redirige a la página de gestión de libros
+    };
+
+    const handlePhotoChange = (e) => {
+        const fileName = e.target.files[0].name;
+        const filePath = `images/${fileName}`;
+        setPhoto(filePath);
     };
 
     return (<Header>
@@ -54,6 +61,13 @@ const AddBook = () => {
                     <option value="Fantasía">Fantasía</option>
                     <option value="Historia">Historia</option>
                 </select>
+
+                <label>Foto:</label>
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handlePhotoChange}
+                />
 
                 <div className="form-buttons">
                     <button type="submit" className="add-btn">

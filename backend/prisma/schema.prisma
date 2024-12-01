@@ -33,6 +33,7 @@ model Book {
   id     Int    @id @default(autoincrement())
   title  String
   author String
+  photo  String?
 
   BookCategory BookCategory[]
   UserBook     UserBook[]

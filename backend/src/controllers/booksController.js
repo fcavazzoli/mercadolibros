@@ -9,6 +9,7 @@ export const create = async (req, res) => {
     const {
         title,
         author,
+        photo,
         categories
     } = req.body;
 
@@ -19,6 +20,7 @@ export const create = async (req, res) => {
             {
                 title,
                 author,
+                photo,
                 UserBook: {
                     create: {
                         user: {

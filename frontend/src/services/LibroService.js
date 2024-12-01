@@ -46,8 +46,17 @@ const getMyBooks = async () => {
     try {
         const response = await backend.get('/books/user/myBooks'); 
 
-        if (Array.isArray(response.message.userBooks))
-            return response.message.userBooks.map(item => item.book);
+        if (Array.isArray(response.message.userBooks)){
+            const books = response.message.userBooks.map(item => item.book);
+            const mappedPhotos = books.map((book)=> {
+                return {
+                    ...book,
+                    photo: backend.url.replace("api", "") + book.photo
+                }
+            })
+            console.log(mappedPhotos)
+            return mappedPhotos
+        }
         return [];
     } catch (error) {
         console.error('Error al actualizar el libro:', error);

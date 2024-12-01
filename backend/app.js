@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(cors({ origin: "*" }));
 
 app.use("/api", router);
+app.use("/images", express.static("../images"));
 
 app.listen(3000, () => {
     console.log("Starting server...");
