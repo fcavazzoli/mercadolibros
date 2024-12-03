@@ -5,7 +5,7 @@ import { create, getAll, getBook, assingBook, updateBook, getBooksBySession, get
 
 const router = express.Router();
 
-router.get("/", authenticateUser, getAll)
+router.get("/", getAll)
 router.get("/:id", authenticateUser, getBook)
 router.get('/user/myBooks', authenticateUser, getBooksBySession)
 router.get('/user/not-my-books', authenticateUser, getOtherBooksBySession)
