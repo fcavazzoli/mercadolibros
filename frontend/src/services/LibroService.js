@@ -75,4 +75,31 @@ const getOtherBooks = async () => {
     }
 };
 
+const getFiltered = async ({ byCategory, byAuthor, byUser }) => {
+    const endpoint = '/books/'
+
+    let queryParams = [];
+    
+    if (byCategory) {
+        queryParams.push(`byCategory=${encodeURIComponent(byCategory)}`);
+    }
+    if (byAuthor) {
+        queryParams.push(`byAuthor=${encodeURIComponent(byAuthor)}`);
+    }
+    if (byUser) {
+        queryParams.push(`byUser=${encodeURIComponent(byUser)}`);
+    }
+
+    const url = queryParams.length > 0 ? `${endpoint}?${queryParams.join('&')}` : endpoint;
+
+    try {
+        const response = await backend.get(url);
+        return response;
+    } catch (error) {
+        console.error('Error al obtener los libros filtrados:', error);
+        throw error;
+    }
+
+}
+
 export { createBook, deleteBook, getBookById ,getBooks, updateBook, getMyBooks,getOtherBooks};
