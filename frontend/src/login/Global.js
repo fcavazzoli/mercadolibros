@@ -5,6 +5,7 @@ import { setServerSource } from '../helpers/HttpProtocol'
 import Login from './Login';
 import Singup from './Singup';
 import SingupSucess from './SingInSuccess';
+import { useNavigate } from 'react-router-dom';
 
 function Render() {
   const [currentPage, setCurrentPage] = useState("login");
@@ -13,11 +14,11 @@ function Render() {
   const handlePageChange = function (page) {
     setCurrentPage(page);
   };
-
+  const navigate = useNavigate()
   const renderPage = function () {
     switch (currentPage) {
       case "login":
-        return <Login onLoginSuccess={() => window.location.replace('')} />;
+        return <Login onLoginSuccess={() => navigate("/")} />;
       case "singup":
         return <Singup onSuccess={() => handlePageChange("singupsucess")} />;
       case "singupsucess":

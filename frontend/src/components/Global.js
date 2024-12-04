@@ -1,49 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/Header.css';
-
 import Index from './Index';
 import LibrosMenu from './libros/Menu';
 
 function Render() {
   const [currentPage, setCurrentPage] = useState("index");
+  const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const handlePageChange = function (page) {
+  useEffect(() => {
+    const token = localStorage.getItem('sessionToken');
+    setIsAuthenticated(!!token);
+  }, []);
+
+  const handlePageChange = (page) => {
     setCurrentPage(page);
+    setMenuOpen(false);
   };
 
-  const signOut = function () {
+  const signOut = () => {
     localStorage.removeItem('sessionToken');
     window.location.replace('');
   };
 
-  const renderPage = function () {
+  const renderPage = () => {
     switch (currentPage) {
       case "index":
         return <Index />;
       case "libros":
         return <LibrosMenu />;
-    };
-
-    return (
-      <div class="max-height-possible">
-        <label>This page is not valid</label>
-      </div>
-    );
+      default:
+        return (
+          <div className="max-height-possible">
+            <label>This page is not valid</label>
+          </div>
+        );
+    }
   };
 
+  if (!isAuthenticated) {
+    window.location.replace('/login');
+    return null;
+  }
 
   return (
-    <div>
-      <nav>
-        <button onClick={() => handlePageChange("index")}>Home</button>
-        <button onClick={() => handlePageChange("libros")}>Libros</button>
-        <button onClick={() => signOut()}>SignOut</button>
-      </nav>
-      {renderPage()}
+    <div className="global-container">
+      <div className={`sidebar ${isMenuOpen ? 'open' : ''}`}>
+        <button className="hamburger-button" onClick={() => setMenuOpen(!isMenuOpen)}>
+          ☰
+        </button>
+        <div className="menu">
+          <button onClick={() => handlePageChange("index")}>Home</button>
+          <button onClick={() => handlePageChange("libros")}>Libros</button>
+          <button onClick={() => signOut()}>SignOut</button>
+        </div>
+      </div>
+      <div className="content">
+        {renderPage()}
+      </div>
     </div>
   );
-
-  //<button onClick={() => handlePageChange("other")}>???</button>
 }
 
 export default Render;

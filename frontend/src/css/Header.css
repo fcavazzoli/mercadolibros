@@ -29,3 +29,49 @@ nav ul li a {
 nav ul li a:hover {
     color: #007bff; /* Change color on hover */
 }
+
+
+.global-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .sidebar {
+    width: 0;
+    overflow-x: hidden;
+    transition: 0.3s;
+    background-color: #111;
+    color: white;
+    padding: 10px;
+  }
+  
+  .sidebar.open {
+    width: 200px;
+  }
+  
+  .hamburger-button {
+    font-size: 20px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .menu button {
+    display: block;
+    background: none;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: left;
+    cursor: pointer;
+  }
+  
+  .menu button:hover {
+    background-color: #575757;
+  }
+  
+  .content {
+    flex-grow: 1;
+    padding: 20px;
+  }
