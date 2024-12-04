@@ -14,6 +14,7 @@ import OfferBook from './components/trueques/OfferBook.js';
 import PerfilMenu from './components/perfil/PerfilPrincipal';
 import EditarPerfil from './components/perfil/EditarPerfil.js';
 import Landing from './components/Landing.js';
+import Singup from './login/Singup.js';
 
 function App() {
   // Configurar la fuente del servidor
@@ -28,6 +29,10 @@ function App() {
         <Routes>
           {/* Ruta principal (Home) */}
           <Route path="/" element={isAuthenticated ? <PageGlobal /> : <Landing />} />
+
+          <Route path="/login" element={<LoginGlobal />} />
+          <Route path="/register" element={<Singup />} />
+
 
           {/* Rutas exclusivas para funcionalidades adicionales */}
           <Route

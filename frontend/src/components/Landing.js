@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../css/Landing.css'; // Importamos el archivo CSS
+import '../css/Landing.css'; 
 import { getFiltered } from '../services/LibroService';
 import { Backend } from '../services/backend';
 
