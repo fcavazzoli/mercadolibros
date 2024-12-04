@@ -75,9 +75,9 @@ const getOtherBooks = async () => {
     }
 };
 
-const getFiltered = async ({ byCategory, byAuthor, byUser }) => {
+const getFiltered = async (filters = {}) => {
     const endpoint = '/books/'
-
+    const { byCategory, byAuthor, byUser } = filters
     let queryParams = [];
     
     if (byCategory) {
@@ -102,4 +102,4 @@ const getFiltered = async ({ byCategory, byAuthor, byUser }) => {
 
 }
 
-export { createBook, deleteBook, getBookById ,getBooks, updateBook, getMyBooks,getOtherBooks};
+export { createBook, deleteBook, getBookById ,getBooks, updateBook, getMyBooks,getOtherBooks, getFiltered};
