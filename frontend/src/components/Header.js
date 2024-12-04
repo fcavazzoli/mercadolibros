@@ -1,25 +1,47 @@
 import React from 'react';
-import '../css/Header.css';
 import { useNavigate } from 'react-router-dom';
+import '../css/Header.css';
 
 function Render({ children }) {
   const navigate = useNavigate();
 
-  const signOut = function () {
-    localStorage.removeItem('sessionToken');
-    window.location.replace('');
+  const signOut = () => {
+    localStorage.removeItem('sessionToken'); // Elimina el token de sesión
+    navigate('/login'); // Redirige al usuario al login
   };
 
   return (
-    <div className="general">
-      <nav>
-          <button onClick={() => navigate('/')}>Home</button>
-          <button onClick={() => navigate('/books')}>Libros</button>
-          <button onClick={() => navigate('/exchanges')}>Trueques</button>
-          <button onClick={() => navigate('/perfil')}>Perfil</button>
-          <button onClick={() => signOut()}>SignOut</button>
+    <div className="layout">
+      {/* Barra lateral */}
+      <nav className="sidebar">
+        <ul className="menu">
+          <li>
+            <button onClick={() => navigate('/')}>Home</button>
+          </li>
+          <li>
+            <button onClick={() => navigate('/books')}>Libros</button>
+          </li>
+          <li>
+            <button onClick={() => navigate('/exchanges')}>Trueques</button>
+          </li>
+          <li>
+            <button onClick={() => navigate('/perfil')}>Perfil</button>
+          </li>
+          <li>
+            <button onClick={signOut}>Cerrar Sesión</button>
+          </li>
+        </ul>
       </nav>
-      {children}
+
+      {/* Contenedor principal */}
+      <div className="main-content">
+        {/* Header */}
+        <div className="header">
+          <span className="welcome-message">¡Bienvenido a Mercado Libros!</span>
+        </div>
+        {/* Contenido dinámico */}
+        {children}
+      </div>
     </div>
   );
 }
