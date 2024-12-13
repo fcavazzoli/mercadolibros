@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import '../css/Header.css';
-import { setServerSource } from '../helpers/HttpProtocol'
+//import '../css/App.css'; 
+import '../css/Login.css'; 
 
+
+import Banner from '../components/globals/Banner';
 import Login from './Login';
 import Singup from './Singup';
 import SingupSucess from './SingInSuccess';
 import { useNavigate } from 'react-router-dom';
 
-function Render() {
+function Render({children}) {
   const [currentPage, setCurrentPage] = useState("login");
-  setServerSource("http://localhost:3000/api/");
-
   const handlePageChange = function (page) {
     setCurrentPage(page);
   };
@@ -33,12 +33,11 @@ function Render() {
   };
 
   return (
-    <div>
-      <nav>
-        <button onClick={() => handlePageChange("singup")}>Sing up</button>
-        <button onClick={() => handlePageChange("login")}>Login</button>
-      </nav>
-      {renderPage()}
+    <div class="login-holder">
+      <Banner />
+      <div class="center-content">
+        {children}
+      </div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react"
-import '../css/Login.css';
+import '../css/App.css'; 
 
 function Login() {
     const goBack = async (e) => {

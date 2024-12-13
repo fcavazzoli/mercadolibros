@@ -1,7 +1,7 @@
+import '../../css/App.css'; 
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getBookById, updateBook } from '../../services/LibroService';
-import '../../css/EditBook.css';
 import Header from '../Header';
 
 const EditBook = () => {

@@ -1,6 +1,6 @@
+import '../css/App.css'; 
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../css/Landing.css'; 
 import { getFiltered } from '../services/LibroService';
 import { Backend } from '../services/backend';
 
@@ -68,25 +68,6 @@ function Landing() {
 
   return (
     <div>
-      {/* Banner */}
-      <div className="banner">
-        <div className="auth-buttons">
-          <button className="login-button" onClick={() => navigate('/login')}>
-            Iniciar Sesión
-          </button>
-          <button className="register-button" onClick={() => navigate('/register')}>
-            Registrarse
-          </button>
-        </div>
-        <div className="banner-content">
-          <img src={"/logo192.png"} className="banner-logo" alt="logo" />
-          <div className="banner-text">
-            <h1>¡Bienvenido a Mercado Libros!</h1>
-            <p>El mercado para amantes de los libros.</p>
-          </div>
-        </div>
-      </div>
-
       {/* Contenido principal */}
       <main className="content">
         {/* Libros Disponibles */}

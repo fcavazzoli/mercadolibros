@@ -1,8 +1,8 @@
+import '../../css/App.css'; 
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getMyProposals, getMyAsks, acceptProposal, rejectProposal } from '../../services/exchangeService';
 import { getBooks } from '../../services/LibroService';
-import '../../css/LibroList.css';
 import Header from '../Header'
 
 const Render = () => {

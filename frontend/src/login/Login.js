@@ -1,6 +1,7 @@
 import { useState } from "react"
-import '../css/Login.css';
+import '../css/App.css'; 
 import { login } from "../services/userService";
+import Global from './Global'
 
 function Login({ onLoginSuccess }) {
     const [email, setEmail] = useState("");
@@ -20,6 +21,7 @@ function Login({ onLoginSuccess }) {
     };
 
     return (
+        <Global>
         <div className="max-height-possible">
             <div className="login-container">
                 <h2>Login</h2>
@@ -39,6 +41,7 @@ function Login({ onLoginSuccess }) {
                 </form>
             </div>
         </div>
+        </Global>
     );
 };
 

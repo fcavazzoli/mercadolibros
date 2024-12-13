@@ -1,8 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { setServerSource } from './helpers/HttpProtocol';
 
-import LoginGlobal from './login/Global';
+import Login from './login/Login';
 import PageGlobal from './components/Index';
 import AddBook from './components/libros/AddBook';
 import LibroMenu from './components/libros/Menu';
@@ -17,9 +16,6 @@ import Landing from './components/Landing.js';
 import Singup from './login/Singup.js';
 
 function App() {
-  // Configurar la fuente del servidor
-  setServerSource("http://localhost:3000/api/");
-
   // Verificar si el usuario está autenticado
   const isAuthenticated = Boolean(localStorage.getItem('sessionToken'));
 
@@ -30,7 +26,7 @@ function App() {
           {/* Ruta principal (Home) */}
           <Route path="/" element={isAuthenticated ? <PageGlobal /> : <Landing />} />
 
-          <Route path="/login" element={<LoginGlobal />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Singup />} />
 
 

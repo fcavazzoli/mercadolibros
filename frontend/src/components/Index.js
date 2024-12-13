@@ -1,10 +1,10 @@
+import '../css/App.css'; 
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../css/Landing.css';
 import { getFiltered } from '../services/LibroService';
 import { Backend } from '../services/backend';
-import * as server from '../helpers/HttpProtocol';
 import Header from './Header'
+import BooksGrid from './html-elements/BooksGrid';
 
 const backend = new Backend();
 
@@ -12,34 +12,20 @@ function HomePage() {
   const [books, setBooks] = useState([]);
   const [terrorBooks, setTerrorBooks] = useState([]);
   const [fictionBooks, setFictionBooks] = useState([]);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userName, setUserName] = useState("...");
-  const navigate = useNavigate();
+  const [nofictionBooks, setNoFictionBooks] = useState([]);
+  const [cienciafictionBooks, setCienciaFictionBooks] = useState([]);
+  const [fantasiaBooks, setFantaisaBooks] = useState([]);
+  const [historiaBooks, setHistoriaBooks] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem('sessionToken');
-    setIsAuthenticated(!!token);
-    if (token) {
-      identifyMe();
-    } else {
-      navigate('/login');
-    }
-  }, [navigate]);
-
-  useEffect(() => {
-    fetchBooks();
-    fetchTerrorBooks();
-    fetchFictionBooks();
+    subDivideBooks(setBooks);
+    subDivideBooks(setTerrorBooks,"Terror");
+    subDivideBooks(setFictionBooks, "Ficción");
+    subDivideBooks(setNoFictionBooks, "No Ficción");
+    subDivideBooks(setCienciaFictionBooks, "Ciencia Ficción");
+    subDivideBooks(setFantaisaBooks, "Fantasia");
+    subDivideBooks(setHistoriaBooks, "Historia");
   }, []);
-
-  const identifyMe = async () => {
-    try {
-      const data = await server.get("users/me", {});
-      setUserName(data.user?.name ?? "Invitado");
-    } catch (error) {
-      console.error("Error fetching user:", error);
-    }
-  };
 
   const fetchBooks = async () => {
     try {
@@ -50,6 +36,7 @@ function HomePage() {
         author: item.author,
         photo: backend.url.replace("api", "") + item.photo,
         condition: item.condition,
+        category: item.category,
       }));
       setBooks(books || []);
     } catch (error) {
@@ -57,37 +44,22 @@ function HomePage() {
     }
   };
 
-  const fetchTerrorBooks = async () => {
+  const subDivideBooks = async (setter, category) => {
     try {
-      const data = await getFiltered({ byCategory: "Terror" });
-      const terrorBooks = data.map((item) => ({
+      const data = await getFiltered({ byCategory: category });
+      const remote = data.map((item) => ({
         _id: item._id,
         title: item.title,
         author: item.author,
         photo: backend.url.replace("api", "") + item.photo,
         condition: item.condition,
+        category: item.category,
       }));
-      setTerrorBooks(terrorBooks || []);
+      setter(remote || []);
     } catch (error) {
-      console.error('Error fetching terror books:', error);
+      console.error('Error fetching books:', error);
     }
-  };
-
-  const fetchFictionBooks = async () => {
-    try {
-      const data = await getFiltered({ byCategory: "Ficción" });
-      const fictionBooks = data.map((item) => ({
-        _id: item._id,
-        title: item.title,
-        author: item.author,
-        photo: backend.url.replace("api", "") + item.photo,
-        condition: item.condition,
-      }));
-      setFictionBooks(fictionBooks || []);
-    } catch (error) {
-      console.error('Error fetching fiction books:', error);
-    }
-  };
+  }
 
   return (
     <Header>
@@ -95,61 +67,13 @@ function HomePage() {
         {/* Contenido principal */}
         <main className="content">
           {/* Libros Disponibles */}
-          <h2 className="content-title">Libros Disponibles</h2>
-          <div className="books-grid">
-            {books.map((book) => (
-              <div key={book._id} className="book-card">
-                <img
-                  src={book.photo || '/book-placeholder.png'}
-                  alt={book.title || 'Imagen no disponible'}
-                  className="book-image"
-                />
-                <div className="book-info">
-                  <h3 className="book-title">{book.title || 'Título no disponible'}</h3>
-                  <p className="book-author">Autor: {book.author || 'Autor desconocido'}</p>
-                  <p className="book-condition">Estado: {book.condition || 'No especificado'}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Libros de Terror */}
-          <h2 className="content-title">Libros de Terror</h2>
-          <div className="books-grid">
-            {terrorBooks.map((book) => (
-              <div key={book._id} className="book-card">
-                <img
-                  src={book.photo || '/book-placeholder.png'}
-                  alt={book.title || 'Imagen no disponible'}
-                  className="book-image"
-                />
-                <div className="book-info">
-                  <h3 className="book-title">{book.title || 'Título no disponible'}</h3>
-                  <p className="book-author">Autor: {book.author || 'Autor desconocido'}</p>
-                  <p className="book-condition">Estado: {book.condition || 'No especificado'}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Libros de Ficción */}
-          <h2 className="content-title">Libros de Ficción</h2>
-          <div className="books-grid">
-            {fictionBooks.map((book) => (
-              <div key={book._id} className="book-card">
-                <img
-                  src={book.photo || '/book-placeholder.png'}
-                  alt={book.title || 'Imagen no disponible'}
-                  className="book-image"
-                />
-                <div className="book-info">
-                  <h3 className="book-title">{book.title || 'Título no disponible'}</h3>
-                  <p className="book-author">Autor: {book.author || 'Autor desconocido'}</p>
-                  <p className="book-condition">Estado: {book.condition || 'No especificado'}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <BooksGrid title="Libros Disponibles" books={books} />
+          <BooksGrid title="Libros de Terror" books={terrorBooks} />
+          <BooksGrid title="Libros de Ficción" books={fictionBooks} />
+          <BooksGrid title="Libros de No Ficción" books={nofictionBooks} />
+          <BooksGrid title="Libros de Ciencia Ficción" books={cienciafictionBooks} />
+          <BooksGrid title="Libros de Fantasia" books={fantasiaBooks} />
+          <BooksGrid title="Libros de Historia" books={historiaBooks} />
         </main>
       </div>
     </Header>

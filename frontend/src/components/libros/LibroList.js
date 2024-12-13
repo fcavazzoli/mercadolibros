@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import '../../css/App.css'; 
+import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteBook, getMyBooks } from '../../services/LibroService';
-import '../../css/LibroList.css';
 import Header from '../Header'
+import Carousel from '../html-elements/Carousel';
+import BookImage from '../html-elements/BookImage';
 
 const LibroList = () => {
     const [books, setBooks] = useState([]);
@@ -38,87 +40,60 @@ const LibroList = () => {
         navigate(`/edit-book/${bookId}`);
     };
 
-    const handleImageError = (e) => {
-        e.target.onerror = null; // Prevents infinite loop if default image also fails
-        e.target.src = '/default-book.png'; // Agregar una foto Default para cuando no hay imagen
-    };
-
-    const filteredBooks = books.filter(book =>
-        (book.title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (book.author || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (book.categories || []).some(category => 
-            category.toLowerCase().includes(searchTerm.toLowerCase())
-        )
+    const filteredBooks = useMemo(() => 
+        books.filter(book =>
+            (book.title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (book.author || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (book.categories || []).some(category => 
+                category.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+        ), 
+        [books, searchTerm]
     );
 
     return (<Header>
         <div className="libro-list-container">
-            <h2 className="libro-list-title">Mis Libros</h2>
-            <div className="controls-container">
-                <button 
-                    className="agregar-btn"
-                    onClick={() => navigate('/add-book')}
-                >
-                    Agregar libro
-                </button>
-                <input
-                    type="text"
-                    placeholder="Buscar por título, autor o categoría"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="search-bar"
-                />
+          <h2 className="libro-list-title">Mis Libros</h2>
+          <div className="controls-container">
+            <button className="agregar-btn" onClick={() => navigate('/add-book')} >Agregar libro</button>
+            <input
+              type="text"
+              placeholder="Buscar por título, autor o categoría"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-bar"
+            />
+          </div>
+
+          <Carousel autoPlay="true" interval="500">
+            {filteredBooks.map((book) => (
+            <div className="libro-item" key={book.id}>
+                <div className="libro-content">
+                <p><strong>Libro:</strong> {book.title || 'Sin título'}</p>
+                <p><strong>Autor:</strong> {book.author || 'Sin autor'}</p>
+                <p>
+                    <strong>Categoría:</strong>{' '}
+                    {book.categories && book.categories.length > 0
+                    ? book.categories.join(', ')
+                    : 'Sin categoría'}
+                </p>
+                </div>
+
+                <BookImage book={book} />
+                <div className="buttons-container">
+                  <button className="modify-btn" onClick={() => handleEdit(book.id)} >
+                    Modificar
+                  </button>
+                  <button className="delete-btn" onClick={() => handleDelete(book.id)} >
+                    Eliminar
+                  </button>
+                </div>
             </div>
-            <ul className="libro-list">
-                {filteredBooks.map(book => (
-                    <li key={book.id} className="libro-item">
-                        <div className="libro-content">
-                            <div className="libro-info">
-                                <p><strong>Libro:</strong> {book.title || 'Sin título'}</p>
-                                <p><strong>Autor:</strong> {book.author || 'Sin autor'}</p>
-                                <p>
-                                    <strong>Categoría:</strong>{' '}
-                                    {book.categories && book.categories.length > 0 
-                                        ? book.categories.join(', ') 
-                                        : 'Sin categoría'}
-                                </p>
-                            </div>
-                            <div className="libro-photo">
-                                {book.photo ? (
-                                    <img 
-                                        src={book.photo} 
-                                        alt={book.title} 
-                                        onError={handleImageError}
-                                    />
-                                ) : (
-                                    <div className="no-photo">
-                                        <img 
-                                            src="/default-book.png" 
-                                            alt="Default book cover"
-                                        />
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                        <div className="buttons-container">
-                            <button
-                                className="modify-btn"
-                                onClick={() => handleEdit(book.id)}
-                            >
-                                Modificar
-                            </button>
-                            <button
-                                className="delete-btn"
-                                onClick={() => handleDelete(book.id)}
-                            >
-                                Eliminar
-                            </button>
-                        </div>
-                    </li>
-                ))}
-            </ul>
+            ))}
+          </Carousel>
+          
         </div>
-    </Header>);
+      </Header>);
 };
 
 export default LibroList;
