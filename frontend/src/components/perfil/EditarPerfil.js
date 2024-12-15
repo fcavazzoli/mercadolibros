@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getUser, updateInfo} from '../../services/profileService';
 import Header from '../Header';
+import usePopup from '../html-elements/usePopup';
 
 const EditarPerfil = () => {
 
@@ -12,6 +13,7 @@ const EditarPerfil = () => {
     const [email, setEmail] = useState("");
     const [address, setAddress] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
+    const [PopupComponent, showPopup] = usePopup();
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -22,7 +24,7 @@ const EditarPerfil = () => {
                 }
             } catch (error) {
                 console.error('Error al cargar la info del usuario:', error);
-                alert('No se pudo cargar la información del usuario.');
+                showPopup({message:'No se pudo cargar la información del usuario.'});
             }
         };
         fetchUser();
@@ -42,23 +44,15 @@ const EditarPerfil = () => {
     console.log("Userinfo:",userInfo);
   
 
-
-
-
-
-
-
-
     const handleUpdateInfo = async (e) => {
         e.preventDefault();
         try {
             //const data={ name, email, adress,number};
             await updateInfo({ email, name, address,phoneNumber});
-            alert('Perfil actualizado correctamente');
-            navigate('/perfil'); // Redirige a la informacion personal.
+            showPopup({message: 'Perfil actualizado correctamente', onComplete:() => navigate('/perfil')});
         } catch (error) {
             console.error('Error al actualizar ela informacion del perfil:', error);
-            alert('Error al actualizar la informacion del perfil. Intente nuevamente más tarde.');
+            showPopup({message: 'Error al actualizar la informacion del perfil. Intente nuevamente más tarde.' });
         }
     };
 
@@ -134,6 +128,7 @@ const EditarPerfil = () => {
                     </div>
                 </form>
             </div>
+            {PopupComponent}
         </Header>
     );
     

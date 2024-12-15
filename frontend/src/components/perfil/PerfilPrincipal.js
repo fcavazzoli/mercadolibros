@@ -3,11 +3,13 @@ import Header from '../Header'
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getUser} from '../../services/profileService';
+import usePopup from '../html-elements/usePopup';
 
 
 const PerfilMenu = () => {
     const [userInfo, setUserInfo] = useState(null);  // Estado para almacenar la info del usuario
     const navigate = useNavigate();
+    const [PopupComponent, showPopup] = usePopup();
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -18,7 +20,7 @@ const PerfilMenu = () => {
                 }
             } catch (error) {
                 console.error('Error al cargar la info del usuario:', error);
-                alert('No se pudo cargar la información del usuario.');
+                showPopup({message: 'No se pudo cargar la información del usuario.'});
             }
         };
         fetchUser();

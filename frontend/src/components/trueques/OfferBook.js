@@ -3,6 +3,7 @@ import { useNavigate,useParams } from 'react-router-dom';
 import Header from '../Header';
 import { getBookById, getMyBooks } from '../../services/LibroService';
 import { proposeExchange } from '../../services/exchangeService'
+import usePopup from '../html-elements/usePopup';
 
 const OtherBooksList = () => {
     const { bookId } = useParams();
@@ -11,6 +12,7 @@ const OtherBooksList = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const [PopupComponent, showPopup] = usePopup();
 
     useEffect(() => {
         const fetchBooks = async () => {
@@ -33,16 +35,15 @@ const OtherBooksList = () => {
             if (window.confirm('¿Desea proponer trueque?')) {
                 const resp = await proposeExchange(idDelPropuesto, askedBook.id, askedBook.UserBook[0].user.id);
                 if (resp?.id > 0) {
-                    alert('Trueque propuesto.');
-                    navigate('/exchanges');
+                    showPopup({ message:'Trueque propuesto.', onComplete:() => navigate('/exchanges')});
                 } else {
                     console.error('Error al proponer trueque: ', resp);
-                    alert('Error al proponer trueque. Intente nuevamente más tarde.');
+                    showPopup({message:'Error al proponer trueque. Intente nuevamente más tarde.'});
                 }
             }
         } catch (error) {
             console.error('Error al proponer trueque: ', error);
-            alert('Error al proponer trueque. Intente nuevamente más tarde.');
+            showPopup({messge:'Error al proponer trueque. Intente nuevamente más tarde.'});
         }
     };
 
@@ -83,6 +84,7 @@ const OtherBooksList = () => {
                     ))}
                 </div>
             </div>
+            {PopupComponent}
         </Header>
     );
 };

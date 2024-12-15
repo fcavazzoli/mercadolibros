@@ -3,13 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getMyProposals, getMyAsks, acceptProposal, rejectProposal } from '../../services/exchangeService';
 import { getBooks } from '../../services/LibroService';
-import Header from '../Header'
+import Header from '../Header';
+import usePopup from '../html-elements/usePopup';
 
 const Render = () => {
     const navigate = useNavigate();
     const [books, setBooks] = useState({});
     const [pending, setPending] = useState([]);
     const [incomming, setIncomming] = useState([]);
+    const [PopupComponent, showPopup] = usePopup();
 
     useEffect(() => {
         const fetchBooks = async () => {
@@ -41,11 +43,11 @@ const Render = () => {
         try {
             if (window.confirm('¿Desea aceptar el trueque?')) {
                 await acceptProposal(proposalId);
-                alert('Trueque aceptado.');
+                showPopup({message:'Trueque aceptado.'});
             }
         } catch (error) {
             console.error('Error al aceptar trueque: ', error);
-            alert('Error al aceptar trueque. Intente nuevamente más tarde.');
+            showPopup({message:'Error al aceptar trueque. Intente nuevamente más tarde.'});
         }
     };
 
@@ -53,24 +55,11 @@ const Render = () => {
         try {
             if (window.confirm('¿Desea rechazar el trueque?')) {
                 await rejectProposal(proposalId);
-                alert('Trueque rechazado.');
+                showPopup({message:'Trueque rechazado.'});
             }
         } catch (error) {
             console.error('Error al rechazar trueque: ', error);
-            alert('Error al rechazar trueque. Intente nuevamente más tarde.');
-        }
-        
-    };
-
-    const handleCancelar = async(proposalId) => {
-        try {
-            if (window.confirm('¿Desea aceptar el trueque?')) {
-                await acceptProposal(proposalId);
-                alert('Trueque aceptado.');
-            }
-        } catch (error) {
-            console.error('Error al aceptar trueque: ', error);
-            alert('Error al aceptar trueque. Intente nuevamente más tarde.');
+            showPopup({message:'Error al rechazar trueque. Intente nuevamente más tarde.'});
         }
         
     };
@@ -126,6 +115,7 @@ const Render = () => {
                     </div>
                 </div>
             </div>
+            {PopupComponent}
         </Header>
     );
 };
