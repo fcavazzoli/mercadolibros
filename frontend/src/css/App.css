@@ -63,6 +63,7 @@ body {
 
 .libro-list-container {
   padding: 2rem;
+  flex-direction: column; /* Ensure a vertical layout */
 }
 
 @import url('Buttons.css');

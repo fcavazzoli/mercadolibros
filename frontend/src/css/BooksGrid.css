@@ -50,3 +50,9 @@
     object-fit: contain;
   }
   
+  .book-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
