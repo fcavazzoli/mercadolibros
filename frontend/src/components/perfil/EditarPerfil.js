@@ -1,4 +1,5 @@
-import '../../css/App.css'; 
+//import '../../css/App.css'; 
+import '../../css/EditForms.css';
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getUser, updateInfo} from '../../services/profileService';
@@ -12,8 +13,43 @@ const EditarPerfil = () => {
     const [email, setEmail] = useState("");
     const [address, setAddress] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
-    
-    
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const response = await getUser();  // Obtener la info del usuario
+                if (response && response.user) { // Verificar que la propiedad user exista
+                    setUserInfo(response.user);  // Guardar la info del usuario en el estado
+                }
+            } catch (error) {
+                console.error('Error al cargar la info del usuario:', error);
+                alert('No se pudo cargar la información del usuario.');
+            }
+        };
+        fetchUser();
+    }, []);  // El array vacío significa que el efecto solo se ejecutará una vez al montar el componente
+
+    // Si userInfo no está disponible aún (por ejemplo, mientras se carga), puedes mostrar un loading o un mensaje
+    if (!userInfo) {
+        return <div>Cargando...</div>;
+    }
+
+    // Desestructurar los datos del usuario
+    //const { email, name, address, phoneNumber } = userInfo
+    const existingEmail = userInfo?.email || "No existe email registrado";
+    const existingName = userInfo?.name || "No existe nombre registrado";
+    const existingAddress = userInfo?.address || "No existe dirección registrada";
+    const existingPhoneNumber = userInfo?.phoneNumber || "No existe teléfono registrado";
+    console.log("Userinfo:",userInfo);
+  
+
+
+
+
+
+
+
+
     const handleUpdateInfo = async (e) => {
         e.preventDefault();
         try {
@@ -33,13 +69,14 @@ const EditarPerfil = () => {
 
     return (
         <Header>
-            <div className="edit-book-container">
+            <div className="edit-form-container">
                 <h2>Modificar Información Personal</h2>
                 <form onSubmit={handleUpdateInfo}>
-                    <label>Name:</label>
+                    <label>Nombre:</label>
                     <input
                         type="text"
                         value={name}
+                        placeholder={existingName} 
                         onChange={(e) => setName(e.target.value)}
                         
                     />
@@ -48,22 +85,25 @@ const EditarPerfil = () => {
                     <input
                         type="text"
                         value={email}
+                        placeholder={existingEmail} 
                         onChange={(e) => setEmail(e.target.value)}
                         
                     />
 
-                    <label>Adress:</label>
+                    <label>Dirección:</label>
                     <input
                         type="text"
                         value={address}
+                        placeholder={existingAddress} 
                         onChange={(e) => setAddress(e.target.value)}
                         
                     />  
 
-                    <label>PhoneNumber:</label>
+                    <label>Teléfono:</label>
                     <input
                         type="text"
                         value={phoneNumber}
+                        placeholder={existingPhoneNumber} 
                         onChange={(e) => setPhoneNumber(e.target.value)}
                         
                     />

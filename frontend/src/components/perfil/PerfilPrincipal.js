@@ -1,4 +1,5 @@
-import '../../css/App.css';
+//import '../../css/App.css';
+import '../../css/EditForms.css';
 import Header from '../Header'
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -34,12 +35,12 @@ const PerfilMenu = () => {
 
     return (
         <Header>
-            <div className="perfil-container">
-                <div className="perfil-box">
-                    <div className="perfil-header">
+            <div className="edit-form-container"> {/* Cambiar aquí */}
+                <div>
+                    <div>
                         <h2>Información Personal</h2>
                     </div>
-                    <div className="perfil-info">
+                    <div>
                         <div className="info-item">
                             <span className="info-label">Nombre:</span>
                             <span className="info-value">{name}</span>
@@ -58,7 +59,7 @@ const PerfilMenu = () => {
                         </div>
                     </div>
                     <button 
-                        className="perfil-button"
+                        className="perfil-button" 
                         onClick={() => navigate('/EditarPerfil')}
                     >
                         Modificar Información
