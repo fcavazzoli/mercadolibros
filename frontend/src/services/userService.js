@@ -12,3 +12,15 @@ export const login = async (credentials) => {
         throw new Error('Login failed');
     }
 };
+
+export const singup = async (credentials) => {
+    // credentials is { email, password, name }
+    try {
+        const backend = new Backend();
+        const response = await backend.post('/users/', credentials);
+        return response;
+    } catch (error) {
+        console.error('Singup failed:', error);
+        throw error;
+    }
+};

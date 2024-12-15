@@ -1,9 +1,11 @@
 import { useState } from "react"
 import '../css/App.css'; 
 import { login } from "../services/userService";
+import { useNavigate } from 'react-router-dom';
 import Global from './Global'
 
-function Login({ onLoginSuccess }) {
+function Login() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -14,7 +16,8 @@ function Login({ onLoginSuccess }) {
         try {
             const token = await login({ email, password });
             localStorage.setItem('sessionToken', token);
-            onLoginSuccess();
+            
+            navigate('/');
         } catch (err) {
             setError("Invalid email or password. Please try again.");
         }

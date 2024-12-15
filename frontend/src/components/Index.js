@@ -1,9 +1,8 @@
 import '../css/App.css'; 
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getFiltered } from '../services/LibroService';
 import { Backend } from '../services/backend';
-import Header from './Header'
+import { getOtherBooks } from '../services/LibroService';
+import Header from './Header';
 import BooksGrid from './html-elements/BooksGrid';
 
 const backend = new Backend();
@@ -18,55 +17,51 @@ function HomePage() {
   const [historiaBooks, setHistoriaBooks] = useState([]);
 
   useEffect(() => {
-    subDivideBooks(setBooks);
-    subDivideBooks(setTerrorBooks,"Terror");
-    subDivideBooks(setFictionBooks, "Ficción");
-    subDivideBooks(setNoFictionBooks, "No Ficción");
-    subDivideBooks(setCienciaFictionBooks, "Ciencia Ficción");
-    subDivideBooks(setFantaisaBooks, "Fantasia");
-    subDivideBooks(setHistoriaBooks, "Historia");
+    fetchAndDivideBooks(); // Cargamos los libros al montar el componente
   }, []);
 
-  const fetchBooks = async () => {
+  const fetchAndDivideBooks = async () => {
     try {
-      const data = await getFiltered();
-      const books = data.map((item) => ({
+      const response = await getOtherBooks();
+      const allBooks = response.message.otherBooks || [];
+
+      console.log('Libros obtenidos:', allBooks); // Debug: Verifica los datos obtenidos
+
+      const formattedBooks = allBooks.map((item) => ({
         _id: item._id,
         title: item.title,
         author: item.author,
         photo: backend.url.replace("api", "") + item.photo,
         condition: item.condition,
-        category: item.category,
+        categories: item.categories || ["Sin Categoría"], // Normaliza el campo de categorías
       }));
-      setBooks(books || []);
+
+      setBooks(formattedBooks);
+
+      // Filtrar libros por categorías
+      setTerrorBooks(filterByCategory(formattedBooks, "Terror"));
+      setFictionBooks(filterByCategory(formattedBooks, "Ficción"));
+      setNoFictionBooks(filterByCategory(formattedBooks, "No Ficción"));
+      setCienciaFictionBooks(filterByCategory(formattedBooks, "Ciencia Ficción"));
+      setFantaisaBooks(filterByCategory(formattedBooks, "Fantasia"));
+      setHistoriaBooks(filterByCategory(formattedBooks, "Historia"));
     } catch (error) {
-      console.error('Error fetching books:', error);
+      console.error("Error fetching books:", error);
     }
   };
 
-  const subDivideBooks = async (setter, category) => {
-    try {
-      const data = await getFiltered({ byCategory: category });
-      const remote = data.map((item) => ({
-        _id: item._id,
-        title: item.title,
-        author: item.author,
-        photo: backend.url.replace("api", "") + item.photo,
-        condition: item.condition,
-        category: item.category,
-      }));
-      setter(remote || []);
-    } catch (error) {
-      console.error('Error fetching books:', error);
-    }
-  }
+  const filterByCategory = (books, category) => {
+    return books.filter((book) => {
+      // Asegúrate de que book.categories sea un arreglo y verifica si incluye la categoría
+      return Array.isArray(book.categories) && 
+             book.categories.some((cat) => cat.toLowerCase() === category.toLowerCase());
+    });
+  };
 
   return (
     <Header>
       <div>
-        {/* Contenido principal */}
         <main className="content">
-          {/* Libros Disponibles */}
           <BooksGrid title="Libros Disponibles" books={books} />
           <BooksGrid title="Libros de Terror" books={terrorBooks} />
           <BooksGrid title="Libros de Ficción" books={fictionBooks} />

@@ -9,6 +9,7 @@
     margin-left: 250px;
     position: fixed;
     top: 0;
+    left: 0;
     z-index: 1000;
   }
   
@@ -22,8 +23,8 @@
   
   .banner-content {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: left;
+    justify-content: left;
     flex-wrap: wrap;
   }
   

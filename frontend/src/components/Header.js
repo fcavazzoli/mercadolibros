@@ -17,13 +17,7 @@ function Render({ children }) {
       <Banner />
       <Sidebar />
 
-      {/* Contenedor principal */}
       <div className="main-content">
-        {/* Header */}
-        <div className="header">
-          <span className="welcome-message">¡Bienvenido a Mercado Libros!</span>
-        </div>
-        {/* Contenido dinámico */}
         {children}
       </div>
     </div>
