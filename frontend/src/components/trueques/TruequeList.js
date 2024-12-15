@@ -75,52 +75,59 @@ const Render = () => {
         
     };
 
-    return (<Header>
-        <h2 className="libro-list-title">Mis intercambios</h2>
-        <button 
-            className="add-btn"
-            onClick={() => navigate('/libros-disponibles')}
-        >
-            Ver Libros Disponibles
-        </button>
-        <div className="libro-list-container">
-            <div className="trueque-container"> <div>
-            <h3 className="libro-list-title">Trueques entrantes</h3>
-            <ul className="trueque-list">
-                {incomming.map(item => (
-                    <li key={item.id} className="libro-item">
-                        <div className="libro-info">
-                            <p><strong>Quiere:</strong> {books[item.askedBookId   ]?.title || 'No encontrado'}</p>
-                            <p><strong>Ofrece:</strong> {books[item.proposedBookId]?.title || 'No encontrado'}</p>
-                            <p><strong>Estado:</strong> {item.status || 'Desconocido'}</p>
-                        </div>
-                        <div className="buttons-container">
-                            <button className="modify-btn" onClick={() => handleAceptar(item.id)}>Aceptar</button>
-                            <button className="delete-btn" onClick={() => handleRechazar(item.id)}>Rechazar</button>
-                        </div>
-                    </li>
-                ))}
-            </ul>
-            </div><div>
-            <h3 className="libro-list-title">Trueques solicitados</h3>
-            <ul className="trueque-list">
-                {pending.map(item => (
-                    <li key={item.id} className="libro-item">
-                        <div className="libro-info">
-                            <p><strong>Pediste:</strong> {books[item.askedBookId   ]?.title || 'No encontrado'}</p>
-                            <p><strong>Ofreciste:</strong> {books[item.proposedBookId]?.title || 'No encontrado'}</p>
-                            <p><strong>Estado:</strong> {item.status || 'No encontrado'}</p>
-                        </div>
-                        <div className="buttons-container">
-                            {/* <button className="delete-btn" onClick={() => handleCancelar(item.id)}>Cancelar</button> */}
-                        </div>
-                    </li>
-                ))}
-            </ul>
+    return (
+        <Header>
+            <h2 className="libro-list-title">Mis intercambios</h2>
+            <button 
+                className="add-btn"
+                onClick={() => navigate('/libros-disponibles')}
+            >
+                Ver Libros Disponibles
+            </button>
+            <div className="libro-list-container">
+                <div className="trueque-container">
+                    <div>
+                        <h3 className="libro-list-title">Trueques entrantes</h3>
+                        <ul className="trueque-list">
+                            {incomming.map(item => (
+                                <li key={item.id} className="libro-item">
+                                    <div className="libro-info">
+                                        <p><strong>Quiere:</strong> {books[item.askedBookId]?.title || 'No encontrado'}</p>
+                                        <p><strong>Ofrece:</strong> {books[item.proposedBookId]?.title || 'No encontrado'}</p>
+                                        <p><strong>Estado:</strong> {item.status || 'Desconocido'}</p>
+                                    </div>
+                                    <div className="buttons-container">
+                                        <button className="modify-btn" onClick={() => handleAceptar(item.id)}>Aceptar</button>
+                                        <button className="delete-btn" onClick={() => handleRechazar(item.id)}>Rechazar</button>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+    
+                <div className="trueque-container">
+                    <div>
+                        <h3 className="libro-list-title">Trueques solicitados</h3>
+                        <ul className="trueque-list">
+                            {pending.map(item => (
+                                <li key={item.id} className="libro-item">
+                                    <div className="libro-info">
+                                        <p><strong>Pediste:</strong> {books[item.askedBookId]?.title || 'No encontrado'}</p>
+                                        <p><strong>Ofreciste:</strong> {books[item.proposedBookId]?.title || 'No encontrado'}</p>
+                                        <p><strong>Estado:</strong> {item.status || 'No encontrado'}</p>
+                                    </div>
+                                    <div className="buttons-container">
+                                        {/* <button className="delete-btn" onClick={() => handleCancelar(item.id)}>Cancelar</button> */}
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
             </div>
-            </div>
-        </div>
-    </Header>);
+        </Header>
+    );
 };
 
 export default Render;
