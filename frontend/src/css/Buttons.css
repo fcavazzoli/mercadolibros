@@ -35,3 +35,25 @@ button {
   .logout-button:hover {
     background-color: #c82333;
   }
+
+
+.modify-btn {
+  background-color: var(--primary);
+  color: var(--text);
+}
+
+.modify-btn:hover {
+  background-color: var(--accent);
+  transform: scale(1.05);
+}
+
+.delete-btn {
+  background-color: var(--highlight);
+  color: var(--text);
+}
+
+.delete-btn:hover {
+  background-color: #ff3b36;
+  transform: scale(1.05);
+}
+
