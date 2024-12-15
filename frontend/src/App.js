@@ -11,7 +11,8 @@ import OtherBooksList from './components/trueques/OtherBooksList';
 import OfferBook from './components/trueques/OfferBook';
 import PerfilMenu from './components/perfil/PerfilPrincipal';
 import EditarPerfil from './components/perfil/EditarPerfil';
-import Landing from './components/Index';
+import Index from './components/Index';
+import Landing from './components/Landing';
 import Singup from './login/Singup';
 import SingupSucess from './login/SingInSuccess';
 
@@ -24,7 +25,7 @@ function App() {
       <div>
         <Routes>
           {/* Ruta principal (Home) */}
-          <Route path="/" element={isAuthenticated ? <Landing /> : <Login />} />
+          <Route path="/" element={isAuthenticated ? <Index /> : <Landing />} />
 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Singup />} />

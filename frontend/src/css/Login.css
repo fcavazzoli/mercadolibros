@@ -13,7 +13,6 @@ body {
 .login-holder {
     position: relative; /* Enable positioning for child elements */
     width: 100%;
-    max-width: 500px;
     margin: auto;
     padding: 1.5rem;
     background-color: #ffffff;
@@ -202,7 +201,6 @@ button {
   .login-holder 
   .center-content {
     width: 100%;
-    max-width: 500px;
     padding: 1.5rem;
     background-color: #ffffff;
     border-radius: 10px;

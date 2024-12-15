@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getFiltered } from '../services/LibroService';
 import { Backend } from '../services/backend';
+import Global from '../login/Global'
+import BooksGrid from './html-elements/BooksGrid';
 
 const backend = new Backend();
 
@@ -67,67 +69,13 @@ function Landing() {
   };
 
   return (
-    <div>
+    <Global>
       {/* Contenido principal */}
       <main className="content">
-        {/* Libros Disponibles */}
-        <h2 className="content-title">Libros Disponibles</h2>
-        <div className="books-grid">
-          {books.map((book) => (
-            <div key={book._id} className="book-card">
-              <img
-                src={book.photo || '/book-placeholder.png'}
-                alt={book.title || 'Imagen no disponible'}
-                className="book-image"
-              />
-              <div className="book-info">
-                <h3 className="book-title">{book.title || 'Título no disponible'}</h3>
-                <p className="book-author">Autor: {book.author || 'Autor desconocido'}</p>
-                <p className="book-condition">Estado: {book.condition || 'No especificado'}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Libros de Terror */}
-        <h2 className="content-title">Libros de Terror</h2>
-        <div className="books-grid">
-          {terrorBooks.map((book) => (
-            <div key={book._id} className="book-card">
-              <img
-                src={book.photo || '/book-placeholder.png'}
-                alt={book.title || 'Imagen no disponible'}
-                className="book-image"
-              />
-              <div className="book-info">
-                <h3 className="book-title">{book.title || 'Título no disponible'}</h3>
-                <p className="book-author">Autor: {book.author || 'Autor desconocido'}</p>
-                <p className="book-condition">Estado: {book.condition || 'No especificado'}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Libros de Ficción */}
-        <h2 className="content-title">Libros de Ficción</h2>
-        <div className="books-grid">
-          {fictionBooks.map((book) => (
-            <div key={book._id} className="book-card">
-              <img
-                src={book.photo || '/book-placeholder.png'}
-                alt={book.title || 'Imagen no disponible'}
-                className="book-image"
-              />
-              <div className="book-info">
-                <h3 className="book-title">{book.title || 'Título no disponible'}</h3>
-                <p className="book-author">Autor: {book.author || 'Autor desconocido'}</p>
-                <p className="book-condition">Estado: {book.condition || 'No especificado'}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+        <BooksGrid title="Libros Disponibles" books={books}></BooksGrid>
+        <BooksGrid title="Libros de Ficción" books={fictionBooks}></BooksGrid>
       </main>
-    </div>
+      </Global>
   );
 }
 
