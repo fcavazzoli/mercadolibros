@@ -3,8 +3,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteBook, getMyBooks } from '../../services/LibroService';
 import Header from '../Header'
-import Carousel from '../html-elements/Carousel';
-import BookImage from '../html-elements/BookImage';
+import BooksGrid from '../html-elements/BooksGrid';
 
 const LibroList = () => {
     const [books, setBooks] = useState([]);
@@ -64,33 +63,8 @@ const LibroList = () => {
               className="search-bar"
             />
           </div>
+          <BooksGrid books={filteredBooks}></BooksGrid>
 
-          <Carousel autoPlay="true" interval="500">
-            {filteredBooks.map((book) => (
-            <div className="libro-item" key={book.id}>
-                <div className="libro-content">
-                <p><strong>Libro:</strong> {book.title || 'Sin título'}</p>
-                <p><strong>Autor:</strong> {book.author || 'Sin autor'}</p>
-                <p>
-                    <strong>Categoría:</strong>{' '}
-                    {book.categories && book.categories.length > 0
-                    ? book.categories.join(', ')
-                    : 'Sin categoría'}
-                </p>
-                </div>
-
-                <BookImage book={book} />
-                <div className="buttons-container">
-                  <button className="modify-btn" onClick={() => handleEdit(book.id)} >
-                    Modificar
-                  </button>
-                  <button className="delete-btn" onClick={() => handleDelete(book.id)} >
-                    Eliminar
-                  </button>
-                </div>
-            </div>
-            ))}
-          </Carousel>
           
         </div>
       </Header>);

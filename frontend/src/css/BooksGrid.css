@@ -38,8 +38,7 @@
     margin: 0.5rem 0;
   }
   
-  .book-author,
-  .book-condition {
+  .book-detail {
     font-size: 1rem;
     color: #555;
     margin: 0.25rem 0;
