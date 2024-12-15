@@ -3,6 +3,9 @@ import { createBook, getBookById, getAllBooks, getUserBook, getNotMyBooks as get
 import { deleteUserBook, getBooksForUser, getOtherBooksForUser } from "../services/prisma/userBooks.js";
 import { updateProposal, userIsBeingAsked } from "../services/prisma/exchanges.js";
 
+import { PrismaClient } from '@prisma/client'; // Importa PrismaClient
+const prisma = new PrismaClient(); // Inicializa PrismaClient
+
 export const create = async (req, res) => {
     const { user } = req;
 
@@ -134,52 +137,57 @@ export const getAll = async (req, res) => {
 
 export const updateBook = async (req, res) => {
     const { user } = req;
+    const { id } = req.params; // ID del libro
+    const bookId = parseInt(id);
 
-    const { id } = req.params;
-    const bookId = parseInt(id)
+    try {
+        console.log("Iniciando actualización para el libro ID:", bookId);
+        console.log("Datos recibidos:", req.body);
 
-    const userBook = await getUserBook(user.id, bookId);
-    if (!userBook) {
-        return res.status(404).json({ message: `User does not have book with id: ${bookId}` })
-    }
+        const userBook = await getUserBook(user.id, bookId);
+        if (!userBook) {
+            console.error("Libro no encontrado para el usuario:", user.id);
+            return res.status(404).json({ message: `User does not have book with id: ${bookId}` });
+        }
 
-    const bookInfo = req.body;
+        const bookInfo = req.body;
 
-    const book = await getBookById(bookId)
-    let categories;
-    if (bookInfo.categories) {
-        categories = await findOrCreateByNames(bookInfo.categories);
-    }
-    const allCategories = categories || book.BookCategory.map((c) => c.category)
+        const book = await getBookById(bookId);
+        console.log("Libro original:", book);
 
-    const newBook = await createBook({
-        title: bookInfo.title || book.title,
-        author: bookInfo.author || book.author,
-        UserBook: {
-            create: {
-                user: {
-                    connect: { id: req.user.id },
+        let updatedCategories = book.BookCategory.map((c) => c.category);
+        if (bookInfo.categories) {
+            console.log("Procesando nuevas categorías:", bookInfo.categories);
+            const categories = await findOrCreateByNames(bookInfo.categories);
+            updatedCategories = categories;
+        }
+
+        const updatedBook = await prisma.book.update({
+            where: { id: bookId },
+            data: {
+                title: bookInfo.title || book.title,
+                author: bookInfo.author || book.author,
+                photo: bookInfo.photo || book.photo,
+                BookCategory: {
+                    deleteMany: {}, // Eliminar relaciones previas
+                    create: updatedCategories.map((category) => ({
+                        category: {
+                            connect: { id: category.id },
+                        },
+                    })),
                 },
             },
-        },
-        BookCategory: {
-            create: allCategories.map((category) => ({
-                category: {
-                    connect: { id: category.id },
-                },
-            })),
-        },
-    })
+        });
 
-    const migrateUserProposals = await updateProposal(user.id, bookId, newBook.id)
-
-    const bookIsAsked = await userIsBeingAsked(bookId)
-    if (!bookIsAsked) {
-        const deleteOldUserBook = await deleteUserBook(user.id, bookId)
+        console.log("Libro actualizado correctamente:", updatedBook);
+        return res.status(200).json({ message: "Book updated successfully", updatedBook });
+    } catch (error) {
+        console.error("Error actualizando el libro:", error);
+        return res.status(500).json({ error: "Internal server error", details: error.message });
     }
-    const { id: newBookId, ...sanitizedBook } = newBook;
-    return res.status(200).json({ message: { userBookId: newBookId, ...sanitizedBook } })
-}
+};
+
+
 
 export const getBooksBySession = async (req, res) => {
     const { user } = req;

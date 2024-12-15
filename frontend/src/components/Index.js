@@ -1,10 +1,9 @@
+import '../css/App.css'; 
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../css/Landing.css';
-import { getFiltered } from '../services/LibroService';
 import { Backend } from '../services/backend';
-import * as server from '../helpers/HttpProtocol';
-import Header from './Header'
+import { getOtherBooks } from '../services/LibroService';
+import Header from './Header';
+import BooksGrid from './html-elements/BooksGrid';
 
 const backend = new Backend();
 
@@ -12,144 +11,64 @@ function HomePage() {
   const [books, setBooks] = useState([]);
   const [terrorBooks, setTerrorBooks] = useState([]);
   const [fictionBooks, setFictionBooks] = useState([]);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userName, setUserName] = useState("...");
-  const navigate = useNavigate();
+  const [nofictionBooks, setNoFictionBooks] = useState([]);
+  const [cienciafictionBooks, setCienciaFictionBooks] = useState([]);
+  const [fantasiaBooks, setFantaisaBooks] = useState([]);
+  const [historiaBooks, setHistoriaBooks] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem('sessionToken');
-    setIsAuthenticated(!!token);
-    if (token) {
-      identifyMe();
-    } else {
-      navigate('/login');
-    }
-  }, [navigate]);
-
-  useEffect(() => {
-    fetchBooks();
-    fetchTerrorBooks();
-    fetchFictionBooks();
+    fetchAndDivideBooks(); // Cargamos los libros al montar el componente
   }, []);
 
-  const identifyMe = async () => {
+  const fetchAndDivideBooks = async () => {
     try {
-      const data = await server.get("users/me", {});
-      setUserName(data.user?.name ?? "Invitado");
-    } catch (error) {
-      console.error("Error fetching user:", error);
-    }
-  };
+      const response = await getOtherBooks();
+      const allBooks = response.message.otherBooks || [];
 
-  const fetchBooks = async () => {
-    try {
-      const data = await getFiltered();
-      const books = data.map((item) => ({
+      console.log('Libros obtenidos:', allBooks); // Debug: Verifica los datos obtenidos
+
+      const formattedBooks = allBooks.map((item) => ({
         _id: item._id,
         title: item.title,
         author: item.author,
         photo: backend.url.replace("api", "") + item.photo,
         condition: item.condition,
+        categories: item.categories || ["Sin Categoría"], // Normaliza el campo de categorías
       }));
-      setBooks(books || []);
+
+      setBooks(formattedBooks);
+
+      // Filtrar libros por categorías
+      setTerrorBooks(filterByCategory(formattedBooks, "Terror"));
+      setFictionBooks(filterByCategory(formattedBooks, "Ficción"));
+      setNoFictionBooks(filterByCategory(formattedBooks, "No Ficción"));
+      setCienciaFictionBooks(filterByCategory(formattedBooks, "Ciencia Ficción"));
+      setFantaisaBooks(filterByCategory(formattedBooks, "Fantasia"));
+      setHistoriaBooks(filterByCategory(formattedBooks, "Historia"));
     } catch (error) {
-      console.error('Error fetching books:', error);
+      console.error("Error fetching books:", error);
     }
   };
 
-  const fetchTerrorBooks = async () => {
-    try {
-      const data = await getFiltered({ byCategory: "Terror" });
-      const terrorBooks = data.map((item) => ({
-        _id: item._id,
-        title: item.title,
-        author: item.author,
-        photo: backend.url.replace("api", "") + item.photo,
-        condition: item.condition,
-      }));
-      setTerrorBooks(terrorBooks || []);
-    } catch (error) {
-      console.error('Error fetching terror books:', error);
-    }
-  };
-
-  const fetchFictionBooks = async () => {
-    try {
-      const data = await getFiltered({ byCategory: "Ficción" });
-      const fictionBooks = data.map((item) => ({
-        _id: item._id,
-        title: item.title,
-        author: item.author,
-        photo: backend.url.replace("api", "") + item.photo,
-        condition: item.condition,
-      }));
-      setFictionBooks(fictionBooks || []);
-    } catch (error) {
-      console.error('Error fetching fiction books:', error);
-    }
+  const filterByCategory = (books, category) => {
+    return books.filter((book) => {
+      // Asegúrate de que book.categories sea un arreglo y verifica si incluye la categoría
+      return Array.isArray(book.categories) && 
+             book.categories.some((cat) => cat.toLowerCase() === category.toLowerCase());
+    });
   };
 
   return (
     <Header>
       <div>
-        {/* Contenido principal */}
         <main className="content">
-          {/* Libros Disponibles */}
-          <h2 className="content-title">Libros Disponibles</h2>
-          <div className="books-grid">
-            {books.map((book) => (
-              <div key={book._id} className="book-card">
-                <img
-                  src={book.photo || '/book-placeholder.png'}
-                  alt={book.title || 'Imagen no disponible'}
-                  className="book-image"
-                />
-                <div className="book-info">
-                  <h3 className="book-title">{book.title || 'Título no disponible'}</h3>
-                  <p className="book-author">Autor: {book.author || 'Autor desconocido'}</p>
-                  <p className="book-condition">Estado: {book.condition || 'No especificado'}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Libros de Terror */}
-          <h2 className="content-title">Libros de Terror</h2>
-          <div className="books-grid">
-            {terrorBooks.map((book) => (
-              <div key={book._id} className="book-card">
-                <img
-                  src={book.photo || '/book-placeholder.png'}
-                  alt={book.title || 'Imagen no disponible'}
-                  className="book-image"
-                />
-                <div className="book-info">
-                  <h3 className="book-title">{book.title || 'Título no disponible'}</h3>
-                  <p className="book-author">Autor: {book.author || 'Autor desconocido'}</p>
-                  <p className="book-condition">Estado: {book.condition || 'No especificado'}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Libros de Ficción */}
-          <h2 className="content-title">Libros de Ficción</h2>
-          <div className="books-grid">
-            {fictionBooks.map((book) => (
-              <div key={book._id} className="book-card">
-                <img
-                  src={book.photo || '/book-placeholder.png'}
-                  alt={book.title || 'Imagen no disponible'}
-                  className="book-image"
-                />
-                <div className="book-info">
-                  <h3 className="book-title">{book.title || 'Título no disponible'}</h3>
-                  <p className="book-author">Autor: {book.author || 'Autor desconocido'}</p>
-                  <p className="book-condition">Estado: {book.condition || 'No especificado'}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <BooksGrid title="Libros Disponibles" books={books} />
+          <BooksGrid title="Libros de Terror" books={terrorBooks} />
+          <BooksGrid title="Libros de Ficción" books={fictionBooks} />
+          <BooksGrid title="Libros de No Ficción" books={nofictionBooks} />
+          <BooksGrid title="Libros de Ciencia Ficción" books={cienciafictionBooks} />
+          <BooksGrid title="Libros de Fantasia" books={fantasiaBooks} />
+          <BooksGrid title="Libros de Historia" books={historiaBooks} />
         </main>
       </div>
     </Header>

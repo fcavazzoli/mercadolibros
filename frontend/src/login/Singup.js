@@ -1,15 +1,19 @@
 import React, { useState } from "react"
-import * as server from '../helpers/HttpProtocol'
-import '../css/Login.css';
-import { login } from "../services/userService";
+import '../css/App.css'; 
+import { login, singup } from "../services/userService";
+import { Backend } from "../services/backend";
+import { useNavigate } from 'react-router-dom';
+import Global from "./Global"
 
-function Singup({ onSuccess }) {
+const backend = new Backend();
+
+function Singup() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
-    
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -21,22 +25,21 @@ function Singup({ onSuccess }) {
         }
 
         try {
-            const data = await server.post("users/",  { name, email, password });
-
+            const data = await singup({ name, email, password });
             const token = await login({ email, password });
             localStorage.setItem('sessionToken', token);
             
-            onSuccess();
+            navigate("/singupsuccess");
         } catch (err) {
             setError("*Invalid email or password. Please try again. Error: "+err);
         }
     };
 
     return (
-        <div className="max-height-possible">
+        <Global>
         <div className="login-container">
-            <h2>Register</h2>
             <form onSubmit={handleLogin}>
+                <h2>Register</h2>
                 <div className="form-group">
                     <label>Name:</label>
                     <input type="text" value={name} onChange={(e) => setName(e.target.value)} required/>
@@ -61,7 +64,7 @@ function Singup({ onSuccess }) {
                 <button type="submit">Submit</button>
             </form>
         </div>
-        </div>
+        </Global>
     );
 };
 

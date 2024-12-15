@@ -1,10 +1,8 @@
-import '../../css/LibroMenu.css';
+import '../../css/App.css';
 import Header from '../Header'
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getUser} from '../../services/profileService';
-import '../../css/EditBook.css';
-import '../../css/Perfil.css';
 
 
 const PerfilMenu = () => {

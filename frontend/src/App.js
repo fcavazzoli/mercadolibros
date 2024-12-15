@@ -1,25 +1,22 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { setServerSource } from './helpers/HttpProtocol';
 
-import LoginGlobal from './login/Global';
-import PageGlobal from './components/Index';
+import Login from './login/Login';
 import AddBook from './components/libros/AddBook';
 import LibroMenu from './components/libros/Menu';
 import EditBook from './components/libros/EditBook';
 import LibroList from './components/libros/LibroList';
 import TruequeList from './components/trueques/TruequeList';
-import OtherBooksList from './components/trueques/OtherBooksList.js';
-import OfferBook from './components/trueques/OfferBook.js';
+import OtherBooksList from './components/trueques/OtherBooksList';
+import OfferBook from './components/trueques/OfferBook';
 import PerfilMenu from './components/perfil/PerfilPrincipal';
-import EditarPerfil from './components/perfil/EditarPerfil.js';
-import Landing from './components/Landing.js';
-import Singup from './login/Singup.js';
+import EditarPerfil from './components/perfil/EditarPerfil';
+import Index from './components/Index';
+import Landing from './components/Landing';
+import Singup from './login/Singup';
+import SingupSucess from './login/SingInSuccess';
 
 function App() {
-  // Configurar la fuente del servidor
-  setServerSource("http://localhost:3000/api/");
-
   // Verificar si el usuario está autenticado
   const isAuthenticated = Boolean(localStorage.getItem('sessionToken'));
 
@@ -28,10 +25,11 @@ function App() {
       <div>
         <Routes>
           {/* Ruta principal (Home) */}
-          <Route path="/" element={isAuthenticated ? <PageGlobal /> : <Landing />} />
+          <Route path="/" element={isAuthenticated ? <Index /> : <Landing />} />
 
-          <Route path="/login" element={<LoginGlobal />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Singup />} />
+          <Route path="/singupsuccess" element= {<SingupSucess />} />
 
 
           {/* Rutas exclusivas para funcionalidades adicionales */}

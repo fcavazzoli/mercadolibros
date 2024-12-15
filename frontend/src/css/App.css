@@ -1,112 +1,65 @@
-/* App.css */
 
-/* Definición de la paleta de colores */
-:root {
-  /* Colores principales */
-  --primary: #336B6F;    /* Caribbean Current - Para elementos principales y navegación */
-  --secondary: #30252E;  /* Raisin Black - Para elementos secundarios y fondos alternos */
-  --background: #131632; /* Space Cadet - Fondo principal */
-  --accent: #F28D30;    /* Tangerine - Para elementos destacados y hover */
-  --text: #D3C5AA;      /* Dun - Color de texto principal */
-  --highlight: #D51F1B; /* Fire Engine Red - Para botones y alertas */
-
-  --font-family: 'Arial', sans-serif;
-}
-
-/* Estilos globales */
+/* Global Styles */
 body {
   margin: 0;
-  padding: 0;
-  font-family: var(--font-family);
-  background-color: var(--background);
-  color: var(--text);
-}
-
-h1, h2, h3, h4, h5, h6 {
-  color: var(--accent);
-  margin: 0;
-  padding: 0;
-}
-
-p {
-  margin: 0;
-  padding: 0;
-  color: var(--text);
-}
-
-/* Enlaces */
-a {
-  text-decoration: none;
-  color: var(--primary);
-  transition: color 0.3s ease;
-}
-
-a:hover {
-  color: var(--accent);
-}
-
-/* Botones */
-button {
-  font-family: var(--font-family);
-  font-weight: bold;
-  border-radius: 8px;
-  border: none;
-  padding: 10px 20px;
-  background-color: var(--primary);
-  color: var(--text);
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-button:hover {
-  background-color: var(--accent);
-  transform: scale(1.05);
-}
-
-/* Podemos añadir una clase para botones secundarios */
-button.secondary {
-  background-color: var(--secondary);
-}
-
-/* Y mantener --highlight solo para botones de alerta o peligro */
-button.danger {
-  background-color: var(--highlight);
-}
-
-/* Encabezado principal */
-.App-header {
-  background-color: var(--secondary);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  color: var(--text);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  flex-direction: column; /* Ensure a vertical layout */
+  min-height: 100vh;
+  overflow: auto;
 }
 
-.App-header h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+@import url('Sidebar.css');
+@import url('Banner.css');
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+  .banner {
+    width: calc(100% - 200px);
+    margin-left: 200px;
+  }
+  .main-content {
+    margin-left: 210px;
+  }
 }
 
-.App-header p {
-  font-size: 1rem;
-  margin-bottom: 0;
+@media screen and (max-width: 576px) {
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+  .banner {
+    width: 100%;
+    margin-left: 0;
+  }
+  .main-content {
+    margin-left: 0;
+  }
 }
 
-/* Contenedor principal */
-.App {
+/* Main Content */
+.main-content {
+  margin: 11.5rem 2rem 2rem 270px;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  top: 210;
+}
+
+.content-title {
   text-align: center;
+  margin-bottom: 2rem;
+  color: #2b2b2b;
+  font-size: 2.5rem;
+  font-weight: bold;
 }
 
-/* Diseño responsivo */
-@media (max-width: 768px) {
-  body {
-    font-size: 90%;
-  }
-
-  .App-header h1 {
-    font-size: 1.5rem;
-  }
-}
+@import url('Buttons.css');
+@import url('BooksGrid.css');

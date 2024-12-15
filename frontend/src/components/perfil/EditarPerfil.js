@@ -1,7 +1,7 @@
+import '../../css/App.css'; 
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getUser, updateInfo} from '../../services/profileService';
-import '../../css/EditBook.css';
 import Header from '../Header';
 
 const EditarPerfil = () => {
@@ -12,33 +12,6 @@ const EditarPerfil = () => {
     const [email, setEmail] = useState("");
     const [address, setAddress] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
-    
-
-    // useEffect(() => {
-    //     const fetchUser = async () => {
-    //         try {
-    //             const response = await getUser();  // Obtener la info del usuario
-    //             if (response && response.user) { // Verificar que la propiedad user exista
-    //                 setUserInfo(response.user);  // Guardar la info del usuario en el estado
-    //             }
-    //         } catch (error) {
-    //             console.error('Error al cargar la info del usuario:', error);
-    //             alert('No se pudo cargar la información del usuario.');
-    //         }
-    //     };
-    //     fetchUser();
-    // }, []);  // El array vacío significa que el efecto solo se ejecutará una vez al montar el componente
-
-    // // Si userInfo no está disponible aún (por ejemplo, mientras se carga), puedes mostrar un loading o un mensaje
-    // if (!userInfo) {
-    //     return <div>Cargando...</div>;
-    // };
-
-    // // Desestructurar los datos del usuario
-    // const userId  = userInfo.id;
-    // console.log("IDUSUARIO:", userId); 
-    
-    
     
     
     const handleUpdateInfo = async (e) => {

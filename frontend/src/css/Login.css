@@ -1,26 +1,209 @@
-.login-container {
-  width: 270px;
-  margin: 0 auto;
-  padding: 30px 30px 30px 30px;
-  border-radius: 8px;
-  background-color: #3f3f4f;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
-  text-align: center;
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    min-height: 100vh;
+    overflow-x: hidden;
+  justify-content: center;
   align-items: center;
-  align-self: center;
-  display: block;
 }
 
+/* Main Container */
+.login-holder {
+    position: relative; /* Enable positioning for child elements */
+    width: 100%;
+    margin: auto;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 150px; /* Offset to account for the banner height */
+}
+
+/* Navigation Bar */
+.login-holder 
+nav {
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+.login-holder 
+nav button {
+    padding: 0.5rem 1.2rem;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.login-holder 
+nav button:hover {
+    background-color: #0056b3;
+}
+
+/* Login Form */
+.login-holder 
+.login-container {
+    text-align: left;
+    padding: 1rem;
+}
+.login-holder 
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #2b2b2b;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+.login-holder 
 .form-group {
-  background-color: #3f3f4f;
-  margin-bottom: 20px;
+    margin-bottom: 1.5rem;
 }
-
+.login-holder 
 label {
-  display: block;
-  font-size: 14px;
-  color: white;
-  margin-bottom: 8px;
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
 }
+.login-holder 
+input[type="text"], 
+input[type="email"], 
+input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 0.3rem;
+    box-sizing: border-box;
+}
+.login-holder 
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+.login-holder 
+button[type="submit"] {
+    width: 100%;
+    padding: 0.7rem;
+    background-color: #ffa500;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.login-holder 
+button[type="submit"]:hover {
+    background-color: #ff8c00;
+}
+.login-holder 
+button {
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .login-holder 
+  .login-button {
+    background-color: #ffa500;
+    color: #ffffff;
+  }
+  .login-holder 
+  .login-button:hover {
+    background-color: #ff8c00;
+  }
+  .login-holder 
+  .register-button {
+    background-color: #007bff;
+    color: #ffffff;
+  }
+  .login-holder 
+  .register-button:hover {
+    background-color: #0056b3;
+  }
+  .login-holder 
+  .logout-button {
+    background-color: #dc3545;
+    color: #ffffff;
+  }
+  .login-holder 
+  .logout-button:hover {
+    background-color: #c82333;
+  }
 
+/* Responsive Design */
+@media screen and (max-width: 576px) {
+    .login-holder {
+        width: 90%;
+        padding: 1rem;
+    }
+}
+  
+  /* Banner */
+  .login-holder .banner {
+    width: 100%;
+    background-color: #2b2b2b;
+    padding: 2rem 0;
+    text-align: center;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin-left: 0;
+    z-index: 1000;
+  }
+  .login-holder 
+  .auth-buttons {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    display: flex;
+    gap: 10px;
+  }
+  .login-holder 
+  .banner-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .login-holder 
+  .banner-logo {
+    width: 100px;
+    height: 100px;
+    margin-right: 1rem;
+  }
+  .login-holder 
+  .banner-text h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    color: #ffa500;
+  }
+  .login-holder 
+  .banner-text p {
+    margin: 0;
+    color: #ffa500;
+    font-size: 1.2rem;
+  }
+  .login-holder 
+  .center-content {
+    width: 100%;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }

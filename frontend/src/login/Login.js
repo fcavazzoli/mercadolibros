@@ -1,8 +1,11 @@
 import { useState } from "react"
-import '../css/Login.css';
+import '../css/App.css'; 
 import { login } from "../services/userService";
+import { useNavigate } from 'react-router-dom';
+import Global from './Global'
 
-function Login({ onLoginSuccess }) {
+function Login() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -13,13 +16,15 @@ function Login({ onLoginSuccess }) {
         try {
             const token = await login({ email, password });
             localStorage.setItem('sessionToken', token);
-            onLoginSuccess();
+            
+            navigate('/');
         } catch (err) {
             setError("Invalid email or password. Please try again.");
         }
     };
 
     return (
+        <Global>
         <div className="max-height-possible">
             <div className="login-container">
                 <h2>Login</h2>
@@ -39,6 +44,7 @@ function Login({ onLoginSuccess }) {
                 </form>
             </div>
         </div>
+        </Global>
     );
 };
 

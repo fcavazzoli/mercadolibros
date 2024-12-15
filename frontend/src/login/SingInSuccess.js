@@ -1,10 +1,11 @@
 import React from "react"
-import '../css/Login.css';
+import '../css/App.css'; 
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
+    const navigate = useNavigate()
     const goBack = async (e) => {
-        e.preventDefault();
-        window.location.replace('');
+        navigate('/');
     };
 
     return (

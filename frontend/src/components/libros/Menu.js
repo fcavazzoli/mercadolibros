@@ -1,7 +1,6 @@
-// LibroMenu.js
+import '../../css/App.css'; 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../css/LibroMenu.css';
 import Header from '../Header'
 
 const LibroMenu = () => {

@@ -1,0 +1,132 @@
+.carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: #f0f0f0;
+}
+
+.carousel-buttons {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  right: 10px;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  transform: translateY(-50%);
+}
+
+.carousel-buttons button {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.carousel-items-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-items {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+  flex: 0 0 40%;
+  box-sizing: border-box;
+}
+
+/* Optional Scroll Buttons */
+.carousel-controls {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  pointer-events: none; /* Allow clicks to pass through to buttons */
+}
+
+.carousel-button {
+  pointer-events: all; /* Enable clicks on buttons */
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.carousel-button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+  
+  /* Add styles for the carousel container */
+.slick-slide {
+  padding: 0 10px;
+}
+
+.slick-prev, .slick-next {
+  z-index: 1;
+}
+
+.libro-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+/*---------------------------------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------------------------------*/
+
+.carousel-items-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-item:hover {
+  transform: scale(1.1); /* Scale the item slightly on hover */
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+
+.carousel-item img {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.carousel-item img:hover {
+  transform: scale(1.05); /* Scale image on hover */
+}
+
+.carousel-item.active {
+  transform: scale(1.05); /* Slightly scale up the active item */
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2); /* Apply shadow to the active item */
+}
+
+.carousel-items-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-items {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
+}
