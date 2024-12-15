@@ -1,0 +1,115 @@
+/* Contenedor principal del formulario */
+.edit-form-container {
+    width: 80%; /* Ancho del contenedor */
+    margin: 0 auto; /* Centrado en la página */
+    padding: 50px; /* Espaciado interno */
+    background-color: #f9f9f9; /* Color de fondo claro */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Título del formulario */
+.edit-form-container h2 {
+    text-align: center; /* Centrado horizontal del texto */
+    margin-bottom: 80px; /* Espaciado inferior */
+    font-size: px; /* Tamaño de fuente */
+    color: #333; /* Color de texto oscuro */
+}
+
+/* Formulario */
+.edit-form-container form {
+    display: flex; /* Utiliza Flexbox */
+    flex-direction: column; /* Los elementos se alinean en una columna */
+    gap: 15px; /* Espaciado entre los elementos del formulario */
+}
+
+/* Etiquetas */
+.edit-form-container form label {
+    font-size: 16px; /* Tamaño de la fuente */
+    color: #555; /* Color de texto */
+    margin-bottom: 5px; /* Espaciado inferior */
+}
+
+/* Campos de entrada */
+.edit-form-container form input {
+    padding: 10px; /* Espaciado interno */
+    font-size: 14px; /* Tamaño de fuente */
+    border: 1px solid #ccc; /* Borde suave */
+    border-radius: 4px; /* Bordes redondeados */
+    outline: none; /* Sin contorno por defecto */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Transición suave en el borde y sombra */
+}
+
+/* Estilo cuando el campo de entrada está enfocado */
+.edit-form-container form input:focus {
+    border-color: #007bff; /* Borde azul cuando se enfoca */
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.3); /* Sombra suave azul */
+}
+
+/* Botones */
+.form-buttons {
+    display: flex; /* Utiliza Flexbox para alinear los botones */
+    justify-content: space-between; /* Espacio entre los botones */
+    gap: 10px; /* Espaciado entre los botones */
+}
+
+/* Botón de guardar */
+.form-buttons .save-btn {
+    background-color: #007bff; /* Fondo azul */
+    color: #fff; /* Texto blanco */
+    padding: 10px 15px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor a puntero */
+    transition: background-color 0.3s; /* Transición suave en el color de fondo */
+}
+
+/* Efecto cuando el botón de guardar es hover */
+.form-buttons .save-btn:hover {
+    background-color: #0056b3; /* Color de fondo más oscuro al pasar el mouse */
+}
+
+/* Botón de cancelar */
+.form-buttons .cancel-btn {
+    background-color: #e0e0e0; /* Fondo gris claro */
+    color: #555; /* Texto gris oscuro */
+    padding: 10px 15px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor a puntero */
+    transition: background-color 0.3s; /* Transición suave en el color de fondo */
+}
+
+/* Efecto cuando el botón de cancelar es hover */
+.form-buttons .cancel-btn:hover {
+    background-color: #d6d6d6; /* Fondo gris más oscuro al pasar el mouse */
+}
+
+.info-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.info-value {
+    font-size: 14px;
+    color: #555;
+}
+
+.perfil-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.perfil-button:hover {
+    background-color: #0056b3;
+}
+
+.info-item {
+    margin-bottom: 20px; /* Ajusta el valor para obtener más o menos espacio */
+}
