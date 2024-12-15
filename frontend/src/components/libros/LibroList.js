@@ -4,10 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { deleteBook, getMyBooks } from '../../services/LibroService';
 import Header from '../Header'
 import BooksGrid from '../html-elements/BooksGrid';
+import usePopup from '../html-elements/usePopup';
 
 const LibroList = () => {
     const [books, setBooks] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+
+    const [PopupComponent, showPopup] = usePopup();
+
     const navigate = useNavigate();
 
     const getEventBook = function(event) {
@@ -26,25 +30,29 @@ const LibroList = () => {
         fetchBooks();
     }, []);
 
-    const handleDelete = async (evClick) => {
-        const book = getEventBook(evClick);
-
-        if (window.confirm('¿Estás seguro de que deseas eliminar este libro?')) {
-            try {
-                let response = await deleteBook(book.id);
-                
-                if (response.message.includes("ExchangeProposal")) {
-                    alert('No puede eliminar el libro ya que se encuenta en un trueque no cerrado');
-                    return;
-                }
-
-                setBooks(await getMyBooks() || []);
-                alert(response.message);
-            } catch (error) {
-                console.error('Error al eliminar el libro:', error);
-                alert('Error al eliminar el libro. Intente nuevamente más tarde.');
+    const applyDelete = async (bookid) => {
+        try {
+            let response = await deleteBook(bookid);
+            
+            if (response.message.includes("ExchangeProposal")) {
+                showPopup({ message:'No puede eliminar el libro ya que se encuenta en un trueque no cerrado' });
+                return;
             }
+
+            setBooks(await getMyBooks() || []);
+            showPopup({ message: response.message, onConfirm: () => {} });
+        } catch (error) {
+            console.error('Error al eliminar el libro:', error);
+            showPopup({ message: 'Error al eliminar el libro. Intente nuevamente más tarde.' });
         }
+    }
+
+    const handleDelete = (evClick) => {
+        const bookid = getEventBook(evClick).id;
+        showPopup({
+            message: "¿Estás seguro de que deseas eliminar este libro?",
+            onConfirm: () => applyDelete(bookid)
+        });
     };
 
     const handleEdit = (evClick) => {
@@ -86,7 +94,7 @@ const LibroList = () => {
             </button>
           </BooksGrid>
 
-          
+          {PopupComponent}
         </div>
       </Header>);
 };
