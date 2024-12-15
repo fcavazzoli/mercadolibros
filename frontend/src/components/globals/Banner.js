@@ -1,14 +1,18 @@
 import '../../css/App.css'; 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import usePopup from '../html-elements/usePopup';
 
 function Render() {
   const navigate = useNavigate();
+  const [PopupComponent, showPopup] = usePopup();
   const isAuthenticated = Boolean(localStorage.getItem('sessionToken'));
   
   const handleLogout = () => {
-    localStorage.removeItem('sessionToken'); // Remove the session token
-    navigate('/login'); // Redirect to the login page
+    showPopup({message:'Desea cerrar sesión?', onConfirm:() => {
+      localStorage.removeItem('sessionToken'); // Remove the session token
+      navigate('/login'); // Redirect to the login page
+    }});
   };
 
   return (
@@ -37,6 +41,7 @@ function Render() {
             <p>El mercado para amantes de los libros.</p>
             </div>
         </div>
+        {PopupComponent}
     </div>
   );
 }
