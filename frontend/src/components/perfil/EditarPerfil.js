@@ -1,5 +1,5 @@
-//import '../../css/App.css'; 
-import '../../css/EditForms.css';
+import '../../css/App.css'; 
+//import '../../css/EditForms.css';
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getUser, updateInfo} from '../../services/profileService';

@@ -1,5 +1,5 @@
-//import '../../css/App.css';
-import '../../css/EditForms.css';
+import '../../css/App.css';
+//import '../../css/EditForms.css';
 import Header from '../Header'
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';

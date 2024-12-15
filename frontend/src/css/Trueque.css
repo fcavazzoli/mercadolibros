@@ -1,0 +1,140 @@
+/* Título principal */
+.libro-list-title {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+/* Botón de ver libros disponibles */
+.add-btn {
+    background-color: #007bff; /* Fondo azul */
+    color: #fff; /* Texto blanco */
+    padding: 10px 20px; /* Espaciado interno */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto 20px; /* Centrado y espaciado inferior */
+    transition: background-color 0.3s;
+}
+
+/* Efecto hover en el botón de ver libros */
+.add-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Contenedor principal de la lista de libros */
+.libro-list-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se ajusten en varias filas */
+    gap: 20px;
+    justify-content: space-between;
+}
+
+/* Contenedor de los trueques */
+.trueque-container {
+    flex: 1 1 48%; /* Cada contenedor ocupa el 48% del espacio disponible, pero puede ajustarse */
+    box-sizing: border-box;
+}
+
+/* Estilo para los items de trueque */
+.trueque-list {
+    list-style: none;
+    padding: 0;
+}
+
+.libro-item {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    padding: 20px;
+}
+
+.libro-info {
+    margin-bottom: 15px;
+}
+
+.libro-info p {
+    font-size: 14px;
+    color: #555;
+}
+
+.libro-info strong {
+    color: #333;
+}
+
+/* Botones dentro de cada item de trueque */
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* Botón de modificar (aceptar) */
+.modify-btn {
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Efecto hover en el botón de modificar */
+.modify-btn:hover {
+    background-color: #218838;
+}
+
+/* Botón de eliminar (rechazar) */
+.delete-btn {
+    background-color: #dc3545;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Efecto hover en el botón de eliminar */
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+/* Estilo responsivo para pantallas pequeñas */
+@media (max-width: 768px) {
+    .trueque-container {
+        flex: 1 1 100%; /* En pantallas pequeñas, los contenedores ocupan todo el ancho */
+    }
+
+    .libro-list-container {
+        justify-content: center; /* Centrar los contenedores cuando se apilan */
+    }
+
+    .libro-item {
+        padding: 15px; /* Menos relleno para los items en pantallas pequeñas */
+    }
+
+    .add-btn {
+        width: 100%; /* Hacer que el botón ocupe todo el ancho en pantallas pequeñas */
+        padding: 12px 0;
+    }
+}
+
+/* Estilo responsivo para pantallas muy pequeñas (móviles) */
+@media (max-width: 480px) {
+    .libro-list-title {
+        font-size: 20px; /* Ajustar tamaño del título */
+    }
+
+    .add-btn {
+        font-size: 16px; /* Ajustar el tamaño del texto en el botón */
+    }
+
+    .libro-info p {
+        font-size: 13px; /* Reducir tamaño de texto en los detalles del libro */
+    }
+}
