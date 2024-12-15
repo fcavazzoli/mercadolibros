@@ -199,6 +199,7 @@ export const getOtherBooksBySession = async (req, res) => {
     const { user } = req;
 
     try {
+        console.log("marta")
         const otherBooks = await getOtherBooksForUser(user.id);
 
         return res.status(200).json({ message: { otherBooks } });

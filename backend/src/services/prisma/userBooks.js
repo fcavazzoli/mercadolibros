@@ -69,14 +69,21 @@ export const getBooksForUser = async (userId) => {
 }
 
 export const getOtherBooksForUser = async (userId) => {
-    const books = await prisma.book.findMany({
+    const userBooks = await prisma.userBook.findMany({
         where: {
             NOT: {
-                UserBook: {
-                    some: {
-                        userId: userId
-                    }
-                }
+                userId: userId
+            }
+        },
+        include: {
+            book: true
+        }
+    })
+    console.log(userBooks)
+    const books = await prisma.book.findMany({
+        where: {
+            id: {
+                in: userBooks.map(b=> b.bookId)
             }
         },
         include: {
