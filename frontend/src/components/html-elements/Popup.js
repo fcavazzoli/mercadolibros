@@ -1,5 +1,4 @@
 import React from "react";
-import "./Popup.css"; // Import the CSS file
 
 function Popup({ message, onClose, onConfirm, confirmText = "OK", closeText = "Cancel" }) {
     return (
