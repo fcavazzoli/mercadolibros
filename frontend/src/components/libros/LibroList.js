@@ -87,10 +87,10 @@ const LibroList = () => {
           <BooksGrid books={filteredBooks}>
              {/* Child buttons will receive the 'book' prop */}
              <button className='libro-update' onClick={(e) => handleEdit(e)}>
-                Update
+                Actualizar
             </button>
             <button className='libro-delete' onClick={(e) => handleDelete(e)}>
-                Delete
+                Borrar
             </button>
           </BooksGrid>
 

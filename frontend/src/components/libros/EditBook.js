@@ -69,10 +69,9 @@ const EditBook = () => {
     const handleCancel = () => {
         navigate('/books'); // Redirige al listado de libros
     };
-
     return (
         <Header>
-            <div className="edit-book-container">
+            <div className="edit-form-container"> {/* Cambié la clase al contenedor principal */}
                 <h2>Modificar Libro</h2>
                 <form onSubmit={handleUpdateBook}>
                     <label>Título:</label>
@@ -82,7 +81,7 @@ const EditBook = () => {
                         onChange={(e) => setTitle(e.target.value)}
                         required
                     />
-
+    
                     <label>Autor:</label>
                     <input
                         type="text"
@@ -90,7 +89,7 @@ const EditBook = () => {
                         onChange={(e) => setAuthor(e.target.value)}
                         required
                     />
-
+    
                     <label>Categoría:</label>
                     <select
                         value={category}
@@ -116,7 +115,7 @@ const EditBook = () => {
                             <img src={preview} alt="Vista previa" style={{ maxWidth: '200px' }} />
                         </div>
                     )}
-
+    
                     <div className="form-buttons">
                         <button type="submit" className="save-btn">
                             Guardar Cambios
