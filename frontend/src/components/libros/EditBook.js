@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getBookById, updateBook } from '../../services/LibroService';
 import Header from '../Header';
-import BookImage from '../html-elements/BookImage';
+import usePopup from '../html-elements/usePopup';
 
 const EditBook = () => {
     const { bookId } = useParams();
@@ -13,6 +13,7 @@ const EditBook = () => {
     const [category, setCategory] = useState('Ficción');
     const [photo, setPhoto] = useState(''); // Ruta de la foto
     const [preview, setPreview] = useState(''); // Vista previa de la imagen
+    const [PopupComponent, showPopup] = usePopup();
 
     // Cargar los datos del libro al montar el componente
     useEffect(() => {
@@ -28,7 +29,7 @@ const EditBook = () => {
                 setPreview(book.photo ? `/images/${book.photo}` : ''); // Mostrar la foto actual
             } catch (error) {
                 console.error('Error al cargar el libro:', error);
-                alert('No se pudo cargar la información del libro.');
+                showPopup({message: 'No se pudo cargar la información del libro.'});
             }
         };
         fetchBook();
@@ -40,11 +41,10 @@ const EditBook = () => {
         try {
             // Actualizar los datos del libro en el backend
             await updateBook(bookId, { title, author, categories: [category], photo });
-            alert('Libro actualizado correctamente');
-            navigate('/books'); // Redirige al listado de libros
+            showPopup({message: 'Libro actualizado correctamente', onComplete:() => navigate('/books')});
         } catch (error) {
             console.error('Error al actualizar el libro:', error);
-            alert('Error al actualizar el libro. Intente nuevamente más tarde.');
+            showPopup({message: 'Error al actualizar el libro. Intente nuevamente más tarde.'});
         }
     };
 
@@ -130,6 +130,7 @@ const EditBook = () => {
                     </div>
                 </form>
             </div>
+            {PopupComponent}
         </Header>
     );
 };

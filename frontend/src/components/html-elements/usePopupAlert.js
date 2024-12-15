@@ -1,35 +1,28 @@
 import { useState } from "react";
 import Popup from "./Popup";
 
-export default function usePopup() {
+export default function usePopupAlert() {
     const [isVisible, setIsVisible] = useState(false);
     const [popupConfig, setPopupConfig] = useState({
         message: "",
         onConfirm: null,
-        onClose: null,
-        onComplete: null,
         confirmText: "Aceptar",
         closeText: "Cancelar",
     });
 
-    const showPopup = ({ message, onConfirm, onClose, onComplete, confirmText, closeText }) => {
-        setPopupConfig({ message, onConfirm, onClose, onComplete, confirmText, closeText });
+    const popupAlert = (message) => {
+        setPopupConfig({ message });
         setIsVisible(true);
-    };
+    }
 
     const hidePopup = () => setIsVisible(false);
 
     const PopupComponent = isVisible ? (
         <Popup
             message={popupConfig.message}
-            onClose={() => {
-                if (popupConfig.onClose) popupConfig.onClose();
-                if (popupConfig.onComplete) popupConfig.onComplete();
-                hidePopup();
-            }}
+            onClose={hidePopup}
             onConfirm={() => {
                 if (popupConfig.onConfirm) popupConfig.onConfirm();
-                if (popupConfig.onComplete) popupConfig.onComplete();
                 hidePopup();
             }}
             confirmText={popupConfig.confirmText}
@@ -37,5 +30,5 @@ export default function usePopup() {
         />
     ) : null;
 
-    return [PopupComponent, showPopup];
+    return [PopupComponent, popupAlert];
 }

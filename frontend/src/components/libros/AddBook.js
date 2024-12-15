@@ -3,20 +3,23 @@ import React, { useState } from 'react';
 import { createBook } from '../../services/LibroService';
 import Header from '../Header'
 import { useNavigate } from 'react-router-dom';
+import usePopup from '../html-elements/usePopup';
+
 
 const AddBook = () => {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [category, setCategory] = useState('Ficción');
     const [photo, setPhoto] = useState(null);
+    const [preview, setPreview] = useState(''); // Vista previa de la imagen
     const navigate = useNavigate();
+    const [PopupComponent, showPopup] = usePopup();
 
     const handleAddBook = async (e) => {
         e.preventDefault();        
         const book = await createBook({ title, author, categories: [category], photo })
         console.log('Libro agregado:', book);
-        alert('Libro agregado correctamente');
-        navigate('/books');
+        showPopup({message: 'Libro agregado correctamente', onComplete: () => navigate('/books')});
     };
 
     const handleCancel = () => {
@@ -27,6 +30,12 @@ const AddBook = () => {
         const fileName = e.target.files[0].name;
         const filePath = `images/${fileName}`;
         setPhoto(filePath);
+
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setPreview(reader.result); // Muestra la vista previa
+        };
+        reader.readAsDataURL(e.target.files[0]);
     };
 
     return (
@@ -69,6 +78,12 @@ const AddBook = () => {
                         accept="image/*"
                         onChange={handlePhotoChange}
                     />
+                    {preview && (
+                        <div className="image-preview">
+                            <p>Vista previa de la imagen:</p>
+                            <img src={preview} alt="Vista previa" style={{ maxWidth: '200px' }} />
+                        </div>
+                    )}
     
                     <div className="form-buttons">
                         <button type="submit" className="save-btn">
@@ -84,6 +99,7 @@ const AddBook = () => {
                     </div>
                 </form>
             </div>
+            {PopupComponent}
         </Header>
     );
 }
