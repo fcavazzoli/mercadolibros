@@ -79,7 +79,6 @@ export const getOtherBooksForUser = async (userId) => {
             book: true
         }
     })
-    console.log(userBooks)
     const books = await prisma.book.findMany({
         where: {
             id: {
