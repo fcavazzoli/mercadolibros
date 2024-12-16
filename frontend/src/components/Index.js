@@ -63,12 +63,12 @@ function HomePage() {
       <div>
         <main className="content">
           <BooksGrid title="Libros Disponibles" books={books} />
-          <BooksGrid title="Libros de Terror" books={terrorBooks} />
-          <BooksGrid title="Libros de Ficción" books={fictionBooks} />
-          <BooksGrid title="Libros de No Ficción" books={nofictionBooks} />
-          <BooksGrid title="Libros de Ciencia Ficción" books={cienciafictionBooks} />
-          <BooksGrid title="Libros de Fantasia" books={fantasiaBooks} />
-          <BooksGrid title="Libros de Historia" books={historiaBooks} />
+          <BooksGrid titleClass="subtitle" title="Libros de Terror" books={terrorBooks} />
+          <BooksGrid titleClass="subtitle" title="Libros de Ficción" books={fictionBooks} />
+          <BooksGrid titleClass="subtitle" title="Libros de No Ficción" books={nofictionBooks} />
+          <BooksGrid titleClass="subtitle" title="Libros de Ciencia Ficción" books={cienciafictionBooks} />
+          <BooksGrid titleClass="subtitle" title="Libros de Fantasia" books={fantasiaBooks} />
+          <BooksGrid titleClass="subtitle" title="Libros de Historia" books={historiaBooks} />
         </main>
       </div>
     </Header>

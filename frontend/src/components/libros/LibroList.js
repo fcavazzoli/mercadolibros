@@ -73,16 +73,20 @@ const LibroList = () => {
 
     return (<Header>
         <div className="libro-list-container">
-          <h2 className="libro-list-title">Mis Libros</h2>
+          <h1 className="libro-list-title">Mis Libros</h1>
           <div className="controls-container">
-            <button className="agregar-btn" onClick={() => navigate('/add-book')} >Agregar libro</button>
-            <input
-              type="text"
-              placeholder="Buscar por título, autor o categoría"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="search-bar"
-            />
+            <div>
+                <button className="agregar-btn" onClick={() => navigate('/add-book')} >Agregar libro</button>
+            </div>
+
+            <div className="search-bar">
+                <input className="search-bar"
+                    type="text"
+                    placeholder="Buscar por título, autor o categoría"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
           </div>
           <BooksGrid books={filteredBooks}>
              {/* Child buttons will receive the 'book' prop */}
