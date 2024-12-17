@@ -3,6 +3,7 @@ import BookImage from './BookImage';
 
 function BooksGrid({ titleClass, title, books, children }) {
     // Check if books is valid and has content
+
     const hasBooks = Array.isArray(books) && books.length > 0;
 
     return (<> {hasBooks && (

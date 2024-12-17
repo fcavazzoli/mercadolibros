@@ -4,6 +4,7 @@ import Header from '../Header';
 import { getBookById, getMyBooks } from '../../services/LibroService';
 import { proposeExchange } from '../../services/exchangeService'
 import usePopup from '../html-elements/usePopup';
+import BooksGrid from '../html-elements/BooksGrid';
 
 const OtherBooksList = () => {
     const { bookId } = useParams();
@@ -17,8 +18,10 @@ const OtherBooksList = () => {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                setAskedBook(await getBookById(bookId) || {});
-                setMyBooks(await getMyBooks() || []);
+                const fetchedBook = await getBookById(bookId) || {};
+                const myBooksRes = await getMyBooks() || [];
+                setAskedBook(fetchedBook);
+                setMyBooks(myBooksRes);
             } catch (error) {
                 console.error('Error al generar tradeo de libros:', error);
                 setError('Error al generar tradeo de libros');
@@ -27,24 +30,37 @@ const OtherBooksList = () => {
             }
         };
         fetchBooks();
-    }, []);
-
+    }, [bookId]);
 
     const handleGenerarTrueque = async(idDelPropuesto) => {
         try {
-            if (window.confirm('¿Desea proponer trueque?')) {
-                const resp = await proposeExchange(idDelPropuesto, askedBook.id, askedBook.UserBook[0].user.id);
+            showPopup({message: '¿Desea proponer trueque?', onConfirm: async()=> {
+                const resp = await proposeExchange(
+                    idDelPropuesto, 
+                    askedBook.id, 
+                    askedBook.UserBook[0].user.id
+                );
                 if (resp?.id > 0) {
                     showPopup({ message:'Trueque propuesto.', onComplete:() => navigate('/exchanges')});
                 } else {
                     console.error('Error al proponer trueque: ', resp);
                     showPopup({message:'Error al proponer trueque. Intente nuevamente más tarde.'});
                 }
-            }
+            }})
         } catch (error) {
             console.error('Error al proponer trueque: ', error);
-            showPopup({messge:'Error al proponer trueque. Intente nuevamente más tarde.'});
+            showPopup({message:'Error al proponer trueque. Intente nuevamente más tarde.'});
         }
+    };
+
+    // Función para obtener el libro según el índice asignado en BooksGrid
+    const getEventBook = (event) => {
+        return myBooks[parseInt(event.currentTarget.getAttribute("index"))];
+    }
+
+    const handleGenerarTruequeFromIndex = (evClick) => {
+        const book = getEventBook(evClick);
+        handleGenerarTrueque(book.id);
     };
 
     if (loading) return <div>Cargando...</div>;
@@ -63,30 +79,17 @@ const OtherBooksList = () => {
                     </button>
                 </div>
                 
-                <div className="libro-list">
-                    {myBooks.map((book) => (
-                        <div key={book.id} className="libro-item">
-                            <div className="libro-info">
-                                <p><strong>Libro:</strong> {book.title}</p>
-                                <p><strong>Autor:</strong> {book.author}</p>
-                                <p>
-                                    <strong>Categoría:</strong>{' '}
-                                    {book.categories?.length > 0 
-                                        ? book.categories.join(', ') 
-                                        : 'Sin categoría'}
-                                </p>
+                {/* Usamos BooksGrid con mis libros */}
+                <BooksGrid books={myBooks}>
+                    <button className="modify-btn" onClick={handleGenerarTruequeFromIndex}>
+                        Ofrecer
+                    </button>
+                </BooksGrid>
 
-                            </div>
-                            <div className="buttons-container">
-                                <button className="modify-btn" onClick={() => handleGenerarTrueque(book.id)}>Ofrecer</button>
-                            </div>
-                        </div>
-                    ))}
-                </div>
             </div>
             {PopupComponent}
         </Header>
     );
 };
 
-export default OtherBooksList; 
+export default OtherBooksList;

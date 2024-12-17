@@ -1,24 +1,30 @@
-import React from "react"
+import React from "react";
 import '../css/App.css'; 
 import { useNavigate } from 'react-router-dom';
 
-function Login() {
-    const navigate = useNavigate()
-    const goBack = async (e) => {
-        navigate('/');
+function LoginSuccess() {
+    const navigate = useNavigate();
+    
+    const goBack = (e) => {
+        e.preventDefault();
+        navigate('/home');
     };
 
     return (
-        <div className="max-height-possible">
-        <div className="login-container">
-            <h2>Register</h2>
-            <form onSubmit={goBack}>
-                <label>Registrated successfully</label>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
+        <div className="login-success-wrapper">
+            <div className="login-success-container">
+                <h2>Registro Exitoso</h2>
+                <form onSubmit={goBack} className="login-success-form">
+                    <p className="login-success-message">
+                        Tu cuenta se ha registrado exitosamente.
+                    </p>
+                    <button type="submit" className="login-success-button">
+                        Volver al Inicio
+                    </button>
+                </form>
+            </div>
         </div>
     );
-};
+}
 
-export default Login;
+export default LoginSuccess;
