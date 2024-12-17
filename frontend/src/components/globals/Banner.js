@@ -11,7 +11,7 @@ function Render() {
   const handleLogout = () => {
     showPopup({message:'Desea cerrar sesión?', onConfirm:() => {
       localStorage.removeItem('sessionToken'); // Remove the session token
-      navigate('/login'); // Redirect to the login page
+      window.location.href = '/';
     }});
   };
 

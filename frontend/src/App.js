@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 import Login from './login/Login';
@@ -19,7 +19,7 @@ import SingupSucess from './login/SingInSuccess';
 function App() {
   // Verificar si el usuario está autenticado
   const isAuthenticated = Boolean(localStorage.getItem('sessionToken'));
-
+  
   return (
     <Router>
       <div>

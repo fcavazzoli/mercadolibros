@@ -16,8 +16,7 @@ function Login() {
         try {
             const token = await login({ email, password });
             localStorage.setItem('sessionToken', token);
-            
-            navigate('/');
+            window.location.href = '/';
         } catch (err) {
             setError("Invalid email or password. Please try again.");
         }
