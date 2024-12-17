@@ -5,6 +5,7 @@ import { getMyProposals, getMyAsks, acceptProposal, rejectProposal } from '../..
 import { getBooks } from '../../services/LibroService';
 import Header from '../Header';
 import usePopup from '../html-elements/usePopup';
+import BooksGrid from '../html-elements/BooksGrid';
 
 const Render = () => {
     const navigate = useNavigate();
@@ -27,8 +28,8 @@ const Render = () => {
                 }
                 
                 setBooks(newBooks);
-                setPending(newPending);//.filter(item => newBooks[item.proposedBookId] != undefined));
-                setIncomming(newIncomming);//.filter(item => newBooks[item.proposedBookId] != undefined));
+                setPending(newPending);
+                setIncomming(newIncomming);
             } catch (error) {
                 console.error('Error al cargar trueques:', error);
                 setBooks({});
@@ -61,7 +62,6 @@ const Render = () => {
             console.error('Error al rechazar trueque: ', error);
             showPopup({message:'Error al rechazar trueque. Intente nuevamente más tarde.'});
         }
-        
     };
 
     return (
@@ -75,44 +75,57 @@ const Render = () => {
             </button>
             <div className="libro-list-container">
                 <div className="trueque-container">
-                    <div>
-                        <h3 className="libro-list-title">Trueques entrantes</h3>
-                        <ul className="trueque-list">
-                            {incomming.map(item => (
-                                <li key={item.id} className="libro-item">
-                                    <div className="libro-info">
-                                        <p><strong>Quiere:</strong> {books[item.askedBookId]?.title || 'No encontrado'}</p>
-                                        <p><strong>Ofrece:</strong> {books[item.proposedBookId]?.title || 'No encontrado'}</p>
-                                        <p><strong>Estado:</strong> {item.status || 'Desconocido'}</p>
-                                    </div>
-                                    <div className="buttons-container">
-                                        <button className="modify-btn" onClick={() => handleAceptar(item.id)}>Aceptar</button>
-                                        <button className="delete-btn" onClick={() => handleRechazar(item.id)}>Rechazar</button>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                    <h3 className="libro-list-title">Trueques entrantes</h3>
+                    {incomming.map(item => {
+                        const requestedBook = books[item.askedBookId];
+                        const offeredBook = books[item.proposedBookId];
+                        const displayBooks = [requestedBook, offeredBook].filter(Boolean);
+                        debugger;
+                        return (
+
+                            <div key={item.id} className="trueque-item">
+                                <BooksGrid
+                                    titleClass="trueque-title"
+                                    title={`Propuesta #${item.id}`}
+                                    books={displayBooks}>
+                                </BooksGrid>
+                                <div className="libro-info">
+                                    <p><strong>Quiere tu libro:</strong> {requestedBook?.title || 'No encontrado'}</p>
+                                    <p><strong>Te ofrece el libro:</strong> {offeredBook?.title || 'No encontrado'}</p>
+                                    <p><strong>Estado trueque:</strong> {item.status || 'Desconocido'}</p>
+                                </div>
+                                <div className="buttons-container">
+                                    <button className="modify-btn" onClick={() => handleAceptar(item.id)}>Aceptar</button>
+                                    <button className="delete-btn" onClick={() => handleRechazar(item.id)}>Rechazar</button>
+                                </div>
+                            </div>
+                        );
+                    })}
                 </div>
     
                 <div className="trueque-container">
-                    <div>
-                        <h3 className="libro-list-title">Trueques solicitados</h3>
-                        <ul className="trueque-list">
-                            {pending.map(item => (
-                                <li key={item.id} className="libro-item">
-                                    <div className="libro-info">
-                                        <p><strong>Pediste:</strong> {books[item.askedBookId]?.title || 'No encontrado'}</p>
-                                        <p><strong>Ofreciste:</strong> {books[item.proposedBookId]?.title || 'No encontrado'}</p>
-                                        <p><strong>Estado:</strong> {item.status || 'No encontrado'}</p>
-                                    </div>
-                                    <div className="buttons-container">
-                                        {/* <button className="delete-btn" onClick={() => handleCancelar(item.id)}>Cancelar</button> */}
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                    <h3 className="libro-list-title">Trueques solicitados</h3>
+                    {pending.map(item => {
+                        const requestedBook = books[item.askedBookId];
+                        const offeredBook = books[item.proposedBookId];
+                        const displayBooks = [requestedBook, offeredBook].filter(Boolean);
+
+                        return (
+                            <div key={item.id} className="trueque-item">
+                                <BooksGrid
+                                    titleClass="trueque-title"
+                                    title={`Propuesta #${item.id}`}
+                                    books={displayBooks}>
+                                </BooksGrid>
+                                <div className="libro-info">
+                                    <p><strong>Pediste el libro:</strong> {requestedBook?.title || 'No encontrado'}</p>
+                                    <p><strong>Ofreciste tu libro:</strong> {offeredBook?.title || 'No encontrado'}</p>
+                                    <p><strong>Estado trueque:</strong> {item.status || 'Desconocido'}</p>
+                                </div>
+                                {/* Aquí podrías añadir un botón para cancelar la propuesta si deseas */}
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
             {PopupComponent}

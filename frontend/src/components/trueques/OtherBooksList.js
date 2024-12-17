@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header';
 import { getOtherBooks } from '../../services/LibroService';
+import BooksGrid from '../html-elements/BooksGrid';
+import { Backend } from '../../services/backend';
+
+const backend = new Backend();
 
 const OtherBooksList = () => {
     const [books, setBooks] = useState([]);
@@ -14,7 +18,16 @@ const OtherBooksList = () => {
         const fetchBooks = async () => {
             try {
                 const response = await getOtherBooks();
-                setBooks(response.message.otherBooks || []);
+                const allBooks = response.message.otherBooks || [];
+          
+                console.log('Libros obtenidos:', allBooks); // Debug: Verifica los datos obtenidos
+          
+                const formattedBooks = allBooks.map((item) => ({
+                ...item,
+                  photo: backend.url.replace("api", "") + item.photo,
+                  categories: item.categories || ["Sin Categoría"], // Normaliza el campo de categorías
+                }));
+                setBooks(formattedBooks);
             } catch (error) {
                 console.error('Error al cargar libros:', error);
                 setError('Error al cargar los libros');
@@ -25,16 +38,29 @@ const OtherBooksList = () => {
         fetchBooks();
     }, []);
 
+    // Declara el useMemo antes de los if() return
+    const filteredBooks = useMemo(() => 
+        books.filter(book =>
+            (book.title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (book.author || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (book.categories || []).some(category => 
+                category.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+        ), 
+        [books, searchTerm]
+    );
+
     if (loading) return <div>Cargando...</div>;
     if (error) return <div>Error: {error}</div>;
 
-    const filteredBooks = books.filter(book =>
-        book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (book.categories || []).some(category => 
-            category.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-    );
+    const getEventBook = (event) => {
+        return filteredBooks[parseInt(event.currentTarget.getAttribute("index"))];
+    }
+
+    const handleSolicitar = (evClick) => {
+        const book = getEventBook(evClick);
+        navigate(`/ask-trade/${book.id}`);
+    };
 
     return (
         <Header>
@@ -55,31 +81,15 @@ const OtherBooksList = () => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="search-bar"
                 />
-                <div className="libro-list">
-                    {filteredBooks.map((book) => (
-                        <div key={book.id} className="libro-item">
-                            <div className="libro-info">
-                                <p><strong>Libro:</strong> {book.title}</p>
-                                <p><strong>Autor:</strong> {book.author}</p>
-                                <p>
-                                    <strong>Categoría:</strong>{' '}
-                                    {book.categories?.length > 0 
-                                        ? book.categories.join(', ') 
-                                        : 'Sin categoría'}
-                                </p>
 
-                            </div>
-                            <div className="buttons-container">
-                                <button className="modify-btn" onClick={() => navigate(`/ask-trade/${book.id}`)}>
-                                    Solicitar
-                                </button>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                <BooksGrid books={filteredBooks}>
+                    <button className="modify-btn" onClick={(e) => handleSolicitar(e)}>
+                        Solicitar
+                    </button>
+                </BooksGrid>
             </div>
         </Header>
     );
 };
 
-export default OtherBooksList; 
+export default OtherBooksList;

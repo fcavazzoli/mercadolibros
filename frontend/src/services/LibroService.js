@@ -21,12 +21,23 @@ const getBookById = async (id) => {
     return response;
 };
 const getBooks = async () => {
-    const token = localStorage.getItem('sessionToken');
-    const headers = {authorization:`beaer ${token}`};
-
-    console.log(headers);
-    const response = await backend.get(`/books/`,headers); 
-    return response;
+    try {
+        const response = await backend.get('/books/'); 
+        if (Array.isArray(response)){
+            const mappedPhotos = response.map((book)=> {
+                return {
+                    ...book,
+                    photo: backend.url.replace("api", "") + book.photo
+                }
+            })
+            console.log(mappedPhotos)
+            return mappedPhotos
+        }
+        return [];
+    } catch (error) {
+        console.error('Error al obtener libros:', error);
+        throw error;
+    }
 };
 const updateBook = async (id, data) => {
     const token = localStorage.getItem('sessionToken');
@@ -59,7 +70,7 @@ const getMyBooks = async () => {
         }
         return [];
     } catch (error) {
-        console.error('Error al actualizar el libro:', error);
+        console.error('Error al obtener mis libros:', error);
         throw error;
     }
 };

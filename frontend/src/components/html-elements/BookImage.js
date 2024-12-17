@@ -8,7 +8,7 @@ function BookImage({ book }) {
         setImageError(true);
         e.target.src = '/default-book.png'; // Fallback image
     };
-    
+
     return (
         <div className="book-photo">
             <img className="book-photo"
