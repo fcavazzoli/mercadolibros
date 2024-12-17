@@ -70,6 +70,12 @@ const AddBook = () => {
                         <option value="Ciencia Ficción">Ciencia Ficción</option>
                         <option value="Fantasía">Fantasía</option>
                         <option value="Historia">Historia</option>
+                        <option value="Matemática">Matemática</option>
+                        <option value="Física">Física</option>
+                        <option value="Biografía">Biografía</option>
+                        <option value="Romance">Romance</option>
+                        <option value="Misterio">Misterio</option>
+
                     </select>
     
                     <label>Foto:</label>

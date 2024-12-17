@@ -34,7 +34,7 @@ function Render() {
             )}
         </div>
         <div className="banner-content">
-            <img src={"/logo192.png"} className="banner-logo" alt="logo" onClick={() => navigate('/')} />
+            <img src={"/logo1.png"} className="banner-logo" alt="logo" onClick={() => navigate('/')} />
             
             <div className="banner-text">
             <h1>¡Bienvenido a Mercado Libros!</h1>

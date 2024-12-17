@@ -20,13 +20,14 @@ const EditBook = () => {
         const fetchBook = async () => {
             try {
                 const book = await getBookById(bookId);
-
-                // Establecer los datos obtenidos del libro
+    
                 setTitle(book.title || '');
                 setAuthor(book.author || '');
                 setCategory(Array.isArray(book.categories) && book.categories.length > 0 ? book.categories[0] : 'Ficción');
-                setPhoto(book.photo || ''); // Ruta de la foto existente
-                setPreview(book.photo ? `/images/${book.photo}` : ''); // Mostrar la foto actual
+                setPhoto(book.photo || '');
+    
+                // Si hay una foto existente, se genera la ruta completa
+                setPreview(book.photo ? book.photo : '');
             } catch (error) {
                 console.error('Error al cargar el libro:', error);
                 showPopup({message: 'No se pudo cargar la información del libro.'});
@@ -48,27 +49,26 @@ const EditBook = () => {
         }
     };
 
-    // Manejar la selección de una nueva foto
     const handlePhotoChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            const fileName = file.name; // Nombre del archivo
-            const filePath = `images/${fileName}`; // Ruta simulada en la carpeta "imagenes"
-            setPhoto(filePath);
-
-            // Generar una vista previa de la imagen seleccionada
+            setPhoto(file); // Guardamos el archivo en el estado
             const reader = new FileReader();
+    
             reader.onloadend = () => {
-                setPreview(reader.result); // Muestra la vista previa
+                setPreview(reader.result); // URL de vista previa temporal
             };
+    
             reader.readAsDataURL(file);
         }
     };
+    
 
     // Manejar la cancelación
     const handleCancel = () => {
         navigate('/books'); // Redirige al listado de libros
     };
+    debugger;
     return (
         <Header>
             <div className="edit-form-container"> {/* Cambié la clase al contenedor principal */}
@@ -90,7 +90,6 @@ const EditBook = () => {
                         required
                     />
     
-                    <label>Categoría:</label>
                     <select
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
@@ -101,6 +100,12 @@ const EditBook = () => {
                         <option value="Ciencia Ficción">Ciencia Ficción</option>
                         <option value="Fantasía">Fantasía</option>
                         <option value="Historia">Historia</option>
+                        <option value="Matemática">Matemática</option>
+                        <option value="Física">Física</option>
+                        <option value="Biografía">Biografía</option>
+                        <option value="Romance">Romance</option>
+                        <option value="Misterio">Misterio</option>
+
                     </select>
                     
                     <label>Foto:</label>
@@ -112,7 +117,11 @@ const EditBook = () => {
                     {preview && (
                         <div className="image-preview">
                             <p>Vista previa de la imagen:</p>
-                            <img src={preview} alt="Vista previa" style={{ maxWidth: '200px' }} />
+                            <img
+                                src={preview}
+                                alt="Vista previa"
+                                style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px' }}
+                            />
                         </div>
                     )}
     

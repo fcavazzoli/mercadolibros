@@ -1,0 +1,94 @@
+/* Contenedor principal del perfil, ocupa más espacio y centra el contenido */
+.perfil-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
+    background-color: #fef6ef; /* Color de fondo */
+}
+
+/* Tarjeta del perfil más grande y más ancha */
+.perfil-card {
+    background-color: #f5f5f5; /* Fondo ligeramente gris */
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1); /* Sombra */
+    padding: 60px 50px;
+    max-width: 700px; /* Ancho máximo aumentado */
+    width: 90%; /* Utiliza un 90% del ancho del viewport */
+    text-align: center;
+}
+
+/* Título más grande */
+.perfil-title {
+    font-size: 30px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 40px;
+}
+
+/* Info items: filas con mejor espaciado */
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    font-size: 18px;
+}
+
+/* Ajustes para las etiquetas */
+.info-label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Ajustes para los valores */
+.info-value {
+    font-size: 18px;
+    color: #555;
+    text-align: right; 
+}
+
+/* Botón del perfil más grande y centrado */
+.perfil-button {
+    margin-top: 40px;
+    padding: 15px 25px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+/* Hover del botón */
+.perfil-button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsivo: ajustar la tarjeta para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .perfil-card {
+        padding: 40px 30px;
+        max-width: 90%; /* Aumentar el ancho en pantallas más pequeñas */
+    }
+}
+
+@media (max-width: 576px) {
+    .perfil-card {
+        padding: 30px 20px;
+    }
+    .perfil-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    .info-label, .info-value {
+        font-size: 16px;
+    }
+    .perfil-button {
+        font-size: 16px;
+    }
+}

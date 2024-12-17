@@ -9,15 +9,25 @@ const backend = new Backend();
 
 function HomePage() {
   const [books, setBooks] = useState([]);
-  const [terrorBooks, setTerrorBooks] = useState([]);
-  const [fictionBooks, setFictionBooks] = useState([]);
-  const [nofictionBooks, setNoFictionBooks] = useState([]);
-  const [cienciafictionBooks, setCienciaFictionBooks] = useState([]);
-  const [fantasiaBooks, setFantaisaBooks] = useState([]);
-  const [historiaBooks, setHistoriaBooks] = useState([]);
+
+  const [categoryBooks, setCategoryBooks] = useState({});
+
+  // Lista de categorías a mostrar
+  const categories = [
+    "Ficción",
+    "No Ficción",
+    "Ciencia Ficción",
+    "Fantasía",
+    "Historia",
+    "Matemática",
+    "Física",
+    "Biografía",
+    "Romance",
+    "Misterio"
+  ];
 
   useEffect(() => {
-    fetchAndDivideBooks(); // Cargamos los libros al montar el componente
+    fetchAndDivideBooks();
   }, []);
 
   const fetchAndDivideBooks = async () => {
@@ -25,50 +35,52 @@ function HomePage() {
       const response = await getOtherBooks();
       const allBooks = response.message.otherBooks || [];
 
-      console.log('Libros obtenidos:', allBooks); // Debug: Verifica los datos obtenidos
-
       const formattedBooks = allBooks.map((item) => ({
-        _id: item._id,
+        id: item.id || item._id, // Ajusta según la propiedad única que uses
         title: item.title,
         author: item.author,
         photo: backend.url.replace("api", "") + item.photo,
         condition: item.condition,
-        categories: item.categories || ["Sin Categoría"], // Normaliza el campo de categorías
+        categories: item.categories || ["Sin Categoría"],
+        UserBook: item.UserBook || []
       }));
 
       setBooks(formattedBooks);
 
-      // Filtrar libros por categorías
-      setTerrorBooks(filterByCategory(formattedBooks, "Terror"));
-      setFictionBooks(filterByCategory(formattedBooks, "Ficción"));
-      setNoFictionBooks(filterByCategory(formattedBooks, "No Ficción"));
-      setCienciaFictionBooks(filterByCategory(formattedBooks, "Ciencia Ficción"));
-      setFantaisaBooks(filterByCategory(formattedBooks, "Fantasia"));
-      setHistoriaBooks(filterByCategory(formattedBooks, "Historia"));
+      const filteredByCategory = {};
+      categories.forEach(cat => {
+        filteredByCategory[cat] = filterByCategory(formattedBooks, cat);
+      });
+
+      setCategoryBooks(filteredByCategory);
     } catch (error) {
       console.error("Error fetching books:", error);
     }
   };
 
   const filterByCategory = (books, category) => {
-    return books.filter((book) => {
-      // Asegúrate de que book.categories sea un arreglo y verifica si incluye la categoría
-      return Array.isArray(book.categories) && 
-             book.categories.some((cat) => cat.toLowerCase() === category.toLowerCase());
-    });
+    return books.filter((book) =>
+      Array.isArray(book.categories) &&
+      book.categories.some((cat) => cat.toLowerCase() === category.toLowerCase())
+    );
   };
 
   return (
     <Header>
       <div>
         <main className="content">
+          {/* Todos los libros */}
           <BooksGrid title="Libros Disponibles" books={books} />
-          <BooksGrid titleClass="subtitle" title="Libros de Terror" books={terrorBooks} />
-          <BooksGrid titleClass="subtitle" title="Libros de Ficción" books={fictionBooks} />
-          <BooksGrid titleClass="subtitle" title="Libros de No Ficción" books={nofictionBooks} />
-          <BooksGrid titleClass="subtitle" title="Libros de Ciencia Ficción" books={cienciafictionBooks} />
-          <BooksGrid titleClass="subtitle" title="Libros de Fantasia" books={fantasiaBooks} />
-          <BooksGrid titleClass="subtitle" title="Libros de Historia" books={historiaBooks} />
+          
+          {/* Un BooksGrid por cada categoría */}
+          {categories.map((cat) => (
+            <BooksGrid
+              key={cat}
+              titleClass="subtitle"
+              title={`Libros de ${cat}`}
+              books={categoryBooks[cat] || []}
+            />
+          ))}
         </main>
       </div>
     </Header>
