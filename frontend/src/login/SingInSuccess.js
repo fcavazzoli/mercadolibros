@@ -7,7 +7,7 @@ function LoginSuccess() {
     
     const goBack = (e) => {
         e.preventDefault();
-        navigate('/home');
+        window.location.href = '/';
     };
 
     return (
