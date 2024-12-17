@@ -2,7 +2,7 @@
 .libro-list-title {
     text-align: center;
     color: #333;
-    font-size: 24px;
+    font-size: 40px;
     margin-bottom: 30px;
 }
 
@@ -104,5 +104,43 @@
 
     .libro-info p {
         font-size: 13px; /* Reducir tamaño de texto en los detalles del libro */
+    }
+}
+
+
+/* Contenedor individual para cada proposición u oferta de trueque */
+.trueque-card {
+    background-color: #ffffff;
+    border: 2px solid #f0f0f0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s;
+}
+
+/* Efecto hover para resaltar el trueque al pasar el mouse */
+.trueque-card:hover {
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Opcional: Diferenciar los trueques entrantes de los solicitados con color de borde */
+.trueque-container:first-of-type .trueque-card {
+    border-color: #d1e7dd; /* Un tono suave verde para entrantes */
+}
+
+.trueque-container:last-of-type .trueque-card {
+    border-color: #f8d7da; /* Un tono suave rojo para solicitados */
+}
+
+/* Ajustes responsivos si se desea */
+@media (max-width: 768px) {
+    .trueque-card {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .trueque-card {
+        padding: 10px;
     }
 }

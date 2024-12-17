@@ -80,23 +80,26 @@ const Render = () => {
                         const requestedBook = books[item.askedBookId];
                         const offeredBook = books[item.proposedBookId];
                         const displayBooks = [requestedBook, offeredBook].filter(Boolean);
-                        debugger;
-                        return (
 
+                        const proposingUser = offeredBook?.UserBook?.[0]?.user;
+
+                        return (
                             <div key={item.id} className="trueque-item">
-                                <BooksGrid
-                                    titleClass="trueque-title"
-                                    title={`Propuesta #${item.id}`}
-                                    books={displayBooks}>
-                                </BooksGrid>
-                                <div className="libro-info">
-                                    <p><strong>Quiere tu libro:</strong> {requestedBook?.title || 'No encontrado'}</p>
-                                    <p><strong>Te ofrece el libro:</strong> {offeredBook?.title || 'No encontrado'}</p>
-                                    <p><strong>Estado trueque:</strong> {item.status || 'Desconocido'}</p>
-                                </div>
-                                <div className="buttons-container">
-                                    <button className="modify-btn" onClick={() => handleAceptar(item.id)}>Aceptar</button>
-                                    <button className="delete-btn" onClick={() => handleRechazar(item.id)}>Rechazar</button>
+                                <div className="trueque-card">
+                                    <BooksGrid
+                                        titleClass="trueque-title"
+                                        books={displayBooks}>
+                                    </BooksGrid>
+                                    <div className="libro-info">
+                                        <p><strong>Quiere tu libro:</strong> {requestedBook?.title || 'No encontrado'}</p>
+                                        <p><strong>Te ofrece el libro:</strong> {offeredBook?.title || 'No encontrado'}</p>
+                                        <p><strong>Estado trueque:</strong> {item.status || 'Desconocido'}</p>
+                                        <p><strong>Usuario que propone:</strong> {proposingUser?.name || 'Desconocido'} ({proposingUser?.email || 'Sin email'})</p>
+                                    </div>
+                                    <div className="buttons-container">
+                                        <button className="modify-btn" onClick={() => handleAceptar(item.id)}>Aceptar</button>
+                                        <button className="delete-btn" onClick={() => handleRechazar(item.id)}>Rechazar</button>
+                                    </div>
                                 </div>
                             </div>
                         );
@@ -110,19 +113,23 @@ const Render = () => {
                         const offeredBook = books[item.proposedBookId];
                         const displayBooks = [requestedBook, offeredBook].filter(Boolean);
 
+                        const requestedUser = requestedBook?.UserBook?.[0]?.user;
+
                         return (
                             <div key={item.id} className="trueque-item">
-                                <BooksGrid
-                                    titleClass="trueque-title"
-                                    title={`Propuesta #${item.id}`}
-                                    books={displayBooks}>
-                                </BooksGrid>
-                                <div className="libro-info">
-                                    <p><strong>Pediste el libro:</strong> {requestedBook?.title || 'No encontrado'}</p>
-                                    <p><strong>Ofreciste tu libro:</strong> {offeredBook?.title || 'No encontrado'}</p>
-                                    <p><strong>Estado trueque:</strong> {item.status || 'Desconocido'}</p>
+                                <div className="trueque-card">
+                                    <BooksGrid
+                                        titleClass="trueque-title"
+                                        books={displayBooks}>
+                                    </BooksGrid>
+                                    <div className="libro-info">
+                                        <p><strong>Pediste el libro:</strong> {requestedBook?.title || 'No encontrado'}</p>
+                                        <p><strong>Ofreciste tu libro:</strong> {offeredBook?.title || 'No encontrado'}</p>
+                                        <p><strong>Estado trueque:</strong> {item.status || 'Desconocido'}</p>
+                                        <p><strong>Usuario a quien propones:</strong> {requestedUser?.name || 'Desconocido'} ({requestedUser?.email || 'Sin email'})</p>
+                                    </div>
+                                    {/* Aquí podrías añadir un botón para cancelar la propuesta si deseas */}
                                 </div>
-                                {/* Aquí podrías añadir un botón para cancelar la propuesta si deseas */}
                             </div>
                         );
                     })}
